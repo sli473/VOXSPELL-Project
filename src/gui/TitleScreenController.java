@@ -21,22 +21,22 @@ public class TitleScreenController implements ControlledScreen{
     @FXML
     private Button _quitButton;
 
-    @FXML
+    /**
+     * Requests main screen controller to switch to the quiz scene.
+     * Uses a fade in and out transition..
+     */
     public void startButtonPressed(){
         _myParentScreenController.setScreen(Main.quizScreenID);
     }
 
-    @FXML
     public void displayStatsButtonPressed(){
 
     }
 
-    @FXML
     public void settingsButtonPressed(){
 
     }
 
-    @FXML
     public void quitButtonPressed(){
 
     }

@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 
 /**
+ * TODO: add comments and javadocs to the methods
  * Created by Samule Li on 5/09/16.
  */
 public class ScreenController extends StackPane {
@@ -31,21 +32,34 @@ public class ScreenController extends StackPane {
     public ScreenController(){
         super();
     }
-    //adding a screen to the hashMap
+
+    /**
+     * Adds a screen to the hashMap
+     */
     public void addScreen(String name, Node screen){
         screens.put(name, screen);
     }
 
-    //returns the node with the appropriate name.
+    /**
+     *
+     * @param name
+     * @return node with appropriate name
+     */
     public Node getScreen(String name){
         return screens.get(name);
     }
 
-    //Loads the fxml file and injects the screenPane into the controller.
+    /**
+     * Loads the fxml file and injects the screenPane into the controller.
+     * @param name
+     * @param resource
+     * @return
+     * @throws Exception
+     */
     public boolean loadScreen(String name, String resource) throws Exception{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-            System.out.println (" loads");
+            System.out.println ("Screen successfully loaded");
             Parent root = loader.load();
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
@@ -53,15 +67,19 @@ public class ScreenController extends StackPane {
             return true;
         }
         catch (Exception e){
-            System.out.println("nah g");
+            System.out.println("Error loading screen...");
             System.out.println(e.getMessage());
             return false;
 
         }
     }
 
-    //This method tries to display the selected screen. It first checks whether or not the screen has already been
-    //loaded. If there is more than one screen, the new screen is added second, and the current screen is removed.
+    /**
+     * This method tries to display the selected screen. It first checks whether or not the screen has already been
+     * loaded. If there is more than one screen, the new screen is added second, and the current screen is removed.
+     * @param name
+     * @return
+     */
     public boolean setScreen(final String name) {
         if (screens.get(name) != null) { //screen loaded
             final DoubleProperty opacity = opacityProperty();
@@ -91,11 +109,16 @@ public class ScreenController extends StackPane {
             }
             return true;
         } else {
-            System.out.println("screen hasn't been loaded");
+            System.out.println("Screen hasn't been loaded");
             return false;
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen doesn't exist");

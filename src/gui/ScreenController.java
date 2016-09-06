@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 
 /**
- * TODO: add comments and javadocs to the methods
+ * TODO: add javadoc
  * Created by Samule Li on 5/09/16.
  */
 public class ScreenController extends StackPane {
@@ -56,7 +56,7 @@ public class ScreenController extends StackPane {
      * @return
      * @throws Exception
      */
-    public boolean loadScreen(String name, String resource) throws Exception{
+    public boolean loadScreen(String name, String resource){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
             System.out.println ("Screen successfully loaded");
@@ -70,7 +70,6 @@ public class ScreenController extends StackPane {
             System.out.println("Error loading screen...");
             System.out.println(e.getMessage());
             return false;
-
         }
     }
 
@@ -83,8 +82,8 @@ public class ScreenController extends StackPane {
     public boolean setScreen(final String name) {
         if (screens.get(name) != null) { //screen loaded
             final DoubleProperty opacity = opacityProperty();
-
             if (!getChildren().isEmpty()) {
+                //fade out/fade in transition
                 Timeline transition = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
@@ -101,7 +100,9 @@ public class ScreenController extends StackPane {
                 transition.play();
             } else {
                 setOpacity(0.0);
+                //add the screen to the view
                 getChildren().add(screens.get(name));
+                //fade in transition
                 Timeline transition = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));

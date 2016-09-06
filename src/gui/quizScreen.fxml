@@ -14,9 +14,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.QuizScreenController">
    <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" BorderPane.alignment="CENTER">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sam&amp;Yuliang's Quiz" BorderPane.alignment="CENTER">
          <font>
-            <Font size="38.0" />
+            <Font size="30.0" />
          </font>
          <BorderPane.margin>
             <Insets top="20.0" />
@@ -24,10 +24,49 @@
       </Text>
    </top>
    <bottom>
-      <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Welcome" />
+            <Label text="Progress:" />
+            <ProgressBar prefWidth="200.0" progress="0.0" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="_abortButton" mnemonicParsing="false" onAction="#abortQuizButtonPressed" prefWidth="100.0" text="Abort Quiz">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </HBox>
    </bottom>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField promptText="Enter word here..." />
+                  <Button mnemonicParsing="false" text="Submit">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" top="20.0" />
+               </padding>
+            </HBox>
+         </center>
+         <top>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" text="Rpeat Word" />
+               </children>
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+            </HBox>
+         </top>
+      </BorderPane>
+   </center>
 </BorderPane>

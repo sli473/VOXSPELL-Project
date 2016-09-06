@@ -1,18 +1,15 @@
-package gui;
+package data;
 
 
 import java.io.Serializable;
 
 /**
  *
- * @author Yuliang Zhou yzho746
+ * @author Yuliang Zhou yzho746 7/09/2016
  *
  */
 public class Word implements Serializable{
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     private String _word;

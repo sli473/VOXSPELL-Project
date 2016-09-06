@@ -11,6 +11,12 @@ public class QuizScreenController implements ControlledScreen{
 
     private ScreenController _myParentScreenController;
 
+    @FXML
+    private Button _abortButton;
+
+    public void abortQuizButtonPressed(){
+        _myParentScreenController.setScreen(Main.titleScreenID);
+    }
 
     @Override
     public void setScreenParent(ScreenController screenParent) {

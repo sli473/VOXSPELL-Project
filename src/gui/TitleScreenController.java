@@ -23,7 +23,7 @@ public class TitleScreenController implements ControlledScreen{
 
     @FXML
     public void startButtonPressed(){
-
+        _myParentScreenController.setScreen(Main.quizScreenID);
     }
 
     @FXML

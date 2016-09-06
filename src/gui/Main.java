@@ -11,11 +11,14 @@ public class Main extends Application {
 
     public final static String titleScreenID = "mainTitle";
     public final static String titleScreenFXML = "titleScreen.fxml";
+    public final static String quizScreenID = "quiz";
+    public final static String quizScreenFXML = "quizScreen.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         ScreenController mainContainer = new ScreenController();
         mainContainer.loadScreen(titleScreenID,titleScreenFXML);
+        mainContainer.loadScreen(quizScreenID,quizScreenFXML);
 
         mainContainer.setScreen(titleScreenID);
 

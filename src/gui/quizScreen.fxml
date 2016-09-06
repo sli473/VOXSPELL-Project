@@ -14,7 +14,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TitleScreenController">
    <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Amazing VOXSPELL" BorderPane.alignment="CENTER">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" BorderPane.alignment="CENTER">
          <font>
             <Font size="38.0" />
          </font>
@@ -23,32 +23,6 @@
          </BorderPane.margin>
       </Text>
    </top>
-   <center>
-      <VBox alignment="CENTER" prefHeight="150.0" spacing="15.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="_startButton" alignment="CENTER" mnemonicParsing="false" onAction="#startButtonPressed" prefWidth="150.0" text="Start Quiz">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="_displayStatsButton" mnemonicParsing="false" onAction="#displayStatsButtonPressed" prefWidth="150.0" text="View Statistics">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="_settingsButton" mnemonicParsing="false" onAction="#settingsButtonPressed" prefWidth="150.0" text="Settings">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="_quitButton" mnemonicParsing="false" onAction="#quitButtonPressed" prefWidth="150.0" text="Quit">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </VBox>
-   </center>
    <bottom>
       <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>

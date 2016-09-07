@@ -11,17 +11,14 @@ public class Main extends Application {
 
     private static Stage _window;
 
-    //TODO: better to use enum instead of string for screen name id
-    //public enum SCREEN { titleScreen, quizScreen , statsScreen, optionsScreen };
-
-    public final static String titleScreenID = "mainTitle";
-    public final static String titleScreenFXML = "titleScreen.fxml";
-    public final static String quizScreenID = "quiz";
-    public final static String quizScreenFXML = "quizScreen.fxml";
-    public final static String statsScreenID = "statsScreen";
-    public final static String statsScreenFXML = "statsScreen.fxml";
-    public final static String optionScreenID = "optionScreen";
-    public final static String optionScreenFXML = "optionScreen.fxml";
+    public static final String titleScreenID = "mainTitle";
+    public static final String titleScreenFXML = "titleScreen.fxml";
+    public static final String quizScreenID = "quiz";
+    public static final String quizScreenFXML = "quizScreen.fxml";
+    public static final String statsScreenID = "statsScreen";
+    public static final String statsScreenFXML = "statsScreen.fxml";
+    public static final String optionScreenID = "optionScreen";
+    public static final String optionScreenFXML = "optionScreen.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{

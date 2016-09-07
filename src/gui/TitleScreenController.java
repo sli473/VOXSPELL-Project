@@ -28,8 +28,13 @@ public class TitleScreenController implements ControlledScreen{
         _myParentScreensController.setScreen(Main.quizScreenID);
     }
 
+    /**
+     * Requests main screen controller to switch to statistics scene which
+     * contains a Table view of the stats of words at each level.
+     * Uses a fade in and out transition
+     */
     public void displayStatsButtonPressed(){
-
+        _myParentScreensController.setScreen(Main.statsScreenID);
     }
 
     /**

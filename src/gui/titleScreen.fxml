@@ -52,7 +52,7 @@
    <bottom>
       <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Welcome" />
+            <Label text="Welcome to Sam &amp; Yuliang's Spelling Quiz" />
          </children>
       </HBox>
    </bottom>

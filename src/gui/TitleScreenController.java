@@ -41,8 +41,7 @@ public class TitleScreenController implements ControlledScreen{
     }
 
     public void quitButtonPressed(){
-        //popup to confirm if user wants to quit
-        //make sure exit button on top of window does not by pass the confirm dialog box
+        //Main.confirmCloseProgram();
     }
 
     @Override

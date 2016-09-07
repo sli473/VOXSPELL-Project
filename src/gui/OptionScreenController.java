@@ -12,10 +12,17 @@ public class OptionScreenController implements ControlledScreen{
     private ScreensController _myParentScreensController;
 
     @FXML
-    private Button _cancel;
+    private Button _cancelButton;
+    @FXML
+    private Button _okButton;
 
     public void cancelButtonPressed(){
         //TODO: confirm if user wants to discard changes
+        _myParentScreensController.setScreen(Main.titleScreenID);
+    }
+
+    public void okButtonPressed(){
+        //TODO: save changes and go to title screen
         _myParentScreensController.setScreen(Main.titleScreenID);
     }
 

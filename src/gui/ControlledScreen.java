@@ -5,6 +5,6 @@ package gui;
  */
 public interface ControlledScreen {
 
-    public void setScreenParent(ScreenController screenParent);
+    public void setScreenParent(ScreensController screenParent);
 
 }

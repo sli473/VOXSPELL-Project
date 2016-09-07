@@ -1,9 +1,7 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -13,12 +11,15 @@ public class Main extends Application {
     public final static String titleScreenFXML = "titleScreen.fxml";
     public final static String quizScreenID = "quiz";
     public final static String quizScreenFXML = "quizScreen.fxml";
+    public final static String optionScreenID = "optionScreen";
+    public final static String optionScreenFXML = "optionScreen.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ScreenController mainContainer = new ScreenController();
+        ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(titleScreenID,titleScreenFXML);
         mainContainer.loadScreen(quizScreenID,quizScreenFXML);
+        mainContainer.loadScreen(optionScreenID,optionScreenFXML);
 
         mainContainer.setScreen(titleScreenID);
 

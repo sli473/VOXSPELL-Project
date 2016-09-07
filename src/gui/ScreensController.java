@@ -26,10 +26,10 @@ import java.util.HashMap;
  * TODO: add javadoc
  * Created by Samule Li on 5/09/16.
  */
-public class ScreenController extends StackPane {
+public class ScreensController extends StackPane {
     private HashMap<String, Node> screens = new HashMap<>();
 
-    public ScreenController(){
+    public ScreensController(){
         super();
     }
 

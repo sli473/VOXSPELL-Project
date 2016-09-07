@@ -5,16 +5,17 @@ import javafx.scene.control.Button;
 
 /**
  *
- * Author: Yuliang Zhou 6/09/2016
+ * Author: Yuliang Zhou 7/09/2016
  */
-public class QuizScreenController implements ControlledScreen{
+public class OptionScreenController implements ControlledScreen{
 
     private ScreensController _myParentScreensController;
 
     @FXML
-    private Button _abortButton;
+    private Button _cancel;
 
-    public void abortQuizButtonPressed(){
+    public void cancelButtonPressed(){
+        //TODO: confirm if user wants to discard changes
         _myParentScreensController.setScreen(Main.titleScreenID);
     }
 

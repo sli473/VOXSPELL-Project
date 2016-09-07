@@ -2,7 +2,6 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Screen;
 
 /**
  *
@@ -10,7 +9,7 @@ import javafx.stage.Screen;
  */
 public class TitleScreenController implements ControlledScreen{
 
-    private ScreenController _myParentScreenController;
+    private ScreensController _myParentScreensController;
 
     @FXML
     private Button _startButton;
@@ -23,26 +22,31 @@ public class TitleScreenController implements ControlledScreen{
 
     /**
      * Requests main screen controller to switch to the quiz scene.
-     * Uses a fade in and out transition..
+     * Uses a fade in and out transition.
      */
     public void startButtonPressed(){
-        _myParentScreenController.setScreen(Main.quizScreenID);
+        _myParentScreensController.setScreen(Main.quizScreenID);
     }
 
     public void displayStatsButtonPressed(){
 
     }
 
+    /**
+     * Requests main screen controller to switch to the options scene.
+     * Uses a fade in and out transition.
+     */
     public void settingsButtonPressed(){
-
+        _myParentScreensController.setScreen(Main.optionScreenID);
     }
 
     public void quitButtonPressed(){
-
+        //popup to confirm if user wants to quit
+        //make sure exit button on top of window does not by pass the confirm dialog box
     }
 
     @Override
-    public void setScreenParent(ScreenController screenParent) {
-        _myParentScreenController = screenParent;
+    public void setScreenParent(ScreensController screenParent) {
+        _myParentScreensController = screenParent;
     }
 }

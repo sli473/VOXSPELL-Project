@@ -55,8 +55,8 @@ public class ConfirmDialogBox {
         HBox buttons = new HBox(40);
         buttons.getChildren().addAll(yesButton, noButton);
         layout.getChildren().addAll(label, buttons);
-        buttons.setPadding(new Insets(10,10,10,10));
-        layout.setPadding(new Insets(10,10,10,10));
+        buttons.setPadding(new Insets(10,5,5,5));
+        layout.setPadding(new Insets(10,5,10,5));
         buttons.setAlignment(Pos.CENTER);
         layout.setAlignment(Pos.CENTER);
 

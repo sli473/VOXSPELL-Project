@@ -41,7 +41,7 @@ public class TitleScreenController implements ControlledScreen{
     }
 
     public void quitButtonPressed(){
-        //Main.confirmCloseProgram();
+        Main.confirmCloseProgram();
     }
 
     @Override

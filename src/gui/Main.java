@@ -15,6 +15,7 @@ public class Main extends Application {
     public final static String titleScreenFXML = "titleScreen.fxml";
     public final static String quizScreenID = "quiz";
     public final static String quizScreenFXML = "quizScreen.fxml";
+    //TODO: add view stats screen
     public final static String optionScreenID = "optionScreen";
     public final static String optionScreenFXML = "optionScreen.fxml";
 
@@ -43,10 +44,14 @@ public class Main extends Application {
         _window.show();
     }
 
+    /**
+     * Show dialog box to confirm if user wants to close program.
+     */
     public static void confirmCloseProgram(){
-        Boolean closeOperation = ConfirmDialogBox.display("Please don't go","Are you sure you want to quit?");
+        Boolean closeOperation = DialogBox.displayConfirmDialogBox("Please don't go","Are you sure you want to quit?");
         if(closeOperation){
             //TODO: save and close
+            //TODO: what if user closes while in quiz mode
             _window.close();
         }
     }

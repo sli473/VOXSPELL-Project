@@ -17,11 +17,18 @@ import javafx.stage.Stage;
  * 'yes' or 'no' button.
  * Created by Yuliang on 7/09/2016.
  */
-public class ConfirmDialogBox {
+public class DialogBox {
 
     private static boolean _answer;
 
-    public static boolean display(String title, String message){
+    /**
+     * Displays the pop-up dialog box which prevents user from clicking main window.
+     * Returns true if user clicked "yes" and false if user clicked "no".
+     * @param title
+     * @param message
+     * @return
+     */
+    public static boolean displayConfirmDialogBox(String title, String message){
         Stage window = new Stage();
 
         //Block events to other windows
@@ -66,5 +73,7 @@ public class ConfirmDialogBox {
         window.showAndWait();
         return _answer;
     }
+
+    //TODO: dialogbox for level selection when first opening program
 
 }

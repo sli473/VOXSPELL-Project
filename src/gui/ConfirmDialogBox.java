@@ -2,10 +2,12 @@ package gui;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,8 +51,13 @@ public class ConfirmDialogBox {
             }
         });
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, yesButton, noButton);
+        VBox layout = new VBox();
+        HBox buttons = new HBox(40);
+        buttons.getChildren().addAll(yesButton, noButton);
+        layout.getChildren().addAll(label, buttons);
+        buttons.setPadding(new Insets(10,10,10,10));
+        layout.setPadding(new Insets(10,10,10,10));
+        buttons.setAlignment(Pos.CENTER);
         layout.setAlignment(Pos.CENTER);
 
         //Display window and wait for it to be closed before returning

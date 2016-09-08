@@ -12,6 +12,8 @@ public class Main extends Application {
     private static Stage _window;
     //make non static?
 
+    //public enum Screen{TITLE,QUIZ,SETTINGS,STATS};
+
     public static final String titleScreenID = "mainTitle";
     public static final String titleScreenFXML = "titleScreen.fxml";
     public static final String quizScreenID = "quiz";

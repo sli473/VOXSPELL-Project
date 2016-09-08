@@ -10,7 +10,6 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
     private static Stage _window;
-    //make non static?
 
     //TODO
     //public enum Screen{TITLE,QUIZ,SETTINGS,STATS};

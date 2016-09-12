@@ -50,6 +50,7 @@ public class Main extends Application {
     }
 
     /**
+     * TODO: if non-static then can't access from other controllers
      * Show dialog box to confirm if user wants to close program.
      */
     public static void confirmCloseProgram(){

@@ -46,7 +46,7 @@ public class TitleScreenController implements ControlledScreen{
     }
 
     public void quitButtonPressed(){
-        Main.confirmCloseProgram();
+        _myParentScreensController.confirmCloseProgram();
     }
 
     @Override

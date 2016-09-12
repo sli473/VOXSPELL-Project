@@ -9,8 +9,6 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
-    private static Stage _window;
-
     //TODO
     //public enum Screen{TITLE,QUIZ,SETTINGS,STATS};
 
@@ -25,7 +23,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        _window = primaryStage;
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(titleScreenID,titleScreenFXML);
         mainContainer.loadScreen(quizScreenID,quizScreenFXML);
@@ -34,32 +31,30 @@ public class Main extends Application {
 
         mainContainer.setScreen(titleScreenID);
 
-        _window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 event.consume(); //prevents window from automatically closing
-                confirmCloseProgram();
+                mainContainer.confirmCloseProgram();
             }
         });
 
         Group root = new Group();
         root.getChildren().add(mainContainer);
-        _window.setTitle("Hello World");
-        _window.setScene(new Scene(root));
-        _window.show();
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
     /**
-     * TODO: if non-static then can't access from other controllers
-     * Show dialog box to confirm if user wants to close program.
+     * Application calls this method when program is closed. Does final wrapping up.
+     * Saves object state
+     * @throws Exception
      */
-    public static void confirmCloseProgram(){
-        Boolean closeOperation = DialogBox.displayConfirmDialogBox("Please don't go","Are you sure you want to quit?");
-        if(closeOperation){
-            //TODO: save and close
-            //TODO: what if user closes while in quiz mode
-            _window.close();
-        }
+    @Override
+    public void stop() throws Exception {
+        System.out.println("exited?");
+        //TODO: save object state
     }
 
     public static void main(String[] args) {

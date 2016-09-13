@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.9" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.9" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.levelController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
          <children>
@@ -23,36 +23,36 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="148.0" prefWidth="200.0" text="1" textAlignment="CENTER">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="1" textAlignment="CENTER">
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                      <font>
-                        <Font name="Abyssinica SIL" size="54.0" />
+                        <Font name="Abyssinica SIL" size="52.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="148.0" prefWidth="200.0" text="5" textAlignment="CENTER" GridPane.rowIndex="1">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="5" textAlignment="CENTER" GridPane.rowIndex="1">
                      <font>
-                        <Font name="Abyssinica SIL" size="54.0" />
+                        <Font name="Abyssinica SIL" size="52.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="148.0" prefWidth="200.0" text="2" textAlignment="CENTER" GridPane.columnIndex="1">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2" textAlignment="CENTER" GridPane.columnIndex="1">
                      <font>
-                        <Font name="Abyssinica SIL" size="54.0" />
+                        <Font name="Abyssinica SIL" size="52.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="148.0" prefWidth="200.0" text="6" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="6" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font name="Abyssinica SIL" size="54.0" />
+                        <Font name="Abyssinica SIL" size="52.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
                   <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="9" textAlignment="CENTER" GridPane.rowIndex="2">
@@ -63,12 +63,12 @@
                         <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="148.0" prefWidth="200.0" text="3" textAlignment="CENTER" GridPane.columnIndex="2">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3" textAlignment="CENTER" GridPane.columnIndex="2">
                      <font>
-                        <Font name="Abyssinica SIL" size="54.0" />
+                        <Font name="Abyssinica SIL" size="52.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
                   <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="7" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -79,12 +79,12 @@
                         <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="148.0" prefWidth="200.0" text="4" textAlignment="CENTER" GridPane.columnIndex="3">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="4" textAlignment="CENTER" GridPane.columnIndex="3">
                      <font>
-                        <Font name="Abyssinica SIL" size="54.0" />
+                        <Font name="Abyssinica SIL" size="52.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="24.0" left="50.0" right="50.0" top="24.0" />
                      </GridPane.margin>
                   </Button>
                   <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="8" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -114,6 +114,15 @@
                </children>
             </GridPane>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="798.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="798.0">
+         <children>
+            <Label layoutX="464.0" layoutY="15.0" text="Quiz Type:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="_quizType" layoutX="541.0" layoutY="11.0" prefWidth="150.0" />
+            <Button layoutX="701.0" layoutY="11.0" mnemonicParsing="false" text="Enter Quiz" />
+         </children></AnchorPane>
   </items>
 </SplitPane>

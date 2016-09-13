@@ -2,6 +2,7 @@ package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -33,6 +34,15 @@ public class SpellingDatabase implements Serializable{
         }else{
             _spellingWords.get(levelKey).add(new Word(word));
         }
-        
+    }
+
+    /**
+     * Debugging purposes only
+     */
+    public void printDatabase(){
+        for (String key : _spellingWords.keySet()) {
+            System.out.println(key);
+            System.out.println(Arrays.toString(_spellingWords.get(key).toArray()));
+        }
     }
 }

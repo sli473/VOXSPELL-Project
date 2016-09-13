@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 public class QuizScreenController implements ControlledScreen{
 
     private ScreensController _myParentScreensController;
-    private boolean _isRevision = false;
+    private static boolean _isRevision = false;
 
     @FXML
     private Button _abortButton;
@@ -19,7 +19,7 @@ public class QuizScreenController implements ControlledScreen{
         _myParentScreensController.setScreen(Main.titleScreenID);
     }
 
-    public void set_isRevision(boolean value){
+    public static void set_isRevision(boolean value){
         _isRevision = value;
     }
 

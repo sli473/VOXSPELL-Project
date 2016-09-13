@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
@@ -27,19 +26,13 @@
    <bottom>
       <HBox prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Progress:">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
+            <Label text="Progress:" />
             <ProgressBar prefWidth="200.0" progress="0.0" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="_abortButton" mnemonicParsing="false" onAction="#abortQuizButtonPressed" prefWidth="100.0" text="Abort Quiz">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <font>
-                  <Font size="14.0" />
-               </font>
             </Button>
          </children>
          <padding>
@@ -48,58 +41,21 @@
       </HBox>
    </bottom>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <top>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="244.0" text="Repeat Word" />
+            <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="265.0" text="Repeat Word">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Button>
+                  <TextField promptText="Enter word here..." />
+                  <Button mnemonicParsing="false" text="Submit">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
             </HBox>
-         </top>
-         <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Line endX="260.0">
-                     <VBox.margin>
-                        <Insets left="270.0" top="15.0" />
-                     </VBox.margin>
-                  </Line>
-                  <HBox alignment="CENTER" prefHeight="279.0" prefWidth="800.0" spacing="10.0">
-                     <children>
-                        <TextField prefHeight="20.0" prefWidth="185.0" promptText="Enter word here...">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="110.0" top="-150.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Button mnemonicParsing="false" text="Submit">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets top="-150.0" />
-                           </HBox.margin>
-                        </Button>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="50.0" top="20.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+            <Label text="Word 1 of 10" />
+         </children>
+      </VBox>
    </center>
 </BorderPane>

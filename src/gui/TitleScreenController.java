@@ -53,4 +53,9 @@ public class TitleScreenController implements ControlledScreen{
     public void setScreenParent(MasterController screenParent) {
         _myParentScreensController = screenParent;
     }
+
+    @Override
+    public void setup() {
+
+    }
 }

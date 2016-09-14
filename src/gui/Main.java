@@ -31,10 +31,6 @@ public class Main extends Application {
         _mainContainer.loadScreen(statsScreenID,statsScreenFXML);
         _mainContainer.loadScreen(optionScreenID,optionScreenFXML);
 
-        //debugging
-        _mainContainer.setCurrentLevel("Level 1");
-        //debugging
-
         _mainContainer.setScreen(titleScreenID);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

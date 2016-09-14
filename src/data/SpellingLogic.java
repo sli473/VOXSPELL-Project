@@ -25,9 +25,9 @@ public class SpellingLogic {
     public SpellingLogic(SpellingDatabase database,String levelKey){
         _database = database;
         _currentLevel = levelKey;
-        _status = Status.FIRSTATTEMPT;
-        _position = 0;
         _wordList = _database.getNormalQuiz(levelKey);
+        _position = 0;
+        _status = Status.FIRSTATTEMPT;
         userAttempt = new SimpleStringProperty(this,"userAttempt","");
         userAttempt.addListener(new ChangeListener<String>() {
             @Override

@@ -22,6 +22,7 @@ import javafx.stage.Screen;
 import javafx.util.Duration;
 
 
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -43,6 +44,7 @@ public class MasterController extends StackPane {
         super();
         _dataIO = new DatabaseIO();
         _spellingDatabase = _dataIO.openData();
+        currentLevel = "Level 1";
     }
 
     /**
@@ -112,6 +114,7 @@ public class MasterController extends StackPane {
             Parent root = loader.load();
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
+            myScreenController.setup();
             addScreen(name, root);
             return true;
         }

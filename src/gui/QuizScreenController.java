@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
  * Main controller for both normal quiz mode and review quiz mode.
  * Author: Yuliang Zhou 6/09/2016
  */
-public class QuizScreenController implements Initializable, ControlledScreen{
+public class QuizScreenController implements ControlledScreen{
 
     private MasterController _myParentController;
 
@@ -37,9 +38,10 @@ public class QuizScreenController implements Initializable, ControlledScreen{
     }
 
     /**
+     * TODO: error NullPointerException?
      * enteredWord is called whenever Enter button is pressed or enter key is pressed
      */
-    public void enteredWord(){
+    public void enteredWord(ActionEvent event){
         //TODO: if nothing entered add a tooltip "Please enter the spelling of the word"
         _myLogic.setUserAttempt(_textfield.getText());
         _textfield.setText("");
@@ -51,8 +53,10 @@ public class QuizScreenController implements Initializable, ControlledScreen{
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //TODO: move into another method which should be called when this screen is opened
+    public void setup(){
+        System.out.println(_myParentController.getDatabase());
+        System.out.println(_myParentController.getCurrentLevel());
         _myLogic = new SpellingLogic(_myParentController.getDatabase(),_myParentController.getCurrentLevel());
     }
+
 }

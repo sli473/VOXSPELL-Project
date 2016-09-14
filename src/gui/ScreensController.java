@@ -1,5 +1,6 @@
 package gui;
 
+import data.SpellingDatabase;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -30,8 +31,16 @@ import java.util.HashMap;
 public class ScreensController extends StackPane {
     private HashMap<String, Node> screens = new HashMap<>();
 
-    public ScreensController(){
+    private SpellingDatabase _spellingDatabase;
+
+    public ScreensController(SpellingDatabase data){
         super();
+        _spellingDatabase = data;
+    }
+
+    //debugging only
+    public void printdatabase(){
+        _spellingDatabase.printDatabase();
     }
 
     /**

@@ -1,5 +1,7 @@
 package gui;
 
+import data.DatabaseIO;
+import data.SpellingDatabase;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -8,6 +10,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
+
+    private DatabaseIO _dataIO;
+    private SpellingDatabase _spellingWords;
 
     //TODO
     //public enum Screen{TITLE,QUIZ,SETTINGS,STATS};
@@ -23,7 +28,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ScreensController mainContainer = new ScreensController();
+        _dataIO = new DatabaseIO();
+        _spellingWords = _dataIO.openData();
+        ScreensController mainContainer = new ScreensController(_spellingWords);
         mainContainer.loadScreen(titleScreenID,titleScreenFXML);
         mainContainer.loadScreen(quizScreenID,quizScreenFXML);
         mainContainer.loadScreen(statsScreenID,statsScreenFXML);
@@ -54,7 +61,7 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("exited?");
-        //TODO: save object state
+        _dataIO.writeData(_spellingWords);
     }
 
     public static void main(String[] args) {

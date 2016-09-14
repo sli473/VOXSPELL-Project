@@ -29,6 +29,7 @@ public class DatabaseIO {
                 data = (SpellingDatabase) objectinputstream.readObject();
                 streamIn.close();
                 objectinputstream.close();
+                System.out.println("Open old object");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -36,9 +37,8 @@ public class DatabaseIO {
             }
         }else{//if serialized data does not exist then create a new object
             data = new SpellingDatabase();
-            System.out.println("New hidden object created");
+            System.out.println("New object created");
         }
-        //TODO: do we need to constantly update wordlist?
         updateWordList(data);
         return data;
     }
@@ -62,6 +62,7 @@ public class DatabaseIO {
             oos.writeObject(data);
             fout.close();
             oos.close();
+            System.out.println("Hidden file created");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -73,17 +74,17 @@ public class DatabaseIO {
     /**
      * Reads each line of "wordlist" file and adds any new words to current word list object in SpellingStatsModel
      */
-    public void updateWordList(SpellingDatabase data){
+    public void updateWordList(SpellingDatabase database){
         try {
             FileReader fr = new FileReader(_wordListFile);
             BufferedReader br = new BufferedReader(fr);
             String line;
             String levelKey = "";
             while((line = br.readLine())!=null){
-                if(line.charAt(1) == '%' ){//change level key
+                if(line.charAt(0) == '%' ){//change level key
                     levelKey = line.substring(1);
                 }else{
-                    data.addNewWord(levelKey, line);
+                    database.addNewWord(levelKey, line);
                 }
             }
             br.close();

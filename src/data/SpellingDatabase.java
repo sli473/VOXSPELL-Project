@@ -14,14 +14,17 @@ public class SpellingDatabase implements Serializable{
 
     private HashMap< String, ArrayList<Word> > _spellingWords;
 
+    public int count;
+
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
+        count = 0;
     }
 
     /**
-     * Adds a new word given as a string to the database with a given level. Words
-     * are saved in an arraylist for each level which is contained in a hashmap with
-     * level being the key.
+     * Adds a new word given as a string to the database with a given level. If the
+     * word is already in the list then it is not added. Words are saved in an
+     * arraylist for each level which is contained in a hashmap with level being the key.
      * e.g. "Level 1" key contains the word "the"
      * @param levelKey
      * @param word
@@ -32,7 +35,16 @@ public class SpellingDatabase implements Serializable{
             wordsInLevel.add(new Word(word));
             _spellingWords.put(levelKey,wordsInLevel);
         }else{
-            _spellingWords.get(levelKey).add(new Word(word));
+            ArrayList<Word> s = _spellingWords.get(levelKey);
+            boolean newWord = true;
+            for(Word w : s){
+                if(w.toString().equals(word)){
+                    newWord = false;
+                }
+            }
+            if(newWord) {//if it is a new word then add it to the spelling list. Else skip.
+                _spellingWords.get(levelKey).add(new Word(word));
+            }
         }
     }
 

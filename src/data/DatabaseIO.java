@@ -3,6 +3,10 @@ package data;
 import java.io.*;
 
 /**
+ * DatabaseIO object manages all object serialization. Reads SpellingDatabase object from .ser file
+ * into an object. Writes the SpellingDatabase object into a hidden .ser file.
+ * Also reads spelling list text file and appends the words to the SpellingDatabase object upon opening
+ * the object.
  * Created by Yuliang Zhou on 8/09/2016.
  */
 public class DatabaseIO {

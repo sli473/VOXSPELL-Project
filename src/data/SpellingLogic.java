@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
+ * TODO: add spelling database a field to this class? Or just pass the object as paramter
  * Created by Yuliang on 14/09/2016.
  */
 public class SpellingLogic {

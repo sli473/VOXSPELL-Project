@@ -60,7 +60,7 @@ public class Main extends Application {
      */
     @Override
     public void stop() throws Exception {
-        System.out.println("exited?");
+        System.out.println("exiting...");
         _dataIO.writeData(_spellingWords);
     }
 

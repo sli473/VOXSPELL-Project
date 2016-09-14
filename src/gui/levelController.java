@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
  * Created by samule on 13/09/16.
  */
 public class levelController implements ControlledScreen {
-    
+
     ObservableList<String> _quizTypeList = FXCollections.observableArrayList("New Quiz","Revision Quiz");
 
     private ScreensController _myParentScreensController;
@@ -45,6 +45,10 @@ public class levelController implements ControlledScreen {
         System.out.println(QuizScreenController.get_isRevision());
         System.out.println(level);
         _myParentScreensController.setScreen(Main.quizScreenID);
+    }
+
+    public void playVideo(){
+       //
     }
     //nyes
     @Override

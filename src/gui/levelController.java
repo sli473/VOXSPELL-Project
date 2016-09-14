@@ -2,7 +2,9 @@ package gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
 
@@ -10,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
  * Created by samule on 13/09/16.
  */
 public class levelController implements ControlledScreen {
-
+    
     ObservableList<String> _quizTypeList = FXCollections.observableArrayList("New Quiz","Revision Quiz");
 
     private ScreensController _myParentScreensController;
@@ -30,13 +32,18 @@ public class levelController implements ControlledScreen {
         return quizType;
     }
 
-    public void enterNewQuiz(){
+    public void enterNewQuiz(ActionEvent event){
+        //extracting the text on the button
+        String level = ((Button) event.getSource()).getText();
+        //checking which option the user chose for the quiz type
         if( getChoice(_quizType).equals("Revision Quiz")){
             QuizScreenController.set_isRevision(true);
         }
         else if( getChoice(_quizType).equals("New Quiz")){
             QuizScreenController.set_isRevision(false);
         }
+        System.out.println(QuizScreenController.get_isRevision());
+        System.out.println(level);
         _myParentScreensController.setScreen(Main.quizScreenID);
     }
     //nyes

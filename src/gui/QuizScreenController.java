@@ -15,6 +15,10 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private Button _abortButton;
 
+    public static boolean get_isRevision() {
+        return _isRevision;
+    }
+
     public void abortQuizButtonPressed(){
         _myParentScreensController.setScreen(Main.titleScreenID);
     }

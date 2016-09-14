@@ -1,9 +1,12 @@
 package gui;
 
 import data.SpellingLogic;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,13 +25,24 @@ public class QuizScreenController implements Initializable, ControlledScreen{
     private Button _abortButton;
     @FXML
     private Button _repeatButton;
+    @FXML
+    private TextField _textfield;
 
-    public void repeatButtonPressed(){
+    public void repeatButtonPressed(ActionEvent event){
         _myParentScreensController.printdatabase();
     }
 
-    public void abortQuizButtonPressed(){
+    public void abortQuizButtonPressed(ActionEvent event){
         _myParentScreensController.setScreen(Main.titleScreenID);
+    }
+
+    /**
+     * enteredWord is called whenever Enter button is pressed or enter key is pressed
+     */
+    public void enteredWord(){
+        //TODO set userAttempt in SpellingLogic
+        System.out.println("You entered: "+ _textfield.getText());
+        _textfield.setText("");
     }
 
     @Override

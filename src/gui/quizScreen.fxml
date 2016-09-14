@@ -46,8 +46,8 @@
             <Button fx:id="_repeatButton" mnemonicParsing="false" onAction="#repeatButtonPressed" text="Rpeat Word" />
             <HBox alignment="CENTER" spacing="10.0">
                <children>
-                  <TextField promptText="Enter word here..." />
-                  <Button mnemonicParsing="false" text="Submit">
+                  <TextField fx:id="_textfield" onAction="#enteredWord" promptText="Enter word here..." />
+                  <Button mnemonicParsing="false" onAction="#enteredWord" text="Submit">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

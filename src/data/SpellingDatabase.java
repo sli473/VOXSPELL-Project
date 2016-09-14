@@ -3,6 +3,7 @@ package data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -45,6 +46,63 @@ public class SpellingDatabase implements Serializable{
             }
             if(newWord) {//if it is a new word then add it to the spelling list. Else skip.
                 _spellingWords.get(levelKey).add(new Word(word));
+            }
+        }
+    }
+
+    /**
+     * getNormalQuiz returns 10 random words from a given level as a String array
+     * @param levelKey
+     * @return
+     */
+    public String[] getNormalQuiz(String levelKey){
+        ArrayList<Word> levelWords = _spellingWords.get(levelKey);
+        Collections.shuffle(levelWords);
+        String[] testList = new String[10];
+        for(int i=0;i<10;i++){
+            testList[i] = levelWords.get(i).toString();
+        }
+        return testList;
+    }
+
+    /**
+     * Increments the Word object's mastered count field in the database.
+     * @param levelkey
+     * @param word
+     */
+    public void incrementMastered(String levelkey, String word){
+        ArrayList<Word> levelwords = _spellingWords.get(levelkey);
+        for(Word w : levelwords){
+            if(w.toString().toLowerCase().equals(word)){
+                w.setMastered(w.getMastered()+1);
+            }
+        }
+    }
+
+    /**
+     * Increments the Word object's faulted count field in the database.
+     * @param levelkey
+     * @param word
+     */
+    public void incrementFaulted(String levelkey, String word){
+        ArrayList<Word> levelwords = _spellingWords.get(levelkey);
+        for(Word w : levelwords){
+            if(w.toString().toLowerCase().equals(word)){
+                w.setFaulted(w.getMastered()+1);
+            }
+        }
+    }
+
+    /**
+     * Increments the Word object's failed count field in the database.
+     * @param levelkey
+     * @param word
+     */
+    public void incrementFailed(String levelkey, String word){
+        ArrayList<Word> levelwords = _spellingWords.get(levelkey);
+        for(Word w : levelwords){
+            if(w.toString().toLowerCase().equals(word)){
+                w.setFailed(w.getMastered()+1);
             }
         }
     }

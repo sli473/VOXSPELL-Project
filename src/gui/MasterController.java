@@ -1,5 +1,6 @@
 package gui;
 
+import data.DatabaseIO;
 import data.SpellingDatabase;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -26,16 +27,42 @@ import java.util.HashMap;
 
 /**
  * TODO: add javadoc
- * Created by Samule Li on 5/09/16.
+ * Created by Samule Li and Yuliang Zhou on 5/09/16.
  */
-public class ScreensController extends StackPane {
+public class MasterController extends StackPane {
     private HashMap<String, Node> screens = new HashMap<>();
 
-    private SpellingDatabase _spellingDatabase;
+    private DatabaseIO _dataIO;
 
-    public ScreensController(SpellingDatabase data){
+    private SpellingDatabase _spellingDatabase;
+    private String currentLevel;
+
+    //TODO refactor database from main into here
+
+    public MasterController(){
         super();
-        _spellingDatabase = data;
+        _dataIO = new DatabaseIO();
+        _spellingDatabase = _dataIO.openData();
+    }
+
+    /**
+     * Calls the writeData() method in the DatabaseIO object to save the spelling data
+     * to a hidden .ser file
+     */
+    public void saveData(){
+        _dataIO.writeData(_spellingDatabase);
+    }
+
+    public SpellingDatabase getDatabase(){
+        return _spellingDatabase;
+    }
+
+    public String getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(String currentLevel) {
+        this.currentLevel = currentLevel;
     }
 
     //debugging only

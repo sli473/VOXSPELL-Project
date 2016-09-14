@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
  */
 public class OptionScreenController implements ControlledScreen{
 
-    private ScreensController _myParentScreensController;
+    private MasterController _myParentScreensController;
 
     @FXML
     private Button _cancelButton;
@@ -27,7 +27,7 @@ public class OptionScreenController implements ControlledScreen{
     }
 
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public void setScreenParent(MasterController screenParent) {
         _myParentScreensController = screenParent;
     }
 }

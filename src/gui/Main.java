@@ -1,7 +1,5 @@
 package gui;
 
-import data.DatabaseIO;
-import data.SpellingDatabase;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -11,8 +9,7 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
-    private DatabaseIO _dataIO;
-    private SpellingDatabase _spellingWords;
+    private MasterController _mainContainer;
 
     //TODO
     //public enum Screen{TITLE,QUIZ,SETTINGS,STATS};
@@ -28,26 +25,28 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        _dataIO = new DatabaseIO();
-        _spellingWords = _dataIO.openData();
-        ScreensController mainContainer = new ScreensController(_spellingWords);
-        mainContainer.loadScreen(titleScreenID,titleScreenFXML);
-        mainContainer.loadScreen(quizScreenID,quizScreenFXML);
-        mainContainer.loadScreen(statsScreenID,statsScreenFXML);
-        mainContainer.loadScreen(optionScreenID,optionScreenFXML);
+        _mainContainer = new MasterController();
+        _mainContainer.loadScreen(titleScreenID,titleScreenFXML);
+        _mainContainer.loadScreen(quizScreenID,quizScreenFXML);
+        _mainContainer.loadScreen(statsScreenID,statsScreenFXML);
+        _mainContainer.loadScreen(optionScreenID,optionScreenFXML);
 
-        mainContainer.setScreen(titleScreenID);
+        //debugging
+        _mainContainer.setCurrentLevel("Level 1");
+        //debugging
+
+        _mainContainer.setScreen(titleScreenID);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 event.consume(); //prevents window from automatically closing
-                mainContainer.confirmCloseProgram();
+                _mainContainer.confirmCloseProgram();
             }
         });
 
         Group root = new Group();
-        root.getChildren().add(mainContainer);
+        root.getChildren().add(_mainContainer);
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -61,7 +60,7 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("exiting...");
-        _dataIO.writeData(_spellingWords);
+        _mainContainer.saveData();
     }
 
     public static void main(String[] args) {

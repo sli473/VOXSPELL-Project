@@ -5,19 +5,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * TODO
  * Main controller for both normal quiz mode and review quiz mode.
  * Author: Yuliang Zhou 6/09/2016
  */
 public class QuizScreenController implements Initializable, ControlledScreen{
 
-    private ScreensController _myParentScreensController;
+    private MasterController _myParentController;
 
     private SpellingLogic _myLogic;
 
@@ -29,29 +29,30 @@ public class QuizScreenController implements Initializable, ControlledScreen{
     private TextField _textfield;
 
     public void repeatButtonPressed(ActionEvent event){
-        _myParentScreensController.printdatabase();
+        _myParentController.printdatabase();
     }
 
     public void abortQuizButtonPressed(ActionEvent event){
-        _myParentScreensController.setScreen(Main.titleScreenID);
+        _myParentController.setScreen(Main.titleScreenID);
     }
 
     /**
      * enteredWord is called whenever Enter button is pressed or enter key is pressed
      */
     public void enteredWord(){
-        //TODO set userAttempt in SpellingLogic
-        System.out.println("You entered: "+ _textfield.getText());
+        //TODO: if nothing entered add a tooltip "Please enter the spelling of the word"
+        _myLogic.setUserAttempt(_textfield.getText());
         _textfield.setText("");
     }
 
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-        _myParentScreensController = screenParent;
+    public void setScreenParent(MasterController screenParent) {
+        _myParentController = screenParent;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        _myLogic = new SpellingLogic();
+        //TODO: move into another method which should be called when this screen is opened
+        _myLogic = new SpellingLogic(_myParentController.getDatabase(),_myParentController.getCurrentLevel());
     }
 }

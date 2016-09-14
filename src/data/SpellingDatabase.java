@@ -53,7 +53,7 @@ public class SpellingDatabase implements Serializable{
     /**
      * getNormalQuiz returns 10 random words from a given level as a String array
      * @param levelKey
-     * @return
+     * @return String[] words from level x
      */
     public String[] getNormalQuiz(String levelKey){
         ArrayList<Word> levelWords = _spellingWords.get(levelKey);

@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
  */
 public class TitleScreenController implements ControlledScreen{
 
-    private ScreensController _myParentScreensController;
+    private MasterController _myParentScreensController;
 
     @FXML
     private Button _startButton;
@@ -50,7 +50,7 @@ public class TitleScreenController implements ControlledScreen{
     }
 
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public void setScreenParent(MasterController screenParent) {
         _myParentScreensController = screenParent;
     }
 }

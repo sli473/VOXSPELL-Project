@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StatsScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StatsScreenController">
    <bottom>
       <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -44,7 +44,7 @@
                   <ChoiceBox prefWidth="150.0" />
                </children>
             </HBox>
-            <TableView prefHeight="176.0" prefWidth="500.0">
+            <TableView prefHeight="280.0" prefWidth="650.0">
               <columns>
                 <TableColumn editable="false" minWidth="100.0" prefWidth="167.0" text="Word" />
                 <TableColumn minWidth="70.0" prefWidth="100.0" text="Mastered" />

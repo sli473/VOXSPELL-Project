@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
@@ -13,17 +14,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TitleScreenController">
-   <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Amazing VOXSPELL" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="38.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets top="20.0" />
-         </BorderPane.margin>
-      </Text>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TitleScreenController">
    <center>
       <VBox alignment="CENTER" prefHeight="150.0" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
@@ -65,10 +56,20 @@
    <bottom>
       <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Welcome to Sam &amp; Yuliang's Spelling Quiz" />
-            <Region prefHeight="15.0" prefWidth="450.0" />
-            <Label text="Version 1" />
+            <Label prefHeight="15.0" prefWidth="384.0" text="Your accuary rate: " />
+            <Region prefHeight="15.0" prefWidth="281.0" />
+            <Label prefHeight="15.0" prefWidth="192.0" text="Version 1" />
          </children>
       </HBox>
    </bottom>
+   <top>
+      <ImageView fitHeight="100.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../cooltext204690010199180.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets left="50.0" right="50.0" top="50.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </top>
 </BorderPane>

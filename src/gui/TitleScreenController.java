@@ -25,7 +25,7 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition.
      */
     public void startButtonPressed(){
-        _myParentScreensController.setScreen(Main.quizScreenID);
+        _myParentScreensController.setScreen(Main.levelScreenID);
     }
 
     /**

@@ -20,9 +20,6 @@ public class QuizScreenController implements ControlledScreen{
 
     private MasterController _myParentController;
 
-    private SpellingLogic _myLogic;
-    private static boolean _isRevision = false;
-
     @FXML
     private Button _abortButton;
     @FXML
@@ -39,20 +36,12 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     /**
-     * TODO: error NullPointerException?
      * enteredWord is called whenever Enter button is pressed or enter key is pressed
      */
     public void enteredWord(ActionEvent event) {
         //TODO: if nothing entered add a tooltip "Please enter the spelling of the word"
-        _myLogic.setUserAttempt(_textfield.getText());
+        _myParentController.setUserSpellingAttempt(_textfield.getText());
         _textfield.setText("");
-    }
-    public static boolean get_isRevision() {
-        return _isRevision;
-    }
-
-    public static void set_isRevision(boolean value){
-        _isRevision = value;
     }
 
     @Override
@@ -60,12 +49,5 @@ public class QuizScreenController implements ControlledScreen{
         _myParentController = screenParent;
     }
 
-
-    @Override
-    public void setup(){
-        System.out.println(_myParentController.getDatabase());
-        System.out.println(_myParentController.getCurrentLevel());
-        _myLogic = new SpellingLogic(_myParentController.getDatabase(),_myParentController.getCurrentLevel());
-    }
 
 }

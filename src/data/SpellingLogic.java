@@ -6,7 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
- * TODO
+ * TODO: add a Task/Service class as a field for festival calls
  * Created by Yuliang on 14/09/2016.
  */
 public class SpellingLogic {
@@ -37,41 +37,58 @@ public class SpellingLogic {
         });
     }
 
+    public void startTest() {
+        read("Please spell: " + _wordList[_position]);
+    }
+
     /**
      * TODO: festival reading
+     * TODO: check when user gets to 10
      * @return
      */
-    private boolean checkUserAttempt(){
-        boolean correct;
-        if(_status == Status.FIRSTATTEMPT){
-            if( _wordList[_position].toLowerCase().equals(userAttempt.getValue().toLowerCase()) ){
-                _database.incrementMastered(_currentLevel,_wordList[_position]);
-                //TODO: "Correct"
-                System.out.println("Correct!");
+    private void checkUserAttempt(){
+        if (_status == Status.FIRSTATTEMPT) {
+            if (_wordList[_position].toLowerCase().equals(userAttempt.getValue().toLowerCase())) {
+                _database.incrementMastered(_currentLevel, _wordList[_position]);
+                read("Correct!");
                 _position++;
-            }else{
-                //TODO: "Incorrect. Please try again"
-                System.out.println("Incorrect. Please try again.");
+                if(_position>9){
+                    //TODO: end quiz
+                    return;
+                }
+                read("Please spell: " + _wordList[_position]);
+            } else {
+                read("Incorrect. Please try again: " + _wordList[_position]);
                 _status = Status.SECONDATTEMPT;
             }
-        }else{//second attempted. Faulted.
+        } else {//second attempted. Faulted.
             _status = Status.FIRSTATTEMPT;
-            if( _wordList[_position].toLowerCase().equals(userAttempt.getValue().toLowerCase()) ){
-                _database.incrementFaulted(_currentLevel,_wordList[_position]);
+            if (_wordList[_position].toLowerCase().equals(userAttempt.getValue().toLowerCase())) {
+                _database.incrementFaulted(_currentLevel, _wordList[_position]);
+                read("Correct!");
                 _position++;
-                //TODO: "Correct"
-                System.out.println("Correct!");
-            }else{
-                _database.incrementFailed(_currentLevel,_wordList[_position]);
+                if(_position>9){
+                    //TODO: end quiz
+                    return;
+                }
+                read("Please spell: " + _wordList[_position]);
+            } else {
+                _database.incrementFailed(_currentLevel, _wordList[_position]);
+                read("Incorrect");
                 _position++;
-                //TODO: "Incorrect"
-                System.out.println("Incorrect.");
+                if(_position>9){
+                    //TODO: end quiz
+                    return;
+                }
             }
         }
         System.out.println("You entered: " + userAttempt);
-        return false;
     }
 
+    //stub method
+    public void read(String phrase){
+        System.out.println("FESTIVAL: " + phrase);
+    }
 
     public String getUserAttempt() {
         return userAttempt.get();

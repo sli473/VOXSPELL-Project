@@ -31,8 +31,5 @@ public class OptionScreenController implements ControlledScreen{
         _myParentScreensController = screenParent;
     }
 
-    @Override
-    public void setup() {
 
-    }
 }

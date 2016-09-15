@@ -23,8 +23,5 @@ public class StatsScreenController implements ControlledScreen{
         _myParentScreensController = screenParent;
     }
 
-    @Override
-    public void setup() {
 
-    }
 }

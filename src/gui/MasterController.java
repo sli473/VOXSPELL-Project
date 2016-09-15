@@ -2,6 +2,7 @@ package gui;
 
 import data.DatabaseIO;
 import data.SpellingDatabase;
+import data.SpellingLogic;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -36,41 +37,40 @@ public class MasterController extends StackPane {
     private DatabaseIO _dataIO;
 
     private SpellingDatabase _spellingDatabase;
-    private String currentLevel;
 
-    //TODO refactor database from main into here
+    private SpellingLogic _myLogic;
 
     public MasterController(){
         super();
         _dataIO = new DatabaseIO();
         _spellingDatabase = _dataIO.openData();
-        currentLevel = "Level 1";
     }
 
     /**
-     * Calls the writeData() method in the DatabaseIO object to save the spelling data
-     * to a hidden .ser file
+     * This method is called from the level selection screen and creates a new
+     * SpellingLogic object which performs the spelling quizz operations.
+     * It also immediately reads out the first word in the quiz list.
+     * @param level
+     * @param isRevision
      */
-    public void saveData(){
-        _dataIO.writeData(_spellingDatabase);
+    public void startQuiz(String level,boolean isRevision) {
+        if(isRevision) {
+            _myLogic = new SpellingLogic(_spellingDatabase, level);
+        }else{
+            _myLogic = new SpellingLogic(_spellingDatabase, level);
+        }
+        _myLogic.startTest(); //TODO: read first word
     }
 
-    public SpellingDatabase getDatabase(){
-        return _spellingDatabase;
+    /**
+     * This method changes the StringProperty object in the SpellingLogic object
+     * @param String userEntered
+     */
+    public void setUserSpellingAttempt(String userEntered){
+        _myLogic.setUserAttempt(userEntered);
     }
 
-    public String getCurrentLevel() {
-        return currentLevel;
-    }
 
-    public void setCurrentLevel(String currentLevel) {
-        this.currentLevel = currentLevel;
-    }
-
-    //debugging only
-    public void printdatabase(){
-        _spellingDatabase.printDatabase();
-    }
 
     /**
      * Show dialog box to confirm if user wants to close program.
@@ -114,7 +114,6 @@ public class MasterController extends StackPane {
             Parent root = loader.load();
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
-            myScreenController.setup();
             addScreen(name, root);
             return true;
         }
@@ -180,5 +179,20 @@ public class MasterController extends StackPane {
             return true;
         }
     }
+
+    /**
+     * Calls the writeData() method in the DatabaseIO object to save the spelling data
+     * to a hidden .ser file
+     */
+    public void saveData(){
+        _dataIO.writeData(_spellingDatabase);
+    }
+
+    //debugging only
+    public void printdatabase(){
+        _spellingDatabase.printDatabase();
+    }
+
+
 
 }

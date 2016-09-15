@@ -20,8 +20,8 @@ public class Main extends Application {
     public static final String quizScreenFXML = "quizScreen.fxml";
     public static final String statsScreenID = "statsScreen";
     public static final String statsScreenFXML = "statsScreen.fxml";
-    public static final String optionScreenID = "optionScreen";
-    public static final String optionScreenFXML = "optionScreen.fxml";
+    public static final String settingsScreenID = "settingsScreen";
+    public static final String settingsScreenFXML = "settingsScreen.fxml";
     public static final String levelScreenID = "levelScreen";
     public static final String levelScreenFXML = "levelSelectScreen.fxml";
 
@@ -31,7 +31,7 @@ public class Main extends Application {
         _mainContainer.loadScreen(titleScreenID,titleScreenFXML);
         _mainContainer.loadScreen(quizScreenID,quizScreenFXML);
         _mainContainer.loadScreen(statsScreenID,statsScreenFXML);
-        _mainContainer.loadScreen(optionScreenID,optionScreenFXML);
+        _mainContainer.loadScreen(settingsScreenID,settingsScreenFXML);
         _mainContainer.loadScreen(levelScreenID,levelScreenFXML);
 
         _mainContainer.setScreen(titleScreenID);

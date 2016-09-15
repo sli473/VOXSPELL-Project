@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
  *
  * Author: Yuliang Zhou 7/09/2016
  */
-public class OptionScreenController implements ControlledScreen{
+public class SettingsScreenController implements ControlledScreen{
 
     private MasterController _myParentScreensController;
 

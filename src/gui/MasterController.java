@@ -85,18 +85,6 @@ public class MasterController extends StackPane {
     }
 
     /**
-     * Show dialog box to confirm if user wants to close program.
-     */
-    public void confirmCloseProgram(){
-        Boolean closeOperation = DialogBox.displayConfirmDialogBox("Please don't go","Are you sure you want to quit?");
-        if(closeOperation){
-            //TODO: save and close
-            //TODO: what if user closes while in quiz mode
-            Platform.exit();
-        }
-    }
-
-    /**
      * Adds a screen to the hashMap
      */
     public void addScreen(String name, Node screen){

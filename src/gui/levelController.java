@@ -15,7 +15,7 @@ public class levelController implements ControlledScreen {
     
     ObservableList<String> _quizTypeList = FXCollections.observableArrayList("New Quiz","Revision Quiz");
 
-    private ScreensController _myParentScreensController;
+    private MasterController _myParentScreensController;
 
     @FXML
     private ChoiceBox<String> _quizType;
@@ -48,7 +48,12 @@ public class levelController implements ControlledScreen {
     }
     //nyes
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public void setScreenParent(MasterController screenParent) {
         _myParentScreensController = screenParent;
+    }
+
+    @Override
+    public void setup() {
+
     }
 }

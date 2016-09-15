@@ -111,6 +111,11 @@
                         <Insets bottom="10.0" left="46.25" right="46.25" top="10.0" />
                      </GridPane.margin>
                   </Button>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#playVideo" prefHeight="70.0" prefWidth="168.0" text="play video reward" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Abyssinica SIL" size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </GridPane>
             <Label layoutX="219.0" layoutY="15.0" text="Level Select" AnchorPane.bottomAnchor="297.0" AnchorPane.leftAnchor="214.5" AnchorPane.rightAnchor="214.5" AnchorPane.topAnchor="15.0">

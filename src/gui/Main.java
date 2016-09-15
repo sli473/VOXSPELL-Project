@@ -4,8 +4,14 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.File;
+import java.net.MalformedURLException;
 
 public class Main extends Application {
 
@@ -21,6 +27,7 @@ public class Main extends Application {
     public static final String optionScreenFXML = "optionScreen.fxml";
     public static final String levelScreenID = "levelScreen";
     public static final String levelScreenFXML = "levelSelectScreen.fxml";
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -47,6 +54,7 @@ public class Main extends Application {
         _window.setTitle("Hello World");
         _window.setScene(new Scene(root));
         _window.show();
+
     }
 
     /**
@@ -60,6 +68,8 @@ public class Main extends Application {
             _window.close();
         }
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

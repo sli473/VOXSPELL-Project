@@ -16,11 +16,8 @@ public class SpellingDatabase implements Serializable{
     private HashMap< String, ArrayList<Word> > _spellingWords;
     //TODO add another list for failed objects? or not?
 
-    public int count;
-
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
-        count = 0;
     }
 
     /**

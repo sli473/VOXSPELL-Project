@@ -24,6 +24,8 @@ public class Main extends Application {
     public static final String settingsScreenFXML = "settingsScreen.fxml";
     public static final String levelScreenID = "levelScreen";
     public static final String levelScreenFXML = "levelSelectScreen.fxml";
+    public static final String postQuizScreenID = "postQuizScreen";
+    public static final String postQuizScreenFXML = "postQuizScreen.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -33,6 +35,7 @@ public class Main extends Application {
         _mainContainer.loadScreen(statsScreenID,statsScreenFXML);
         _mainContainer.loadScreen(settingsScreenID,settingsScreenFXML);
         _mainContainer.loadScreen(levelScreenID,levelScreenFXML);
+        _mainContainer.loadScreen(postQuizScreenID,postQuizScreenFXML);
 
         _mainContainer.setScreen(titleScreenID);
 

@@ -52,7 +52,7 @@ public class SpellingLogic {
                 _database.incrementMastered(_currentLevel, _wordList[_position]);
                 read("Correct!");
                 _position++;
-                if(_position>9){
+                if( _position>_wordList.length-1 ){
                     //TODO: end quiz
                     return;
                 }
@@ -67,7 +67,7 @@ public class SpellingLogic {
                 _database.incrementFaulted(_currentLevel, _wordList[_position]);
                 read("Correct!");
                 _position++;
-                if(_position>9){
+                if( _position>_wordList.length-1 ){
                     //TODO: end quiz
                     return;
                 }
@@ -76,10 +76,11 @@ public class SpellingLogic {
                 _database.incrementFailed(_currentLevel, _wordList[_position]);
                 read("Incorrect");
                 _position++;
-                if(_position>9){
+                if( _position>_wordList.length-1 ){
                     //TODO: end quiz
                     return;
                 }
+                read("Please spell: " + _wordList[_position]);
             }
         }
         System.out.println("You entered: " + userAttempt);

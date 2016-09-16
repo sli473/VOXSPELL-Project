@@ -13,8 +13,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 
 /**
- * TODO move code from SpellingLogic into here?
- * TODO ^- how to start test once screen switches?
  * Main controller for both normal quiz mode and review quiz mode.
  * Author: Yuliang Zhou 6/09/2016
  */
@@ -43,7 +41,6 @@ public class QuizScreenController implements ControlledScreen{
      * enteredWord is called whenever Enter button is pressed or enter key is pressed
      */
     public void enteredWord(ActionEvent event) {
-        //TODO: if nothing entered add a tooltip "Please enter the spelling of the word"
         //TODO: what if user enters same word - tool tip ? or reset stringproperty
         if(_textfield.getText().equals("")){
             _tooltip.setText("Please enter a word");
@@ -81,17 +78,19 @@ public class QuizScreenController implements ControlledScreen{
     private int _position;
     private Status _status;
     private boolean _isRevision;
+    private int _score;
 
     /**
      * This method is called by the MasterController after the screen is set.
      * @param database
-     * @param levelKey
+     * @param levelKey, revision mode
      */
     public void setupTest(SpellingDatabase database,String levelKey,boolean isRevision){
         _database = database;
         _currentLevel = levelKey;
         _isRevision = isRevision;
         _position = 0;
+        _score = 0;
         _status = Status.FIRSTATTEMPT;
         if(_isRevision) {
             _wordList = _database.getReviewQuiz(levelKey);
@@ -106,9 +105,15 @@ public class QuizScreenController implements ControlledScreen{
                 checkUserAttempt();
             }
         });
+        if( _wordList.length == 0){
+            _myParentController.setScreen(Main.postQuizScreenID);
+            _myParentController.setPostScreenTestResults(_currentLevel,_score,_wordList.length);
+            return;
+        }
         //Commence test
         read("Please spell: " + _wordList[_position]);
-        //set progress label
+        //set progress label and progress bar
+        _progressBar.setProgress(_position);
         _progressLabel.setText("Pleas spell word "+(_position+1)+" of "+_wordList.length);
         _tooltip.setText("");
     }
@@ -116,6 +121,7 @@ public class QuizScreenController implements ControlledScreen{
 
     /**
      * TODO: festival reading
+     * TODO: in review mode. what if there are no failed words for that level
      * This method is called whenever the user attempt string property is changed. This occurs
      * when the user enters a word. Checks if the user's attempt is same as the correct spelling
      * of the word. Ignores case.
@@ -126,11 +132,12 @@ public class QuizScreenController implements ControlledScreen{
         if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementMastered(_currentLevel, _wordList[_position]);
+                read("Correct!");
+                _score++;
                 //if in revision mode, remove word from failed list
                 if(_isRevision){
                     _database.removeFailedWord(_wordList[_position],_currentLevel);
                 }
-                read("Correct!");
                 //MOVE ONTO NEXT WORD
                 _position++;
                 if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
@@ -148,6 +155,7 @@ public class QuizScreenController implements ControlledScreen{
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementFaulted(_currentLevel, _wordList[_position]);
                 read("Correct!");
+                _score++;
                 //if in revision mode, remove word from failed list
                 if(_isRevision){
                     _database.removeFailedWord(_wordList[_position],_currentLevel);
@@ -181,11 +189,8 @@ public class QuizScreenController implements ControlledScreen{
         _progressBar.setProgress((double)(_position)/_wordList.length);
         if(completed){
             _myParentController.setScreen(Main.postQuizScreenID);
+            _myParentController.setPostScreenTestResults(_currentLevel,_score,_wordList.length);
         }
-    }
-
-    public void getResults(){
-
     }
 
     //stub method for festival reading

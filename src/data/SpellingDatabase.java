@@ -51,7 +51,7 @@ public class SpellingDatabase implements Serializable{
 
     /**
      * Adds a word from existing spelling word list in the database in a given level to
-     * the failed word list.
+     * the failed word list. If word is already in failed list then it wont add it again.
      * @param word, level
      */
     public void addFailedWord(String word, String level) {
@@ -59,6 +59,9 @@ public class SpellingDatabase implements Serializable{
         for(int i=0;i<levelWords.size();i++){
             if (levelWords.get(i).toString().equals(word)){ //find index of the failed word in spelling list
                 if(_failedWords.containsKey(level)){
+                    if( _failedWords.get(level).contains(levelWords.get(i)) ){ //if word is already in failed list
+                        return;
+                    }
                     _failedWords.get(level).add(levelWords.get(i));
                 }else{
                     ArrayList<Word> failedLevelWords = new ArrayList<>();
@@ -72,12 +75,12 @@ public class SpellingDatabase implements Serializable{
 
     /**
      * Removes a word from the failed list.
-     * @param s
+     * @param word, level
      */
-    public void removeFailedWord(String s,String level) {
+    public void removeFailedWord(String word,String level) {
         ArrayList<Word> levelFailed = _failedWords.get(level);
         for(int i=0;i<levelFailed.size();i++){
-            if(levelFailed.get(i).toString().equals(s)){ // find index of failed word
+            if(levelFailed.get(i).toString().equals(word)){ // find index of failed word
                 levelFailed.remove(i);
                 break;
             }
@@ -148,6 +151,9 @@ public class SpellingDatabase implements Serializable{
      */
     public String[] getReviewQuiz(String levelKey) {
         ArrayList<Word> levelWords = _failedWords.get(levelKey);
+        if ( levelWords==null ){
+            return new String[0];
+        }
         Collections.shuffle(levelWords);
         String[] testList;
         if (levelWords.size()<10){

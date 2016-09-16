@@ -40,6 +40,7 @@ public class MasterController extends StackPane {
     private SpellingDatabase _spellingDatabase;
 
     private QuizScreenController _quizController;
+    private PostQuizController _postQuizController;
 
     public MasterController(){
         super();
@@ -49,6 +50,10 @@ public class MasterController extends StackPane {
 
     public void setQuizController(QuizScreenController quizController) {
         _quizController = quizController;
+    }
+
+    public void setPostQuizController(PostQuizController quizController) {
+        _postQuizController = quizController;
     }
 
     /**
@@ -64,7 +69,17 @@ public class MasterController extends StackPane {
         }
     }
 
-
+    /**
+     * This method is called by the QuizController object and sets the results String array field
+     * in PostQuizController object. This method then calls showResults() method in PostQuizController.
+     * @param level
+     * @param correct
+     * @param total
+     */
+    public void setPostScreenTestResults(String level,int correct,int total){
+        _postQuizController.set_testResults(level,correct,total);
+        _postQuizController.showResults();
+    }
 
 
     /**
@@ -73,8 +88,6 @@ public class MasterController extends StackPane {
     public void confirmCloseProgram(){
         Boolean closeOperation = DialogBox.displayConfirmDialogBox("Please don't go","Are you sure you want to quit?");
         if(closeOperation){
-            //TODO: save and close
-            //TODO: what if user closes while in quiz mode
             Platform.exit();
         }
     }

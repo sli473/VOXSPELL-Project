@@ -55,6 +55,7 @@
                </children>
             </HBox>
             <Label fx:id="_progressLabel" text="Word 1 of 10" />
+            <Label fx:id="_tooltip" text="Tooltip" textFill="RED" />
          </children>
       </VBox>
    </center>

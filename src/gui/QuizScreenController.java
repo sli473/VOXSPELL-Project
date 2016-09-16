@@ -28,6 +28,8 @@ public class QuizScreenController implements ControlledScreen{
     private ProgressBar _progressBar;
     @FXML
     private Label _progressLabel;
+    @FXML
+    private Label _tooltip;
 
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
@@ -43,8 +45,13 @@ public class QuizScreenController implements ControlledScreen{
     public void enteredWord(ActionEvent event) {
         //TODO: if nothing entered add a tooltip "Please enter the spelling of the word"
         //TODO: what if user enters same word - tool tip ? or reset stringproperty
-        //TODO: check for non characters e.g. numbers etc
-        _userAttempt.set(_textfield.getText());
+        if(_textfield.getText().equals("")){
+            _tooltip.setText("Please enter a word");
+        }else if(!_textfield.getText().matches("[a-zA-Z]+")){
+            _tooltip.setText("Please do not enter numbers or symbols");
+        }else {
+            _userAttempt.set(_textfield.getText());
+        }
         _textfield.setText("");
     }
 
@@ -89,13 +96,15 @@ public class QuizScreenController implements ControlledScreen{
         _userAttempt.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                _tooltip.setText("");
                 checkUserAttempt();
             }
         });
         //Commence test
         read("Please spell: " + _wordList[_position]);
         //set progress label
-        _progressLabel.setText("Word "+(_position+1)+" of "+_wordList.length);
+        _progressLabel.setText("Pleas spell word "+(_position+1)+" of "+_wordList.length);
+        _tooltip.setText("");
     }
 
 
@@ -108,7 +117,7 @@ public class QuizScreenController implements ControlledScreen{
      */
     private void checkUserAttempt(){
         boolean completed = false;
-        if (_status == Status.FIRSTATTEMPT) {
+        if (_status == Status.FIRSTATTEMPT) {//===========================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementMastered(_currentLevel, _wordList[_position]);
                 read("Correct!");
@@ -116,14 +125,16 @@ public class QuizScreenController implements ControlledScreen{
                 if( _position == _wordList.length ){
                     //Completed quiz. Change screen to post quiz screen.
                     completed = true;
-                }else {
+                }else {//Move onto next word
                     read("Please spell: " + _wordList[_position]);
+                    _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
             } else {
                 read("Incorrect. Please try again: " + _wordList[_position]);
+                _progressLabel.setText("Incorrect. Please spell word "+(_position+1)+" of "+_wordList.length);
                 _status = Status.SECONDATTEMPT;
             }
-        } else {//second attempted. Faulted.
+        } else {//======================================================================FAULTED
             _status = Status.FIRSTATTEMPT;
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementFaulted(_currentLevel, _wordList[_position]);
@@ -132,10 +143,11 @@ public class QuizScreenController implements ControlledScreen{
                 if( _position == _wordList.length ){
                     //Completed quiz. Change screen to post quiz screen.
                     completed = true;
-                }else {
+                }else {//Correct on second attempt. Move onto next word
                     read("Please spell: " + _wordList[_position]);
+                    _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
-            } else {
+            } else {//====================================================================FAILED
                 _database.incrementFailed(_currentLevel, _wordList[_position]);
                 read("Incorrect");
                 _position++;
@@ -145,10 +157,10 @@ public class QuizScreenController implements ControlledScreen{
                 }else {
                     read("Please spell: " + _wordList[_position]);
                 }
+                _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
             }
         }
-        //set progress label and progress bar
-        _progressLabel.setText("Word "+(_position+1)+" of "+_wordList.length);
+        //set progress bar
         _progressBar.setProgress((double)(_position)/_wordList.length);
         if(completed){
             _myParentController.setScreen(Main.postQuizScreenID);

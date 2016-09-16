@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,17 +42,15 @@ public class levelController implements ControlledScreen {
     }
 
     public void playVideo() throws IOException {
-        Stage newStage = new Stage();
-        MasterController newContainer = new MasterController();
-        newContainer.loadScreen("videoPlayerID","videoPlayer.fxml");
-
-        newContainer.setScreen("videoPlayerID");
-        
-        Group root = new Group();
-        root.getChildren().add(newContainer);
-        newStage.setTitle("Reward Video");
-        newStage.setScene(new Scene(root));
-        newStage.show();
+        String path = System.getProperty("user.dir");
+        path.replace("\\\\", "/");
+        path +=  "/rewardVideo.html";
+        System.out.println(path);
+        try {
+            new ProcessBuilder("x-www-browser", path).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

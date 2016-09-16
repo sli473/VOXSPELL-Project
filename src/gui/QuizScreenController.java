@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 
@@ -22,20 +23,17 @@ public class QuizScreenController implements ControlledScreen{
     private MasterController _myParentController;
 
     @FXML
-    private Button _abortButton;
-    @FXML
-    private Button _repeatButton;
-    @FXML
     private TextField _textfield;
     @FXML
-    private ProgressBar _progress;
+    private ProgressBar _progressBar;
+    @FXML
+    private Label _progressLabel;
 
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
     }
 
     public void abortQuizButtonPressed(ActionEvent event){
-        //TODO: wrap up quiz and abandon?
         _myParentController.setScreen(Main.titleScreenID);
     }
 
@@ -45,6 +43,7 @@ public class QuizScreenController implements ControlledScreen{
     public void enteredWord(ActionEvent event) {
         //TODO: if nothing entered add a tooltip "Please enter the spelling of the word"
         //TODO: what if user enters same word - tool tip ? or reset stringproperty
+        //TODO: check for non characters e.g. numbers etc
         _userAttempt.set(_textfield.getText());
         _textfield.setText("");
     }
@@ -95,26 +94,30 @@ public class QuizScreenController implements ControlledScreen{
         });
         //Commence test
         read("Please spell: " + _wordList[_position]);
+        //set progress label
+        _progressLabel.setText("Word "+(_position+1)+" of "+_wordList.length);
     }
 
 
     /**
      * TODO: festival reading
+     * This method is called whenever the user attempt string property is changed. This occurs
+     * when the user enters a word.
      * @return
      */
     private void checkUserAttempt(){
+        boolean completed = false;
         if (_status == Status.FIRSTATTEMPT) {
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementMastered(_currentLevel, _wordList[_position]);
                 read("Correct!");
                 _position++;
-                if( _position>_wordList.length-1 ){
+                if( _position == _wordList.length ){
                     //Completed quiz. Change screen to post quiz screen.
-                    _myParentController.setScreen(Main.postQuizScreenID);
-                    //TODO: pass test results to postquiz controller screen
-                    return;
+                    completed = true;
+                }else {
+                    read("Please spell: " + _wordList[_position]);
                 }
-                read("Please spell: " + _wordList[_position]);
             } else {
                 read("Incorrect. Please try again: " + _wordList[_position]);
                 _status = Status.SECONDATTEMPT;
@@ -125,27 +128,30 @@ public class QuizScreenController implements ControlledScreen{
                 _database.incrementFaulted(_currentLevel, _wordList[_position]);
                 read("Correct!");
                 _position++;
-                if( _position>_wordList.length-1 ){
+                if( _position == _wordList.length ){
                     //Completed quiz. Change screen to post quiz screen.
-                    _myParentController.setScreen(Main.postQuizScreenID);
-                    //TODO: pass test results to postquiz controller screen
-                    return;
+                    completed = true;
+                }else {
+                    read("Please spell: " + _wordList[_position]);
                 }
-                read("Please spell: " + _wordList[_position]);
             } else {
                 _database.incrementFailed(_currentLevel, _wordList[_position]);
                 read("Incorrect");
                 _position++;
-                if( _position>_wordList.length-1 ){
+                if( _position == _wordList.length ){
                     //Completed quiz. Change screen to post quiz screen.
-                    _myParentController.setScreen(Main.postQuizScreenID);
-                    //TODO: pass test results to postquiz controller screen
-                    return;
+                    completed = true;
+                }else {
+                    read("Please spell: " + _wordList[_position]);
                 }
-                read("Please spell: " + _wordList[_position]);
             }
         }
-        System.out.println("You entered: " + _userAttempt);
+        //set progress label and progress bar
+        _progressLabel.setText("Word "+(_position+1)+" of "+_wordList.length);
+        _progressBar.setProgress((double)(_position)/_wordList.length);
+        if(completed){
+            _myParentController.setScreen(Main.postQuizScreenID);
+        }
     }
 
     public void getResults(){

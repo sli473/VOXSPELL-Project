@@ -21,12 +21,12 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0" text="Return to Main menu">
+            <Button mnemonicParsing="false" onAction="#returnToTitleButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Return to Main menu">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="120.0" prefWidth="120.0" text="Play Video Reward">
+            <Button mnemonicParsing="false" onAction="#playVideoButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Play Video Reward">
                <font>
                   <Font size="14.0" />
                </font>

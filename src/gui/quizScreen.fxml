@@ -27,7 +27,7 @@
       <HBox prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Progress:" />
-            <ProgressBar fx:id="_progress" prefWidth="200.0" progress="0.0" />
+            <ProgressBar fx:id="_progressBar" prefWidth="200.0" progress="0.0" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="_abortButton" mnemonicParsing="false" onAction="#abortQuizButtonPressed" prefWidth="100.0" text="Abort Quiz">
                <cursor>
@@ -54,7 +54,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label text="Word 1 of 10" />
+            <Label fx:id="_progressLabel" text="Word 1 of 10" />
          </children>
       </VBox>
    </center>

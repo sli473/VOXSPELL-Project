@@ -102,7 +102,8 @@ public class QuizScreenController implements ControlledScreen{
     /**
      * TODO: festival reading
      * This method is called whenever the user attempt string property is changed. This occurs
-     * when the user enters a word.
+     * when the user enters a word. Checks if the user's attempt is same as the correct spelling
+     * of the word. Ignores case.
      * @return
      */
     private void checkUserAttempt(){

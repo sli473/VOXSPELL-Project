@@ -66,7 +66,6 @@ public class DatabaseIO {
             oos.writeObject(data);
             fout.close();
             oos.close();
-            System.out.println("Hidden file created");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

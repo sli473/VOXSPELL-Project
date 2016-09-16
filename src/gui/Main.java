@@ -49,9 +49,17 @@ public class Main extends Application {
 
         Group root = new Group();
         root.getChildren().add(_mainContainer);
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("VOXSPELL Spelling App");
+        primaryStage.setScene(scene);
+
+        //primaryStage.setMinHeight(400);
+        //primaryStage.setMinWidth(600);
+
         primaryStage.show();
+
+        //_mainContainer.prefWidthProperty().bind(scene.widthProperty());
+        //_mainContainer.prefHeightProperty().bind(scene.heightProperty());
     }
 
     /**
@@ -61,7 +69,7 @@ public class Main extends Application {
      */
     @Override
     public void stop() throws Exception {
-        System.out.println("exiting...");
+        System.out.println("Exiting...");
         _mainContainer.saveData();
     }
 

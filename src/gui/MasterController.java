@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.Node;
 import javafx.animation.KeyFrame;
@@ -106,8 +107,9 @@ public class MasterController extends StackPane {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
             System.out.println ("Screen successfully loaded");
             Parent root = loader.load();
+            //root.prefHeightProperty().bind(this.heightProperty());
+            //root.prefWidthProperty().bind(this.widthProperty());
             ControlledScreen myScreenController = loader.getController();
-            //initialised is called here
             myScreenController.setScreenParent(this);
             addScreen(name, root);
             return true;

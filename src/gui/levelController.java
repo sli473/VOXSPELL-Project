@@ -4,8 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 /**
@@ -30,6 +38,21 @@ public class levelController implements ControlledScreen {
     private String getChoice(ChoiceBox<String> _quizType){
         String quizType = _quizType.getValue();
         return quizType;
+    }
+
+    public void playVideo() throws IOException {
+        Stage newStage = new Stage();
+        MasterController newContainer = new MasterController();
+        newContainer.loadScreen("videoPlayerID","videoPlayer.fxml");
+
+        newContainer.setScreen("videoPlayerID");
+        
+        Group root = new Group();
+        root.getChildren().add(newContainer);
+        newStage.setTitle("Reward Video");
+        newStage.setScene(new Scene(root));
+        newStage.show();
+
     }
 
     public void enterNewQuiz(ActionEvent event){

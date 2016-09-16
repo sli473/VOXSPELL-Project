@@ -6,7 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
- * TODO: add a Task/Service class as a field for festival calls
+ * TODO: depreciated class. Replaced by QuizController
  * Created by Yuliang on 14/09/2016.
  */
 public class SpellingLogic {

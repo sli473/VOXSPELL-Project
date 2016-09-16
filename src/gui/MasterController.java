@@ -38,7 +38,7 @@ public class MasterController extends StackPane {
 
     private SpellingDatabase _spellingDatabase;
 
-    private SpellingLogic _myLogic;
+    private QuizScreenController _quizController;
 
     public MasterController(){
         super();
@@ -46,29 +46,23 @@ public class MasterController extends StackPane {
         _spellingDatabase = _dataIO.openData();
     }
 
-    /**
-     * This method is called from the level selection screen and creates a new
-     * SpellingLogic object which performs the spelling quizz operations.
-     * It also immediately reads out the first word in the quiz list.
-     * @param level
-     * @param isRevision
-     */
-    public void startQuiz(String level,boolean isRevision) {
-        if(isRevision) {
-            _myLogic = new SpellingLogic(_spellingDatabase, level);
-        }else{
-            _myLogic = new SpellingLogic(_spellingDatabase, level);
-        }
-        _myLogic.startTest(); //TODO: read first word
+    public void setQuizController(QuizScreenController quizController) {
+        _quizController = quizController;
     }
 
     /**
-     * This method changes the StringProperty object in the SpellingLogic object
-     * @param String userEntered
+     * This method is called from the level selection screen and sets up the spelling quiz operations.
+     * @param level
+     * @param isRevision
      */
-    public void setUserSpellingAttempt(String userEntered){
-        _myLogic.setUserAttempt(userEntered);
+    public void requestStartQuiz(String level,boolean isRevision) {
+        if(isRevision) {
+            _quizController.setupTest(_spellingDatabase, level, true);
+        }else{
+            _quizController.setupTest(_spellingDatabase, level, false);
+        }
     }
+
 
 
 
@@ -113,6 +107,7 @@ public class MasterController extends StackPane {
             System.out.println ("Screen successfully loaded");
             Parent root = loader.load();
             ControlledScreen myScreenController = loader.getController();
+            //initialised is called here
             myScreenController.setScreenParent(this);
             addScreen(name, root);
             return true;
@@ -192,7 +187,6 @@ public class MasterController extends StackPane {
     public void printdatabase(){
         _spellingDatabase.printDatabase();
     }
-
 
 
 }

@@ -57,7 +57,7 @@ public class LevelController implements Initializable,ControlledScreen {
         //switches into the quiz menu screen
         _myParentController.setScreen(Main.quizScreenID);
         //commence quiz, and read out the first word
-        _myParentController.startQuiz(level,isRevision);
+        _myParentController.requestStartQuiz(level,isRevision);
     }
 
 

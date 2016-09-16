@@ -74,6 +74,5 @@ public class DialogBox {
         return _answer;
     }
 
-    //TODO: dialogbox for level selection when first opening program
 
 }

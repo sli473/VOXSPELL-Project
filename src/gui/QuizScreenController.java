@@ -80,6 +80,7 @@ public class QuizScreenController implements ControlledScreen{
     private String[] _wordList;
     private int _position;
     private Status _status;
+    private boolean _isRevision;
 
     /**
      * This method is called by the MasterController after the screen is set.
@@ -89,9 +90,14 @@ public class QuizScreenController implements ControlledScreen{
     public void setupTest(SpellingDatabase database,String levelKey,boolean isRevision){
         _database = database;
         _currentLevel = levelKey;
-        _wordList = _database.getNormalQuiz(levelKey);
+        _isRevision = isRevision;
         _position = 0;
         _status = Status.FIRSTATTEMPT;
+        if(_isRevision) {
+            _wordList = _database.getReviewQuiz(levelKey);
+        }else{
+            _wordList = _database.getNormalQuiz(levelKey);
+        }
         _userAttempt = new SimpleStringProperty(this,"_userAttempt","");
         _userAttempt.addListener(new ChangeListener<String>() {
             @Override
@@ -117,48 +123,59 @@ public class QuizScreenController implements ControlledScreen{
      */
     private void checkUserAttempt(){
         boolean completed = false;
-        if (_status == Status.FIRSTATTEMPT) {//===========================================MASTERED
+        if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementMastered(_currentLevel, _wordList[_position]);
+                //if in revision mode, remove word from failed list
+                if(_isRevision){
+                    _database.removeFailedWord(_wordList[_position],_currentLevel);
+                }
                 read("Correct!");
+                //MOVE ONTO NEXT WORD
                 _position++;
-                if( _position == _wordList.length ){
-                    //Completed quiz. Change screen to post quiz screen.
+                if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
                     completed = true;
                 }else {//Move onto next word
                     read("Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
-            } else {
+            } else { // GO TO SECOND ATTEMPT
                 read("Incorrect. Please try again: " + _wordList[_position]);
                 _progressLabel.setText("Incorrect. Please spell word "+(_position+1)+" of "+_wordList.length);
                 _status = Status.SECONDATTEMPT;
             }
-        } else {//======================================================================FAULTED
-            _status = Status.FIRSTATTEMPT;
+        } else {//==============================================================================================FAULTED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 _database.incrementFaulted(_currentLevel, _wordList[_position]);
                 read("Correct!");
+                //if in revision mode, remove word from failed list
+                if(_isRevision){
+                    _database.removeFailedWord(_wordList[_position],_currentLevel);
+                }
+                //MOVE ONTO NEXT WORD
                 _position++;
-                if( _position == _wordList.length ){
-                    //Completed quiz. Change screen to post quiz screen.
+                if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
                     completed = true;
                 }else {//Correct on second attempt. Move onto next word
                     read("Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
-            } else {//====================================================================FAILED
+            } else {//===========================================================================================FAILED
                 _database.incrementFailed(_currentLevel, _wordList[_position]);
                 read("Incorrect");
+                if(!_isRevision){ //if in normal mode, add word to failed list
+                    _database.addFailedWord(_wordList[_position],_currentLevel);
+                }
+                //MOVE ONTO NEXT WORD
                 _position++;
-                if( _position == _wordList.length ){
-                    //Completed quiz. Change screen to post quiz screen.
+                if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
                     completed = true;
                 }else {
                     read("Please spell: " + _wordList[_position]);
+                    _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
-                _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
             }
+            _status = Status.FIRSTATTEMPT;
         }
         //set progress bar
         _progressBar.setProgress((double)(_position)/_wordList.length);

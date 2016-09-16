@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,10 +15,11 @@ public class SpellingDatabase implements Serializable{
     private static final long serialVersionUID = 1L;
 
     private HashMap< String, ArrayList<Word> > _spellingWords;
-    //TODO add another list for failed objects? or not?
+    private HashMap< String, ArrayList<Word> > _failedWords;
 
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
+        _failedWords = new HashMap<>();
     }
 
     /**
@@ -48,18 +50,38 @@ public class SpellingDatabase implements Serializable{
     }
 
     /**
-     * getNormalQuiz returns 10 random words from a given level as a String array
-     * @param levelKey
-     * @return String[] words from level x
+     * Adds a word from existing spelling word list in the database in a given level to
+     * the failed word list.
+     * @param word, level
      */
-    public String[] getNormalQuiz(String levelKey){
-        ArrayList<Word> levelWords = _spellingWords.get(levelKey);
-        Collections.shuffle(levelWords);
-        String[] testList = new String[10];
-        for(int i=0;i<10;i++){
-            testList[i] = levelWords.get(i).toString();
+    public void addFailedWord(String word, String level) {
+        ArrayList<Word> levelWords = _spellingWords.get(level);
+        for(int i=0;i<levelWords.size();i++){
+            if (levelWords.get(i).toString().equals(word)){ //find index of the failed word in spelling list
+                if(_failedWords.containsKey(level)){
+                    _failedWords.get(level).add(levelWords.get(i));
+                }else{
+                    ArrayList<Word> failedLevelWords = new ArrayList<>();
+                    failedLevelWords.add(levelWords.get(i));
+                    _failedWords.put(level,failedLevelWords);
+                }
+                break;
+            }
         }
-        return testList;
+    }
+
+    /**
+     * Removes a word from the failed list.
+     * @param s
+     */
+    public void removeFailedWord(String s,String level) {
+        ArrayList<Word> levelFailed = _failedWords.get(level);
+        for(int i=0;i<levelFailed.size();i++){
+            if(levelFailed.get(i).toString().equals(s)){ // find index of failed word
+                levelFailed.remove(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -105,6 +127,44 @@ public class SpellingDatabase implements Serializable{
     }
 
     /**
+     * getNormalQuiz returns 10 random words from a given level as a String array.
+     * @param levelKey
+     * @return String[] words from level x
+     */
+    public String[] getNormalQuiz(String levelKey){
+        ArrayList<Word> levelWords = _spellingWords.get(levelKey);
+        Collections.shuffle(levelWords);
+        String[] testList = new String[10];
+        for(int i=0;i<10;i++){
+            testList[i] = levelWords.get(i).toString();
+        }
+        return testList;
+    }
+
+    /**
+     * getReview Quiz returns 10 or less words from a given level as a String array.
+     * @param levelKey
+     * @return String[] words from level x
+     */
+    public String[] getReviewQuiz(String levelKey) {
+        ArrayList<Word> levelWords = _failedWords.get(levelKey);
+        Collections.shuffle(levelWords);
+        String[] testList;
+        if (levelWords.size()<10){
+            testList = new String[levelWords.size()];
+            for(int i=0;i<levelWords.size();i++){
+                testList[i] = levelWords.get(i).toString();
+            }
+        }else{
+            testList = new String[10];
+            for(int i=0;i<10;i++){
+                testList[i] = levelWords.get(i).toString();
+            }
+        }
+        return testList;
+    }
+
+    /**
      * Debugging purposes only
      */
     public void printDatabase(){
@@ -113,4 +173,6 @@ public class SpellingDatabase implements Serializable{
             System.out.println(Arrays.toString(_spellingWords.get(key).toArray()));
         }
     }
+
+
 }

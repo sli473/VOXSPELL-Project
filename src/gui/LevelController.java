@@ -52,8 +52,6 @@ public class LevelController implements Initializable,ControlledScreen {
         else if( getChoice(_quizType).equals("New Quiz")){
             isRevision = false;
         }
-        System.out.println("RevisionMode: "+ isRevision);
-        System.out.println(level);
         //switches into the quiz menu screen
         _myParentController.setScreen(Main.quizScreenID);
         //commence quiz, and read out the first word

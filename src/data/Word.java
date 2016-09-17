@@ -49,6 +49,15 @@ public class Word implements Serializable{
     }
 
     /**
+     * Resets the Mastered, Faulted, and Failed count for the word
+     */
+    public void clear(){
+        _mastered = 0;
+        _faulted = 0;
+        _failed = 0;
+    }
+
+    /**
      * Returns true if the word has been attempted, false otherwise.
      * @return
      */

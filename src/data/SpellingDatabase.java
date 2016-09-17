@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 /**
+ * SpellingDatabase is a serializable object and saves a HashMap of all the spelling words from each
+ * level. With the level as the Key. It also stores the accuracy for each level.
  * Created by Yuliang Zhou on 12/09/2016.
  */
 public class SpellingDatabase implements Serializable{
@@ -198,6 +200,21 @@ public class SpellingDatabase implements Serializable{
             return _accuracy.get(level);
         }else{
             return 0.0;
+        }
+    }
+
+    /**
+     * Removes all words from failed list and resets accuracy level for each level.
+     * Also for each word, mastered, faulted and faiiled is rest to 0.
+     */
+    public void clearStats(){
+        _accuracy = new HashMap<>();
+        _failedWords = new HashMap<>();
+        for( String level : _spellingWords.keySet()){ // loop through each level
+            ArrayList<Word> currentLevel = _spellingWords.get(level);
+            for(Word w : currentLevel){
+                w.clear();
+            }
         }
     }
 

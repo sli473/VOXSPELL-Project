@@ -29,7 +29,7 @@ public class PostQuizController implements ControlledScreen{
     private double _accuracy;
 
     public void returnToTitleButtonPressed(ActionEvent event){
-        _myParentController.setScreen(Main.titleScreenID);
+        _myParentController.setScreen(Main.Screen.TITLE);
     }
 
     public void playVideoButtonPressed(ActionEvent e){
@@ -37,7 +37,7 @@ public class PostQuizController implements ControlledScreen{
     }
 
     public void reviewLevelButtonPressed(ActionEvent e){
-        _myParentController.setScreen(Main.quizScreenID);
+        _myParentController.setScreen(Main.Screen.QUIZ);
         _myParentController.requestStartQuiz(_level,true);
     }
 

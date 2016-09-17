@@ -29,11 +29,15 @@ import java.util.HashMap;
 
 
 /**
- * TODO: add javadoc
+ * The MasterController extends StackPane and contains a HashMap of all the screens.
+ * Once hte screen has been loaded it can change screen with a fade in/out transition.
+ * Also contains the DatabaseIO object for opening and saving the SpellingDatabase object
+ * which contains all the spelling words and user stats. All screens has a reference to the
+ * MasterController to switch screens, request info from database, etc.
  * Created by Samule Li and Yuliang Zhou on 5/09/16.
  */
 public class MasterController extends StackPane {
-    private HashMap<String, Node> screens = new HashMap<>();
+    private HashMap< Main.Screen, Node> screens = new HashMap<>();
 
     private DatabaseIO _dataIO;
 
@@ -81,6 +85,7 @@ public class MasterController extends StackPane {
         _postQuizController.showResults();
     }
 
+    //===============================================SCREEN_OPERATIONS================================================//
 
     /**
      * Show dialog box to confirm if user wants to close program.
@@ -95,7 +100,7 @@ public class MasterController extends StackPane {
     /**
      * Adds a screen to the hashMap
      */
-    public void addScreen(String name, Node screen){
+    public void addScreen(Main.Screen name, Node screen){
         screens.put(name, screen);
     }
 
@@ -104,27 +109,27 @@ public class MasterController extends StackPane {
      * @param name
      * @return node with appropriate name
      */
-    public Node getScreen(String name){
+    public Node getScreen(Main.Screen name){
         return screens.get(name);
     }
 
     /**
      * Loads the fxml file and injects the screenPane into the controller.
-     * @param name
+     * @param nameScreen
      * @param resource
      * @return
      * @throws Exception
      */
-    public boolean loadScreen(String name, String resource){
+    public boolean loadScreen(Main.Screen nameScreen , String resource){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-            System.out.println ("Screen successfully loaded");
             Parent root = loader.load();
             //root.prefHeightProperty().bind(this.heightProperty());
             //root.prefWidthProperty().bind(this.widthProperty());
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
-            addScreen(name, root);
+            addScreen(nameScreen, root);
+            System.out.println ("Screen successfully loaded");
             return true;
         }
         catch (Exception e){
@@ -140,7 +145,7 @@ public class MasterController extends StackPane {
      * @param name
      * @return
      */
-    public boolean setScreen(final String name) {
+    public boolean setScreen(Main.Screen name) {
         if (screens.get(name) != null) { //screen loaded
             final DoubleProperty opacity = opacityProperty();
             if (!getChildren().isEmpty()) {
@@ -181,7 +186,7 @@ public class MasterController extends StackPane {
      * @param name
      * @return
      */
-    public boolean unloadScreen(String name) {
+    public boolean unloadScreen(Main.Screen name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen doesn't exist");
             return false;

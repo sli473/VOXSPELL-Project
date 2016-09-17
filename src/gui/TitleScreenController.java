@@ -25,7 +25,7 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition.
      */
     public void startButtonPressed(){
-        _myParentScreensController.setScreen(Main.levelScreenID);
+        _myParentScreensController.setScreen(Main.Screen.LEVELSELECT);
     }
 
     /**
@@ -34,7 +34,7 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition
      */
     public void displayStatsButtonPressed(){
-        _myParentScreensController.setScreen(Main.statsScreenID);
+        _myParentScreensController.setScreen(Main.Screen.STATS);
     }
 
     /**
@@ -42,7 +42,7 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition.
      */
     public void settingsButtonPressed(){
-        _myParentScreensController.setScreen(Main.settingsScreenID);
+        _myParentScreensController.setScreen(Main.Screen.SETTINGS);
     }
 
     public void quitButtonPressed(){

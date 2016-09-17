@@ -18,12 +18,12 @@ public class SettingsScreenController implements ControlledScreen{
 
     public void cancelButtonPressed(){
         //TODO: confirm if user wants to discard changes
-        _myParentScreensController.setScreen(Main.titleScreenID);
+        _myParentScreensController.setScreen(Main.Screen.TITLE);
     }
 
     public void okButtonPressed(){
         //TODO: save changes and go to title screen
-        _myParentScreensController.setScreen(Main.titleScreenID);
+        _myParentScreensController.setScreen(Main.Screen.TITLE);
     }
 
     @Override

@@ -36,7 +36,11 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     public void abortQuizButtonPressed(ActionEvent event){
-        _myParentController.setScreen(Main.titleScreenID);
+        boolean confirm = DialogBox.displayConfirmDialogBox("Quit current quiz","Are you sure you wish to " +
+                "quit current quiz. Unsaved progress will be lost");
+        if(confirm) {
+            _myParentController.setScreen(Main.Screen.TITLE);
+        }
     }
 
     /**
@@ -114,7 +118,7 @@ public class QuizScreenController implements ControlledScreen{
             }
         });
         if( _wordList.length == 0){
-            _myParentController.setScreen(Main.postQuizScreenID);
+            _myParentController.setScreen(Main.Screen.POSTQUIZ);
             _myParentController.setPostScreenTestResults(_currentLevel,0.0,_correctCount,_wordList.length);
             return;
         }
@@ -227,7 +231,7 @@ public class QuizScreenController implements ControlledScreen{
         }
         if(completed){
             _database.addAccuracyScore(_score,_wordList.length,_currentLevel);
-            _myParentController.setScreen(Main.postQuizScreenID);
+            _myParentController.setScreen(Main.Screen.POSTQUIZ);
             _myParentController.setPostScreenTestResults(_currentLevel, accuracy,_correctCount, _wordList.length);
         }
     }

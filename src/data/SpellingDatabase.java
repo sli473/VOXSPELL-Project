@@ -17,9 +17,12 @@ public class SpellingDatabase implements Serializable{
     private HashMap< String, ArrayList<Word> > _spellingWords;
     private HashMap< String, ArrayList<Word> > _failedWords;
 
+    private HashMap< String, Double > _accuracy;
+
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
         _failedWords = new HashMap<>();
+        _accuracy = new HashMap<>();
     }
 
     /**
@@ -168,6 +171,34 @@ public class SpellingDatabase implements Serializable{
             }
         }
         return testList;
+    }
+
+    /**
+     * Updates the accuracy score the the given level in the database.
+     * @param score
+     * @param numberOfWords
+     * @param level
+     */
+    public void addAccuracyScore(int score, int numberOfWords, String level){
+        if( _accuracy.containsKey(level) ){
+            _accuracy.put(level, _accuracy.get(level) + (double)score/numberOfWords*4 );
+        }else{ //if the level has not been attempted yet
+            _accuracy.put(level, (double)score/numberOfWords*4 );
+        }
+    }
+
+    /**
+     * Returns the accuracy score of the specified level. Returns 0.0 if level has not been
+     * attempted yet
+     * @param level
+     * @return
+     */
+    public double getAccuracyScore(String level){
+        if(_accuracy.containsKey(level)){
+            return _accuracy.get(level);
+        }else{
+            return 0.0;
+        }
     }
 
     /**

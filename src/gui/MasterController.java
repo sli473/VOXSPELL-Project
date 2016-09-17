@@ -76,8 +76,8 @@ public class MasterController extends StackPane {
      * @param correct
      * @param total
      */
-    public void setPostScreenTestResults(String level,int correct,int total){
-        _postQuizController.set_testResults(level,correct,total);
+    public void setPostScreenTestResults(String level, double accuracy, int correct, int total){
+        _postQuizController.set_testResults(level,accuracy,correct,total);
         _postQuizController.showResults();
     }
 

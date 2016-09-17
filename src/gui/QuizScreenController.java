@@ -28,6 +28,8 @@ public class QuizScreenController implements ControlledScreen{
     private Label _progressLabel;
     @FXML
     private Label _tooltip;
+    @FXML
+    private Label _accuracy;
 
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
@@ -42,11 +44,14 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void enteredWord(ActionEvent event) {
         //TODO: what if user enters same word - tool tip ? or reset stringproperty
+        //TODO: what if user enters I'm
         if(_textfield.getText().equals("")){
             _tooltip.setText("Please enter a word");
-        }else if(!_textfield.getText().matches("[a-zA-Z]+")){
-            _tooltip.setText("Please do not enter numbers or symbols");
-        }else {
+        }else if(_textfield.getText().matches(".*\\d+.*")){
+            _tooltip.setText("Please do not enter numbers");
+        }else if( _status.equals(Status.SECONDATTEMPT) && get_userAttempt().equals(_textfield.getText()) ) {
+            _tooltip.setText("Please try a different spelling");
+        }else{
             _userAttempt.set(_textfield.getText());
         }
         _textfield.setText("");
@@ -78,7 +83,9 @@ public class QuizScreenController implements ControlledScreen{
     private int _position;
     private Status _status;
     private boolean _isRevision;
+    //4pts for mastered, 2pts for faulted, 0pts failed
     private int _score;
+    private int _correctCount;
 
     /**
      * This method is called by the MasterController after the screen is set.
@@ -91,6 +98,7 @@ public class QuizScreenController implements ControlledScreen{
         _isRevision = isRevision;
         _position = 0;
         _score = 0;
+        _correctCount = 0;
         _status = Status.FIRSTATTEMPT;
         if(_isRevision) {
             _wordList = _database.getReviewQuiz(levelKey);
@@ -107,14 +115,15 @@ public class QuizScreenController implements ControlledScreen{
         });
         if( _wordList.length == 0){
             _myParentController.setScreen(Main.postQuizScreenID);
-            _myParentController.setPostScreenTestResults(_currentLevel,_score,_wordList.length);
+            _myParentController.setPostScreenTestResults(_currentLevel,0.0,_correctCount,_wordList.length);
             return;
         }
         //Commence test
         read("Please spell: " + _wordList[_position]);
-        //set progress label and progress bar
+        //set progress label and progress bar and accuracy
         _progressBar.setProgress(_position);
-        _progressLabel.setText("Pleas spell word "+(_position+1)+" of "+_wordList.length);
+        _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
+        _accuracy.setText("Accuracy: "+0.0+"%");
         _tooltip.setText("");
     }
 
@@ -131,21 +140,29 @@ public class QuizScreenController implements ControlledScreen{
         boolean completed = false;
         if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
-                _database.incrementMastered(_currentLevel, _wordList[_position]);
+                //FESTIVAL READ
                 read("Correct!");
-                _score++;
+
+                //UPDATE DATABASE
+                _database.incrementMastered(_currentLevel, _wordList[_position]);
                 //if in revision mode, remove word from failed list
                 if(_isRevision){
                     _database.removeFailedWord(_wordList[_position],_currentLevel);
                 }
+
+                //UPDATE SCORE 4pts MASTERED
+                _score+=4;
+                _correctCount++;
+
                 //MOVE ONTO NEXT WORD
                 _position++;
-                if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
+                if( _position == _wordList.length ){
                     completed = true;
                 }else {//Move onto next word
                     read("Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
+
             } else { // GO TO SECOND ATTEMPT
                 read("Incorrect. Please try again: " + _wordList[_position]);
                 _progressLabel.setText("Incorrect. Please spell word "+(_position+1)+" of "+_wordList.length);
@@ -153,30 +170,43 @@ public class QuizScreenController implements ControlledScreen{
             }
         } else {//==============================================================================================FAULTED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
-                _database.incrementFaulted(_currentLevel, _wordList[_position]);
+                //FESTIVAL READ
                 read("Correct!");
-                _score++;
+
+                //UPDATE DATABASE
+                _database.incrementFaulted(_currentLevel, _wordList[_position]);
                 //if in revision mode, remove word from failed list
                 if(_isRevision){
                     _database.removeFailedWord(_wordList[_position],_currentLevel);
                 }
+
+                //UPDATE SCORE 2pts FAULTED
+                _score+=2;
+                _correctCount++;
+
                 //MOVE ONTO NEXT WORD
                 _position++;
-                if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
+                if( _position == _wordList.length ){
                     completed = true;
                 }else {//Correct on second attempt. Move onto next word
                     read("Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
             } else {//===========================================================================================FAILED
-                _database.incrementFailed(_currentLevel, _wordList[_position]);
+                //FESTIVAL READ
                 read("Incorrect");
+
+                //UPDATE DATABASE
+                _database.incrementFailed(_currentLevel, _wordList[_position]);
                 if(!_isRevision){ //if in normal mode, add word to failed list
                     _database.addFailedWord(_wordList[_position],_currentLevel);
                 }
+
+                //UPDATE SCORE 0pts FAILED
+
                 //MOVE ONTO NEXT WORD
                 _position++;
-                if( _position == _wordList.length ){ //Completed quiz. Change screen to post quiz screen.
+                if( _position == _wordList.length ){
                     completed = true;
                 }else {
                     read("Please spell: " + _wordList[_position]);
@@ -187,11 +217,25 @@ public class QuizScreenController implements ControlledScreen{
         }
         //set progress bar
         _progressBar.setProgress((double)(_position)/_wordList.length);
+        System.out.println("SCORE:"+_score);
+        System.out.println("total:"+(_position)*4);
+        double accuracy = ((double) _score / (_position * 4)) * 100;
+        if(Double.isNaN(accuracy)){
+            _accuracy.setText("Accuracy: " + 0.0 + "%");
+        }else {
+            _accuracy.setText("Accuracy: " + accuracy + "%");
+        }
         if(completed){
+            _database.addAccuracyScore(_score,_wordList.length,_currentLevel);
             _myParentController.setScreen(Main.postQuizScreenID);
-            _myParentController.setPostScreenTestResults(_currentLevel,_score,_wordList.length);
+            _myParentController.setPostScreenTestResults(_currentLevel, accuracy,_correctCount, _wordList.length);
         }
     }
+
+    public String get_userAttempt() {
+        return _userAttempt.get();
+    }
+
 
     //stub method for festival reading
     public void read(String phrase){

@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  */
 public class LevelController implements Initializable,ControlledScreen {
     
-    ObservableList<String> _quizTypeList = FXCollections.observableArrayList("New Quiz","Revision Quiz");
+    ObservableList<String> _quizTypeList;
 
     private MasterController _myParentController;
 
@@ -28,6 +28,7 @@ public class LevelController implements Initializable,ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        _quizTypeList = FXCollections.observableArrayList("New Quiz","Revision Quiz");
         _quizType.setItems(_quizTypeList);
         _quizType.setValue("New Quiz");
     }
@@ -58,6 +59,9 @@ public class LevelController implements Initializable,ControlledScreen {
         _myParentController.requestStartQuiz(level,isRevision);
     }
 
+    public void backButtonPressed(){
+        _myParentController.setScreen(Main.Screen.TITLE);
+    }
 
     @Override
     public void setScreenParent(MasterController screenParent) {

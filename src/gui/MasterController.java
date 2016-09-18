@@ -25,6 +25,7 @@ import javafx.util.Duration;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -37,7 +38,8 @@ import java.util.HashMap;
  * Created by Samule Li and Yuliang Zhou on 5/09/16.
  */
 public class MasterController extends StackPane {
-    private HashMap< Main.Screen, Node> screens = new HashMap<>();
+    private HashMap< Main.Screen, Node> _screens;
+    private ArrayList<ControlledScreen> _controllers;
 
     private DatabaseIO _dataIO;
 
@@ -45,9 +47,12 @@ public class MasterController extends StackPane {
 
     private QuizScreenController _quizController;
     private PostQuizController _postQuizController;
+    private StatsScreenController _statsController;
 
     public MasterController(){
         super();
+        _screens = new HashMap<>();
+        _controllers = new ArrayList<>();
         _dataIO = new DatabaseIO();
         _spellingDatabase = _dataIO.openData();
     }
@@ -60,6 +65,9 @@ public class MasterController extends StackPane {
         _postQuizController = quizController;
     }
 
+    public void setStatsController(StatsScreenController controller){
+        _statsController = controller;
+    }
     /**
      * Returns a reference to the spelling database object
      * @return
@@ -79,6 +87,10 @@ public class MasterController extends StackPane {
         }else{
             _quizController.setupTest(_spellingDatabase, level, false);
         }
+    }
+
+    public void requestUpdateStats() {
+        _statsController.screenOpened();
     }
 
     /**
@@ -106,30 +118,15 @@ public class MasterController extends StackPane {
     }
 
     /**
-     * Adds a screen to the hashMap
-     */
-    public void addScreen(Main.Screen name, Node screen){
-        screens.put(name, screen);
-    }
-
-    /**
-     *
-     * @param name
-     * @return node with appropriate name
-     */
-    public Node getScreen(Main.Screen name){
-        return screens.get(name);
-    }
-
-    /**
-     * Loads the fxml file and injects the screenPane into the controller.
+     * Loads the fxml file and injects the screenPane into the controller. Then calls the setup method
+     * on the screen controllers to do pre-display setup.
      * @param nameScreen
      * @param resource
      * @return
      * @throws Exception
      */
-    public boolean loadScreen(Main.Screen nameScreen , String resource) throws IOException {
-        //try {
+    public boolean loadScreen(Main.Screen nameScreen , String resource) {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
             Parent root = loader.load();
             //root.prefHeightProperty().bind(this.heightProperty());
@@ -137,15 +134,17 @@ public class MasterController extends StackPane {
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
             myScreenController.setup();
+            //Save controller to field
+            _controllers.add(myScreenController);
             addScreen(nameScreen, root);
             System.out.println ("Screen successfully loaded");
-            return true;/*
+            return true;
         }
         catch (Exception e){
             System.out.println("Error loading screen...");
             System.out.println(e.getMessage());
             return false;
-        }*/
+        }
     }
 
     /**
@@ -155,7 +154,7 @@ public class MasterController extends StackPane {
      * @return
      */
     public boolean setScreen(Main.Screen name) {
-        if (screens.get(name) != null) { //screen loaded
+        if (_screens.get(name) != null) { //screen loaded
             final DoubleProperty opacity = opacityProperty();
             if (!getChildren().isEmpty()) {
                 //fade out/fade in transition
@@ -165,7 +164,7 @@ public class MasterController extends StackPane {
                             @Override
                             public void handle(ActionEvent event) {
                                 getChildren().remove(0);    //remove the displayed screens
-                                getChildren().add(0, screens.get(name)); //add the screen
+                                getChildren().add(0, _screens.get(name)); //add the screen
                                 Timeline fadeIn = new Timeline(
                                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                         new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
@@ -176,7 +175,7 @@ public class MasterController extends StackPane {
             } else {
                 setOpacity(0.0);
                 //add the screen to the view
-                getChildren().add(screens.get(name));
+                getChildren().add(_screens.get(name));
                 //fade in transition
                 Timeline transition = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
@@ -191,12 +190,28 @@ public class MasterController extends StackPane {
     }
 
     /**
+     * Adds a screen to the hashMap
+     */
+    public void addScreen(Main.Screen name, Node screen){
+        _screens.put(name, screen);
+    }
+
+    /**
+     *
+     * @param name
+     * @return node with appropriate name
+     */
+    public Node getScreen(Main.Screen name){
+        return _screens.get(name);
+    }
+
+    /**
      *
      * @param name
      * @return
      */
     public boolean unloadScreen(Main.Screen name) {
-        if (screens.remove(name) == null) {
+        if (_screens.remove(name) == null) {
             System.out.println("Screen doesn't exist");
             return false;
         } else {

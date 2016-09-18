@@ -1,5 +1,8 @@
 package data;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -98,7 +101,7 @@ public class SpellingDatabase implements Serializable{
         ArrayList<Word> levelwords = _spellingWords.get(levelkey);
         for(Word w : levelwords){
             if(w.toString().toLowerCase().equals(word)){
-                w.setMastered(w.getMastered()+1);
+                w.set_mastered(w.get_mastered()+1);
             }
         }
     }
@@ -112,7 +115,7 @@ public class SpellingDatabase implements Serializable{
         ArrayList<Word> levelwords = _spellingWords.get(levelkey);
         for(Word w : levelwords){
             if(w.toString().toLowerCase().equals(word)){
-                w.setFaulted(w.getMastered()+1);
+                w.set_faulted(w.get_faulted()+1);
             }
         }
     }
@@ -126,7 +129,7 @@ public class SpellingDatabase implements Serializable{
         ArrayList<Word> levelwords = _spellingWords.get(levelkey);
         for(Word w : levelwords){
             if(w.toString().toLowerCase().equals(word)){
-                w.setFailed(w.getMastered()+1);
+                w.set_failed(w.get_failed()+1);
             }
         }
     }
@@ -216,25 +219,32 @@ public class SpellingDatabase implements Serializable{
     }
 
     /**
-     * Debugging purposes only
+     * Returns an ObservableList of all the elements of the specified level that have been attempted
+     * @param levelKey
+     * @return
      */
-    public void printDatabase(){
-        for (String key : _spellingWords.keySet()) {
-            System.out.println(key);
-            System.out.println(Arrays.toString(_spellingWords.get(key).toArray()));
+    public ObservableList getLevel(String levelKey) {
+        ObservableList<Word> level = FXCollections.observableArrayList();
+        ArrayList<Word> levelWords = _spellingWords.get(levelKey);
+        for(Word w : levelWords){
+            if(w.attempted()) {
+                level.add(w);
+            }
         }
+        return level;
     }
 
     /**
      * Returns an ArrayList of strings of the levels in the spelling database in order from lowest level to highest.
      * @return
      */
-    public ArrayList<String> getLevels() {
+    public ArrayList<String> getAllLevels() {
         ArrayList<String> levels = new ArrayList<>();
         levels.addAll(_spellingWords.keySet());
         Collections.sort(levels, new LevelComparator());
         return levels;
     }
+
 
     private class LevelComparator implements Comparator<String> {
         @Override
@@ -250,6 +260,16 @@ public class SpellingDatabase implements Serializable{
             }else{
                 return 0;
             }
+        }
+    }
+
+    /**
+     * Debugging purposes only
+     */
+    public void printDatabase(){
+        for (String key : _spellingWords.keySet()) {
+            System.out.println(key);
+            System.out.println(Arrays.toString(_spellingWords.get(key).toArray()));
         }
     }
 

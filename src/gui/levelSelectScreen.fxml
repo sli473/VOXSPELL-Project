@@ -16,9 +16,14 @@
                </font>
             </Label>
             <ChoiceBox fx:id="_quizType" prefWidth="150.0" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#backButtonPressed" text="Back">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" />
          </padding>
       </HBox>
    </bottom>

@@ -35,6 +35,7 @@ public class TitleScreenController implements ControlledScreen{
      */
     public void displayStatsButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.STATS);
+        _myParentScreensController.requestUpdateStats();
     }
 
     /**

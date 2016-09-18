@@ -54,12 +54,15 @@
       </VBox>
    </center>
    <bottom>
-      <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="15.0" prefWidth="384.0" text="Your accuary rate: " />
-            <Region prefHeight="15.0" prefWidth="281.0" />
-            <Label prefHeight="15.0" prefWidth="192.0" text="Version 1" />
+            <Label text="Welcome to Sam &amp; Yuliang's VOXSPELL" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Version 1.0" />
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </padding>
       </HBox>
    </bottom>
    <top>

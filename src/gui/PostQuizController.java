@@ -21,6 +21,8 @@ public class PostQuizController implements ControlledScreen{
     private Label _userResultsTwo;
     @FXML
     private Button _playVideoButton;
+    @FXML
+    private Button _nextLevelButton;
 
 
     private String _level;
@@ -34,6 +36,18 @@ public class PostQuizController implements ControlledScreen{
 
     public void playVideoButtonPressed(ActionEvent e){
         //TODO: open video player
+    }
+
+    /**
+     * This button is only enable if user scored 9 or more and the level is less than level 11.
+     */
+    public void nextLevelButtonPressed(){
+        _myParentController.setScreen(Main.Screen.QUIZ);
+        String[] level = _level.split(" ");
+        int nextLevelNumber = Integer.parseInt(level[1]);
+        nextLevelNumber++;
+        String nextLevel = "Level " + nextLevelNumber;
+        _myParentController.requestStartQuiz(nextLevel,false);
     }
 
     public void reviewLevelButtonPressed(ActionEvent e){
@@ -71,5 +85,11 @@ public class PostQuizController implements ControlledScreen{
         }else{
             _playVideoButton.setDisable(true);
         }
+        if(_level.equals("Level 11") || _correct<9 ){
+            _nextLevelButton.setDisable(true);
+        }else{
+            _nextLevelButton.setDisable(false);
+        }
+
     }
 }

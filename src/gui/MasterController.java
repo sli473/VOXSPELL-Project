@@ -61,6 +61,14 @@ public class MasterController extends StackPane {
     }
 
     /**
+     * Returns a reference to the spelling database object
+     * @return
+     */
+    public SpellingDatabase getDatabase() {
+        return _spellingDatabase;
+    }
+
+    /**
      * This method is called from the level selection screen and sets up the spelling quiz operations.
      * @param level
      * @param isRevision
@@ -120,23 +128,24 @@ public class MasterController extends StackPane {
      * @return
      * @throws Exception
      */
-    public boolean loadScreen(Main.Screen nameScreen , String resource){
-        try {
+    public boolean loadScreen(Main.Screen nameScreen , String resource) throws IOException {
+        //try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
             Parent root = loader.load();
             //root.prefHeightProperty().bind(this.heightProperty());
             //root.prefWidthProperty().bind(this.widthProperty());
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
+            myScreenController.setup();
             addScreen(nameScreen, root);
             System.out.println ("Screen successfully loaded");
-            return true;
+            return true;/*
         }
         catch (Exception e){
             System.out.println("Error loading screen...");
             System.out.println(e.getMessage());
             return false;
-        }
+        }*/
     }
 
     /**

@@ -2,10 +2,7 @@ package data;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * SpellingDatabase is a serializable object and saves a HashMap of all the spelling words from each
@@ -228,5 +225,32 @@ public class SpellingDatabase implements Serializable{
         }
     }
 
+    /**
+     * Returns an ArrayList of strings of the levels in the spelling database in order from lowest level to highest.
+     * @return
+     */
+    public ArrayList<String> getLevels() {
+        ArrayList<String> levels = new ArrayList<>();
+        levels.addAll(_spellingWords.keySet());
+        Collections.sort(levels, new LevelComparator());
+        return levels;
+    }
+
+    private class LevelComparator implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            String[] level1 = o1.split(" ");
+            String[] level2 = o2.split(" ");
+            int n1 = Integer.parseInt(level1[1]);
+            int n2 = Integer.parseInt(level2[1]);
+            if(n1<n2){
+                return -1;
+            }else if(n1>n2){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+    }
 
 }

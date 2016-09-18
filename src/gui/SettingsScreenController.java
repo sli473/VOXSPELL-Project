@@ -1,7 +1,15 @@
 package gui;
 
+import data.SpellingDatabase;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -26,9 +34,18 @@ public class SettingsScreenController implements ControlledScreen{
         _myParentScreensController.setScreen(Main.Screen.TITLE);
     }
 
+    /**
+     * Sets the parent controller to the MasterController. Then gets a reference to the spelling database object
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(MasterController screenParent) {
         _myParentScreensController = screenParent;
+    }
+
+    @Override
+    public void setup() {
+
     }
 
 

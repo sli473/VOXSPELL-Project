@@ -70,6 +70,10 @@ public class QuizScreenController implements ControlledScreen{
     @Override
     public void setScreenParent(MasterController screenParent) {
         _myParentController = screenParent;
+    }
+
+    @Override
+    public void setup() {
         _myParentController.setQuizController(this);
     }
 

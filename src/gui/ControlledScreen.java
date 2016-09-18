@@ -7,4 +7,5 @@ public interface ControlledScreen {
 
     public void setScreenParent(MasterController screenParent);
 
+    public void setup();
 }

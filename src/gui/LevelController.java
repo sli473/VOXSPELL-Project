@@ -64,4 +64,9 @@ public class LevelController implements Initializable,ControlledScreen {
         _myParentController = screenParent;
     }
 
+    @Override
+    public void setup() {
+
+    }
+
 }

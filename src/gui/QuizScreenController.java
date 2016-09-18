@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+
 /**
  * TODO move code from SpellingLogic into here?
  * TODO ^- how to start test once screen switches?
@@ -31,7 +33,7 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private Label _tooltip;
 
-    public void repeatButtonPressed(ActionEvent event){
+    public void repeatButtonPressed(ActionEvent event) throws IOException, InterruptedException {
         read(_wordList[_position]);
     }
 
@@ -87,7 +89,7 @@ public class QuizScreenController implements ControlledScreen{
      * @param database
      * @param levelKey
      */
-    public void setupTest(SpellingDatabase database,String levelKey,boolean isRevision){
+    public void setupTest(SpellingDatabase database,String levelKey,boolean isRevision) throws IOException, InterruptedException {
         _database = database;
         _currentLevel = levelKey;
         _isRevision = isRevision;
@@ -103,7 +105,13 @@ public class QuizScreenController implements ControlledScreen{
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 _tooltip.setText("");
-                checkUserAttempt();
+                try {
+                    checkUserAttempt();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         //Commence test
@@ -121,7 +129,7 @@ public class QuizScreenController implements ControlledScreen{
      * of the word. Ignores case.
      * @return
      */
-    private void checkUserAttempt(){
+    private void checkUserAttempt() throws IOException, InterruptedException {
         boolean completed = false;
         if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
@@ -189,8 +197,10 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     //stub method for festival reading
-    public void read(String phrase){
+    public void read(String phrase) throws IOException, InterruptedException {
         System.out.println("FESTIVAL: " + phrase);
+        ProcessBuilder pb = new ProcessBuilder("bash","-c","echo "+phrase+"| festival --tts");
+        Process process = pb.start();
     }
 
 

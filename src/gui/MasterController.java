@@ -56,7 +56,7 @@ public class MasterController extends StackPane {
      * @param level
      * @param isRevision
      */
-    public void requestStartQuiz(String level,boolean isRevision) {
+    public void requestStartQuiz(String level,boolean isRevision) throws IOException, InterruptedException {
         if(isRevision) {
             _quizController.setupTest(_spellingDatabase, level, true);
         }else{

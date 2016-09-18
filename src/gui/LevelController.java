@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,7 +42,7 @@ public class LevelController implements Initializable,ControlledScreen {
      * quizScreen and calls the setupTest method in the MasterController.
      * @param event
      */
-    public void enterNewQuiz(ActionEvent event){
+    public void enterNewQuiz(ActionEvent event) throws IOException, InterruptedException {
         //extracting the text on the button
         String level = "Level "+((Button) event.getSource()).getText();
         boolean isRevision = false;

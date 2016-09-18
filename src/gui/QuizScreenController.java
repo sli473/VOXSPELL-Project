@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -200,7 +201,19 @@ public class QuizScreenController implements ControlledScreen{
     public void read(String phrase) throws IOException, InterruptedException {
         System.out.println("FESTIVAL: " + phrase);
         ProcessBuilder pb = new ProcessBuilder("bash","-c","echo "+phrase+"| festival --tts");
-        Process process = pb.start();
+
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Process process = pb.start();
+                process.waitFor();
+                return null;
+            }
+        };
+
+        Thread th = new Thread(task);
+        th.setDaemon(true);
+        th.start();
     }
 
 

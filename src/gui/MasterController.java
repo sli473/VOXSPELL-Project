@@ -105,6 +105,14 @@ public class MasterController extends StackPane {
         _postQuizController.showResults();
     }
 
+    public void requestClearStats() {
+        boolean clearTrue = DialogBox.displayConfirmDialogBox("Clear User Statistics", "Are you sure you want to clear all user data?");
+        if(clearTrue){
+            _spellingDatabase.clearStats();
+        }
+    }
+
+
     //===============================================SCREEN_OPERATIONS================================================//
 
     /**

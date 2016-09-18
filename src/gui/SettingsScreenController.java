@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,18 +21,21 @@ public class SettingsScreenController implements ControlledScreen{
     private MasterController _myParentScreensController;
 
     @FXML
-    private Button _cancelButton;
+    private ChoiceBox<String> _voiceSelect;
     @FXML
     private Button _okButton;
 
     public void cancelButtonPressed(){
-        //TODO: confirm if user wants to discard changes
         _myParentScreensController.setScreen(Main.Screen.TITLE);
     }
 
     public void okButtonPressed(){
         //TODO: save changes and go to title screen
         _myParentScreensController.setScreen(Main.Screen.TITLE);
+    }
+
+    public void clearStatsButtonPressed(){
+        _myParentScreensController.requestClearStats();
     }
 
     /**

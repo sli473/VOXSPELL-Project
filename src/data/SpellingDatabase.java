@@ -178,8 +178,7 @@ public class SpellingDatabase implements Serializable{
     }
 
     /**
-     * TODO
-     * Updates the accuracy score the the given level in the database.
+     * Updates the score for the given level in the database.
      * @param score
      * @param numberOfWords
      * @param level
@@ -204,7 +203,7 @@ public class SpellingDatabase implements Serializable{
      * @return
      */
     public double getAccuracyScore(String level){
-        if( _scoreForLevel.containsKey(level) || _attemptsForLevel.containsKey(level )){
+        if( _scoreForLevel.containsKey(level) || _attemptsForLevel.containsKey(level) ){
             return ( (double) _scoreForLevel.get(level)/(_attemptsForLevel.get(level)*4) )*100;
         }else{
             return 0.0;

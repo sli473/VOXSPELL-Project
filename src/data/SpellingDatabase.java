@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -19,12 +18,15 @@ public class SpellingDatabase implements Serializable{
     private HashMap< String, ArrayList<Word> > _spellingWords;
     private HashMap< String, ArrayList<Word> > _failedWords;
 
-    private HashMap< String, Double > _accuracy;
+    //4pts for Mastered, 2pts for Faulted, 0pts for Failed
+    private HashMap< String, Integer > _scoreForLevel;
+    private HashMap< String, Integer > _attemptsForLevel;
 
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
         _failedWords = new HashMap<>();
-        _accuracy = new HashMap<>();
+        _scoreForLevel = new HashMap<>();
+        _attemptsForLevel = new HashMap<>();
     }
 
     /**
@@ -176,16 +178,22 @@ public class SpellingDatabase implements Serializable{
     }
 
     /**
+     * TODO
      * Updates the accuracy score the the given level in the database.
      * @param score
      * @param numberOfWords
      * @param level
      */
-    public void addAccuracyScore(int score, int numberOfWords, String level){
-        if( _accuracy.containsKey(level) ){
-            _accuracy.put(level, _accuracy.get(level) + (double)score/numberOfWords*4 );
+    public void addScore(int score, int numberOfWords, String level){
+        if( _scoreForLevel.containsKey(level) ){
+            _scoreForLevel.put(level, _scoreForLevel.get(level) + score );
         }else{ //if the level has not been attempted yet
-            _accuracy.put(level, (double)score/numberOfWords*4 );
+            _scoreForLevel.put(level, score );
+        }
+        if( _attemptsForLevel.containsKey(level) ){
+            _attemptsForLevel.put(level, _attemptsForLevel.get(level) + numberOfWords );
+        }else{ //if the level has not been attempted yet
+            _attemptsForLevel.put(level, numberOfWords );
         }
     }
 
@@ -196,8 +204,8 @@ public class SpellingDatabase implements Serializable{
      * @return
      */
     public double getAccuracyScore(String level){
-        if(_accuracy.containsKey(level)){
-            return _accuracy.get(level);
+        if( _scoreForLevel.containsKey(level) || _attemptsForLevel.containsKey(level )){
+            return ( (double) _scoreForLevel.get(level)/(_attemptsForLevel.get(level)*4) )*100;
         }else{
             return 0.0;
         }
@@ -208,7 +216,8 @@ public class SpellingDatabase implements Serializable{
      * Also for each word, mastered, faulted and faiiled is rest to 0.
      */
     public void clearStats(){
-        _accuracy = new HashMap<>();
+        _scoreForLevel = new HashMap<>();
+        _attemptsForLevel = new HashMap<>();
         _failedWords = new HashMap<>();
         for( String level : _spellingWords.keySet()){ // loop through each level
             ArrayList<Word> currentLevel = _spellingWords.get(level);

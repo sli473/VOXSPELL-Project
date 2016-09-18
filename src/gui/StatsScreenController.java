@@ -5,10 +5,7 @@ import data.Word;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class StatsScreenController implements ControlledScreen{
     private SpellingDatabase _database;
 
     @FXML
-    private Button _backButton;
+    private Label _accuracyForLevel;
     @FXML
     private ChoiceBox<String> _levelSelection;
     @FXML
@@ -64,6 +61,7 @@ public class StatsScreenController implements ControlledScreen{
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 _table.setItems(_database.getLevel((String)newValue));
+                _accuracyForLevel.setText("Accuracy: " + _database.getAccuracyScore((String)newValue) +"%");
             }
         });
 
@@ -82,6 +80,7 @@ public class StatsScreenController implements ControlledScreen{
      */
     public void screenOpened(){
         _table.setItems(_database.getLevel(_levelSelection.getValue()));
+        _accuracyForLevel.setText("Accuracy: " + _database.getAccuracyScore(_levelSelection.getValue())+"%");
     }
 
 }

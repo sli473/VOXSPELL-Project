@@ -141,7 +141,6 @@ public class QuizScreenController implements ControlledScreen{
 
     /**
      * TODO: festival reading
-     * TODO: in review mode. what if there are no failed words for that level
      * This method is called whenever the user attempt string property is changed. This occurs
      * when the user enters a word. Checks if the user's attempt is same as the correct spelling
      * of the word. Ignores case.
@@ -230,6 +229,7 @@ public class QuizScreenController implements ControlledScreen{
         _progressBar.setProgress((double)(_position)/_wordList.length);
         System.out.println("SCORE:"+_score);
         System.out.println("total:"+(_position)*4);
+        //update accuracy rating
         double accuracy = ((double) _score / (_position * 4)) * 100;
         if(Double.isNaN(accuracy)){
             _accuracy.setText("Accuracy: " + 0.0 + "%");
@@ -237,7 +237,7 @@ public class QuizScreenController implements ControlledScreen{
             _accuracy.setText("Accuracy: " + accuracy + "%");
         }
         if(completed){
-            _database.addAccuracyScore(_score,_wordList.length,_currentLevel);
+            _database.addScore(_score,_wordList.length,_currentLevel);
             _myParentController.setScreen(Main.Screen.POSTQUIZ);
             _myParentController.setPostScreenTestResults(_currentLevel, accuracy,_correctCount, _wordList.length);
         }

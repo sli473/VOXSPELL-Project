@@ -42,7 +42,12 @@
                      </padding>
                   </Label>
                   <ChoiceBox fx:id="_levelSelection" prefWidth="150.0" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="_accuracyForLevel" text="Accuracy: " />
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </HBox>
             <TableView fx:id="_table" prefWidth="500.0">
               <columns>

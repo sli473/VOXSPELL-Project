@@ -20,6 +20,16 @@ public class TitleScreenController implements ControlledScreen{
     @FXML
     private Button _quitButton;
 
+    @Override
+    public void setScreenParent(MasterController screenParent) {
+        _myParentScreensController = screenParent;
+    }
+
+    @Override
+    public void setup() {
+
+    }
+
     /**
      * Requests main screen controller to switch to the quiz scene.
      * Uses a fade in and out transition.
@@ -35,7 +45,8 @@ public class TitleScreenController implements ControlledScreen{
      */
     public void displayStatsButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.STATS);
-        _myParentScreensController.requestUpdateStats();
+        StatsScreenController nextScreen = (StatsScreenController)_myParentScreensController.getScreenController(Main.Screen.STATS);
+        nextScreen.screenOpened();
     }
 
     /**
@@ -50,15 +61,6 @@ public class TitleScreenController implements ControlledScreen{
         _myParentScreensController.confirmCloseProgram();
     }
 
-    @Override
-    public void setScreenParent(MasterController screenParent) {
-        _myParentScreensController = screenParent;
-    }
-
-    @Override
-    public void setup() {
-
-    }
 
 
 }

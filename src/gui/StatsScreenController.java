@@ -46,8 +46,6 @@ public class StatsScreenController implements ControlledScreen{
 
     @Override
     public void setup() {
-        _myParentScreensController.setStatsController(this);
-
         //get database object
         _database = _myParentScreensController.getDatabase();
 

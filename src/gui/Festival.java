@@ -23,7 +23,7 @@ public class Festival extends Service {
                 return null;
             }
         };
-      
+
     }
 
     public static String get_phrase() {
@@ -32,6 +32,8 @@ public class Festival extends Service {
 
     public static void set_phrase(String _phrase) {
         _phrase = _phrase;
-        pb = new ProcessBuilder("bash","-c","echo "+_phrase+"| festival --tts");
+        String cmd = "sed -i '$d' ./src/resources/festival.scm ; echo \"(SayText \\\"" + _phrase + "\\\")\">>./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
+
+        pb = new ProcessBuilder("bash","-c",cmd);
     }
 }

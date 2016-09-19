@@ -22,11 +22,22 @@ public class SpellingDatabase implements Serializable{
     private HashMap< String, Integer > _scoreForLevel;
     private HashMap< String, Integer > _attemptsForLevel;
 
+    private String _voice;
+
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
         _failedWords = new HashMap<>();
         _scoreForLevel = new HashMap<>();
         _attemptsForLevel = new HashMap<>();
+        _voice = "Default";
+    }
+
+    public String get_voice(){
+        return _voice;
+    }
+
+    public void set_voice(String _newVoice){
+        _voice =  _newVoice;
     }
 
     /**

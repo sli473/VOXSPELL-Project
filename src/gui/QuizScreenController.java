@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 public class QuizScreenController implements ControlledScreen{
 
     private MasterController _myParentController;
+    private Festival festival = new Festival();
 
     @FXML
     private Text _title;
@@ -151,7 +152,7 @@ public class QuizScreenController implements ControlledScreen{
         if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 //FESTIVAL READ
-                read("Correct!");
+                //read("Correct!");
 
                 //UPDATE DATABASE
                 _database.incrementMastered(_currentLevel, _wordList[_position]);
@@ -169,7 +170,7 @@ public class QuizScreenController implements ControlledScreen{
                 if( _position == _wordList.length ){
                     completed = true;
                 }else {//Move onto next word
-                    read("Please spell: " + _wordList[_position]);
+                    read("Correct. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
 
@@ -181,7 +182,7 @@ public class QuizScreenController implements ControlledScreen{
         } else {//==============================================================================================FAULTED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
                 //FESTIVAL READ
-                read("Correct!");
+                //read("Correct!");
 
                 //UPDATE DATABASE
                 _database.incrementFaulted(_currentLevel, _wordList[_position]);
@@ -199,12 +200,12 @@ public class QuizScreenController implements ControlledScreen{
                 if( _position == _wordList.length ){
                     completed = true;
                 }else {//Correct on second attempt. Move onto next word
-                    read("Please spell: " + _wordList[_position]);
+                    read("Correct. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
             } else {//===========================================================================================FAILED
                 //FESTIVAL READ
-                read("Incorrect");
+                //read("Incorrect");
 
                 //UPDATE DATABASE
                 _database.incrementFailed(_currentLevel, _wordList[_position]);
@@ -219,7 +220,7 @@ public class QuizScreenController implements ControlledScreen{
                 if( _position == _wordList.length ){
                     completed = true;
                 }else {
-                    read("Please spell: " + _wordList[_position]);
+                    read("Incorrect. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
             }
@@ -249,8 +250,10 @@ public class QuizScreenController implements ControlledScreen{
 
 
     //stub method for festival reading
-    public void read(String phrase){
+    public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
+        Festival.set_phrase(phrase);
+        festival.restart();
     }
 
 

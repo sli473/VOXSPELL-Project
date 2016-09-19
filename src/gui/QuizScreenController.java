@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -77,7 +78,6 @@ public class QuizScreenController implements ControlledScreen{
 
     @Override
     public void setup() {
-        _myParentController.setQuizController(this);
     }
 
 
@@ -89,33 +89,50 @@ public class QuizScreenController implements ControlledScreen{
 
     private StringProperty _userAttempt;
 
+    //level and mode
+    private boolean _isRevision;
     private String _currentLevel;
+
+    //words
     private String[] _wordList;
     private int _position;
     private Status _status;
-    private boolean _isRevision;
+
     //4pts for mastered, 2pts for faulted, 0pts failed
+    private String[] _results;
     private int _score;
-    private int _correctCount;
 
     /**
      * This method is called by the MasterController after the screen is set.
-     * @param database
      * @param levelKey, revision mode
      */
-    public void setupTest(SpellingDatabase database,String levelKey,boolean isRevision){
-        _database = database;
+    public void setupTest(String levelKey,boolean isRevision){
+        //setup pretest state
+        _database = _myParentController.getDatabase();
         _currentLevel = levelKey;
         _isRevision = isRevision;
         _position = 0;
         _score = 0;
-        _correctCount = 0;
         _status = Status.FIRSTATTEMPT;
         if(_isRevision) {
             _wordList = _database.getReviewQuiz(levelKey);
         }else{
             _wordList = _database.getNormalQuiz(levelKey);
         }
+        _results = new String[_wordList.length];
+
+        //if there are no words - from revision mode
+        if( _wordList.length == 0){
+            //get the PostQuizScreen Controller object
+            PostQuizController nextScreen = ((PostQuizController)_myParentController.getScreenController(Main.Screen.POSTQUIZ));
+            nextScreen.set_testResults(_currentLevel,0,0,_wordList.length);
+            nextScreen.showResults();
+            //change screen
+            _myParentController.setScreen(Main.Screen.POSTQUIZ);
+            return;
+        }
+
+        //StringProperty for user's attempt which is used to check the spelling against database
         _userAttempt = new SimpleStringProperty(this,"_userAttempt","");
         _userAttempt.addListener(new ChangeListener<String>() {
             @Override
@@ -124,11 +141,7 @@ public class QuizScreenController implements ControlledScreen{
                 checkUserAttempt();
             }
         });
-        if( _wordList.length == 0){
-            _myParentController.setScreen(Main.Screen.POSTQUIZ);
-            _myParentController.setPostScreenTestResults(_currentLevel,0.0,_correctCount,_wordList.length);
-            return;
-        }
+
         //Commence test
         read("Please spell: " + _wordList[_position]);
         //set progress label and progress bar and accuracy
@@ -151,19 +164,13 @@ public class QuizScreenController implements ControlledScreen{
         boolean completed = false;
         if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
+
                 //FESTIVAL READ
                 //read("Correct!");
 
-                //UPDATE DATABASE
-                _database.incrementMastered(_currentLevel, _wordList[_position]);
-                //if in revision mode, remove word from failed list
-                if(_isRevision){
-                    _database.removeFailedWord(_wordList[_position],_currentLevel);
-                }
-
                 //UPDATE SCORE 4pts MASTERED
+                _results[_position] = "MASTERED";
                 _score+=4;
-                _correctCount++;
 
                 //MOVE ONTO NEXT WORD
                 _position++;
@@ -181,19 +188,13 @@ public class QuizScreenController implements ControlledScreen{
             }
         } else {//==============================================================================================FAULTED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
+
                 //FESTIVAL READ
                 //read("Correct!");
 
-                //UPDATE DATABASE
-                _database.incrementFaulted(_currentLevel, _wordList[_position]);
-                //if in revision mode, remove word from failed list
-                if(_isRevision){
-                    _database.removeFailedWord(_wordList[_position],_currentLevel);
-                }
-
                 //UPDATE SCORE 2pts FAULTED
+                _results[_position] = "FAULTED";
                 _score+=2;
-                _correctCount++;
 
                 //MOVE ONTO NEXT WORD
                 _position++;
@@ -207,13 +208,8 @@ public class QuizScreenController implements ControlledScreen{
                 //FESTIVAL READ
                 //read("Incorrect");
 
-                //UPDATE DATABASE
-                _database.incrementFailed(_currentLevel, _wordList[_position]);
-                if(!_isRevision){ //if in normal mode, add word to failed list
-                    _database.addFailedWord(_wordList[_position],_currentLevel);
-                }
-
                 //UPDATE SCORE 0pts FAILED
+                _results[_position] = "FAILED";
 
                 //MOVE ONTO NEXT WORD
                 _position++;
@@ -226,10 +222,12 @@ public class QuizScreenController implements ControlledScreen{
             }
             _status = Status.FIRSTATTEMPT;
         }
+
         //set progress bar
         _progressBar.setProgress((double)(_position)/_wordList.length);
         System.out.println("SCORE:"+_score);
         System.out.println("total:"+(_position)*4);
+
         //update accuracy rating
         double accuracy = ((double) _score / (_position * 4)) * 100;
         if(Double.isNaN(accuracy)){
@@ -237,11 +235,56 @@ public class QuizScreenController implements ControlledScreen{
         }else {
             _accuracy.setText("Accuracy: " + accuracy + "%");
         }
+
+        //end test and change screen
         if(completed){
-            _database.addScore(_score,_wordList.length,_currentLevel);
-            _myParentController.setScreen(Main.Screen.POSTQUIZ);
-            _myParentController.setPostScreenTestResults(_currentLevel, accuracy,_correctCount, _wordList.length);
+            completeTestSaveData();
         }
+    }
+
+    public void completeTestSaveData(){
+        int correctCount = 0;
+        for(int i=0;i<_results.length;i++){
+            if(_results[i].equals("MASTERED")){ // 4pts MASTERED
+                //update mastered result in database
+                _database.incrementMastered(_currentLevel, _wordList[i]);
+
+                //Only counted as correct if mastered
+                correctCount++;
+
+                //if in revision mode, remove word from failed list
+                if(_isRevision){
+                    _database.removeFailedWord(_wordList[i],_currentLevel);
+                }
+            }else if(_results[i].equals("FAULTED")){ //2pts FAULTED
+                //update faulted result in database
+                _database.incrementFaulted(_currentLevel, _wordList[i]);
+
+                //if in revision mode, remove word from failed list
+                if(_isRevision){
+                    _database.removeFailedWord(_wordList[i],_currentLevel);
+                }
+            }else{ //0pts FAILED
+                //update failed result in database
+                _database.incrementFailed(_currentLevel, _wordList[i]);
+
+                //if in normal mode, add word to failed list
+                if(!_isRevision){
+                    _database.addFailedWord(_wordList[i],_currentLevel);
+                }
+            }
+        }
+
+        _database.addScore(_score,_wordList.length,_currentLevel);
+        double accuracy = ((double) _score / (_results.length * 4)) * 100;
+
+        //get the PostQuizScreen Controller object
+        PostQuizController nextScreen = ((PostQuizController)_myParentController.getScreenController(Main.Screen.POSTQUIZ));
+        nextScreen.set_testResults(_currentLevel,accuracy,correctCount,_wordList.length);
+        nextScreen.showResults();
+
+        //change screen
+        _myParentController.setScreen(Main.Screen.POSTQUIZ);
     }
 
     public String get_userAttempt() {

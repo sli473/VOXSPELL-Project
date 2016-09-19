@@ -39,35 +39,31 @@ import java.util.HashMap;
  */
 public class MasterController extends StackPane {
     private HashMap< Main.Screen, Node> _screens;
-    private ArrayList<ControlledScreen> _controllers;
+    private HashMap< Main.Screen, ControlledScreen> _controllers;
 
     private DatabaseIO _dataIO;
 
     private SpellingDatabase _spellingDatabase;
 
-    private QuizScreenController _quizController;
-    private PostQuizController _postQuizController;
-    private StatsScreenController _statsController;
 
     public MasterController(){
         super();
         _screens = new HashMap<>();
-        _controllers = new ArrayList<>();
+        _controllers = new HashMap<>();
         _dataIO = new DatabaseIO();
         _spellingDatabase = _dataIO.openData();
     }
 
-    public void setQuizController(QuizScreenController quizController) {
-        _quizController = quizController;
+    /**
+     * Returns the instance of the controller object given as type ControlledScreen. Must be cast
+     * to the specific type before calling any subclass specific methods.
+     * @param screen
+     * @return
+     */
+    public ControlledScreen getScreenController(Main.Screen screen){
+        return _controllers.get(screen);
     }
 
-    public void setPostQuizController(PostQuizController quizController) {
-        _postQuizController = quizController;
-    }
-
-    public void setStatsController(StatsScreenController controller){
-        _statsController = controller;
-    }
     /**
      * Returns a reference to the spelling database object
      * @return
@@ -77,34 +73,8 @@ public class MasterController extends StackPane {
     }
 
     /**
-     * This method is called from the level selection screen and sets up the spelling quiz operations.
-     * @param level
-     * @param isRevision
+     *  Checks if user really wants to delete data before deleting.
      */
-    public void requestStartQuiz(String level,boolean isRevision) {
-        if(isRevision) {
-            _quizController.setupTest(_spellingDatabase, level, true);
-        }else{
-            _quizController.setupTest(_spellingDatabase, level, false);
-        }
-    }
-
-    public void requestUpdateStats() {
-        _statsController.screenOpened();
-    }
-
-    /**
-     * This method is called by the QuizController object and sets the results String array field
-     * in PostQuizController object. This method then calls showResults() method in PostQuizController.
-     * @param level
-     * @param correct
-     * @param total
-     */
-    public void setPostScreenTestResults(String level, double accuracy, int correct, int total){
-        _postQuizController.set_testResults(level,accuracy,correct,total);
-        _postQuizController.showResults();
-    }
-
     public void requestClearStats() {
         boolean clearTrue = DialogBox.displayConfirmDialogBox("Clear User Statistics", "Are you sure you want to clear all user data?");
         if(clearTrue){
@@ -143,8 +113,8 @@ public class MasterController extends StackPane {
             myScreenController.setScreenParent(this);
             myScreenController.setup();
             //Save controller to field
-            _controllers.add(myScreenController);
-            addScreen(nameScreen, root);
+            _controllers.put(nameScreen, myScreenController);
+            _screens.put(nameScreen, root);
             System.out.println ("Screen successfully loaded");
             return true;
         //}
@@ -196,13 +166,6 @@ public class MasterController extends StackPane {
             System.out.println("Screen hasn't been loaded");
             return false;
         }
-    }
-
-    /**
-     * Adds a screen to the hashMap
-     */
-    public void addScreen(Main.Screen name, Node screen){
-        _screens.put(name, screen);
     }
 
     /**

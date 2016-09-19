@@ -33,6 +33,16 @@ public class LevelController implements Initializable,ControlledScreen {
         _quizType.setValue("New Quiz");
     }
 
+    @Override
+    public void setScreenParent(MasterController screenParent) {
+        _myParentController = screenParent;
+    }
+
+    @Override
+    public void setup() {
+
+    }
+
     private String getChoice(ChoiceBox<String> _quizType){
         return _quizType.getValue();
     }
@@ -53,24 +63,23 @@ public class LevelController implements Initializable,ControlledScreen {
         else if( getChoice(_quizType).equals("New Quiz")){
             isRevision = false;
         }
-        //switches into the quiz menu screen
+
+        //get the QuizScreen Controller and setup the test
+        QuizScreenController nextScreen = (QuizScreenController) _myParentController.getScreenController(Main.Screen.QUIZ);
+        if(isRevision) {
+            nextScreen.setupTest(level, true);
+        }else{
+            nextScreen.setupTest(level, false);
+        }
+
+        //switch into the quiz menu screen
         _myParentController.setScreen(Main.Screen.QUIZ);
-        //commence quiz, and read out the first word
-        _myParentController.requestStartQuiz(level,isRevision);
     }
 
     public void backButtonPressed(){
         _myParentController.setScreen(Main.Screen.TITLE);
     }
 
-    @Override
-    public void setScreenParent(MasterController screenParent) {
-        _myParentController = screenParent;
-    }
 
-    @Override
-    public void setup() {
-
-    }
 
 }

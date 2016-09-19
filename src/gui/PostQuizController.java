@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javax.swing.*;
+import java.io.IOException;
 
 /**
  * Author: Yuliang Zhou 6/09/2016
@@ -34,25 +35,42 @@ public class PostQuizController implements ControlledScreen{
         _myParentController.setScreen(Main.Screen.TITLE);
     }
 
-    public void playVideoButtonPressed(ActionEvent e){
-        //TODO: open video player
+    public void playVideoButtonPressed(ActionEvent event)throws IOException{
+            String path = System.getProperty("user.dir");
+            path.replace("\\\\", "/");
+            path +=  "/rewardVideo.html";
+            System.out.println(path);
+            try {
+                new ProcessBuilder("x-www-browser", path).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     /**
      * This button is only enable if user scored 9 or more and the level is less than level 11.
      */
     public void nextLevelButtonPressed(){
-        _myParentController.setScreen(Main.Screen.QUIZ);
         String[] level = _level.split(" ");
         int nextLevelNumber = Integer.parseInt(level[1]);
         nextLevelNumber++;
         String nextLevel = "Level " + nextLevelNumber;
-        _myParentController.requestStartQuiz(nextLevel,false);
+
+        //change into quiz screen
+        _myParentController.setScreen(Main.Screen.QUIZ);
+
+        //get the QuizScreen Controller
+        QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
+        nextScreen.setupTest(nextLevel,false);
     }
 
     public void reviewLevelButtonPressed(ActionEvent e){
+        //change into the review quiz screen
         _myParentController.setScreen(Main.Screen.QUIZ);
-        _myParentController.requestStartQuiz(_level,true);
+
+        //get the QuizScreen Controller
+        QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
+        nextScreen.setupTest(_level,true);
     }
 
     @Override
@@ -62,7 +80,6 @@ public class PostQuizController implements ControlledScreen{
 
     @Override
     public void setup() {
-        _myParentController.setPostQuizController(this);
     }
 
     public void set_testResults(String level, double accuracy, int correct, int total){

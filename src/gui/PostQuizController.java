@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javax.swing.*;
+import java.io.IOException;
 
 /**
  * Author: Yuliang Zhou 6/09/2016
@@ -34,8 +35,16 @@ public class PostQuizController implements ControlledScreen{
         _myParentController.setScreen(Main.Screen.TITLE);
     }
 
-    public void playVideoButtonPressed(ActionEvent e){
-        //TODO: open video player
+    public void playVideoButtonPressed(ActionEvent event)throws IOException{
+            String path = System.getProperty("user.dir");
+            path.replace("\\\\", "/");
+            path +=  "/rewardVideo.html";
+            System.out.println(path);
+            try {
+                new ProcessBuilder("x-www-browser", path).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     /**

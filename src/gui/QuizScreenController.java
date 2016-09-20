@@ -26,6 +26,8 @@ public class QuizScreenController implements ControlledScreen{
 
     private Festival _festival;
 
+    private static boolean _enabled = true;
+
     @FXML
     private Text _title;
     @FXML
@@ -38,6 +40,9 @@ public class QuizScreenController implements ControlledScreen{
     private Label _tooltip;
     @FXML
     private Label _accuracy;
+    @FXML
+    private static Button _submit;
+
 
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
@@ -56,16 +61,20 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void enteredWord(ActionEvent event) {
         //TODO: what if user enters same word - tool tip ? or reset stringproperty
-        if(_textfield.getText().equals("")){
-            _tooltip.setText("Please enter a word");
-        }else if(_textfield.getText().matches(".*\\d+.*")){
-            _tooltip.setText("Please do not enter numbers");
-        }else if( _status.equals(Status.SECONDATTEMPT) && get_userAttempt().equals(_textfield.getText()) ) {
-            _tooltip.setText("Please try a different spelling");
-        }else{
-            _userAttempt.set(_textfield.getText());
+        if(_enabled){
+            if(_textfield.getText().equals("")){
+                _tooltip.setText("Please enter a word");
+            }else if(_textfield.getText().matches(".*\\d+.*")){
+                _tooltip.setText("Please do not enter numbers");
+            }else if( _status.equals(Status.SECONDATTEMPT) && get_userAttempt().equals(_textfield.getText()) ) {
+                _tooltip.setText("Please try a different spelling");
+            }else{
+                _userAttempt.set(_textfield.getText());
+            }
+            _textfield.setText("");
+            //System.out.println(_enabled);
         }
-        _textfield.setText("");
+        else{}
     }
 
     /**
@@ -300,6 +309,17 @@ public class QuizScreenController implements ControlledScreen{
         System.out.println("FESTIVAL: " + phrase);
         Festival.set_phrase(phrase);
         _festival.restart();
+    }
+
+    public static void enableEntering(){
+        _submit.setDisable(false);
+        _enabled = false;
+    }
+
+    public static void disableEntering(){
+        _enabled = true;
+        System.out.println(_enabled);
+        _submit.setDisable(true);
     }
 
 

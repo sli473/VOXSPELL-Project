@@ -2,6 +2,7 @@ package gui;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.media.Media;
@@ -33,8 +34,38 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
         _mediaPlayer = new MediaPlayer(_media);
         System.out.println("could compile Media player");
         _mediaView.setMediaPlayer(_mediaPlayer);
-        _mediaPlayer.setAutoPlay(true);
+
     }
+
+    public void play(ActionEvent event){
+        _mediaPlayer.play();
+        _mediaPlayer.setRate(1);
+    }
+
+    public void pause(ActionEvent event){
+        _mediaPlayer.pause();
+    }
+
+    public void fastforward(ActionEvent event){
+        _mediaPlayer.setRate(2);
+    }
+
+    public void slowDown(ActionEvent event){
+        _mediaPlayer.setRate(0.5);
+    }
+
+    public void reload(ActionEvent event){
+        _mediaPlayer.seek(_mediaPlayer.getStartTime());
+        _mediaPlayer.play();
+        _mediaPlayer.setRate(1);
+    }
+
+    public void returnToPostQuizScreen(ActionEvent event){
+        _mediaPlayer.stop();
+        _myParentScreensController.setScreen(Main.Screen.POSTQUIZ);
+    }
+
+
 
     @Override
     public void setScreenParent(MasterController screenParent) {

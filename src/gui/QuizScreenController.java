@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 public class QuizScreenController implements ControlledScreen{
 
     private MasterController _myParentController;
-    
+
     private Festival _festival;
 
     @FXML

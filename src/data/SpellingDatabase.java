@@ -274,6 +274,14 @@ public class SpellingDatabase implements Serializable{
         }
     }
 
+    public String get_voice() {
+        return _voice;
+    }
+
+    public void set_voice(String _voice) {
+        this._voice = _voice;
+    }
+
     /**
      * Debugging purposes only
      */
@@ -284,11 +292,5 @@ public class SpellingDatabase implements Serializable{
         }
     }
 
-    public String get_voice() {
-        return _voice;
-    }
 
-    public void set_voice(String _voice) {
-        this._voice = _voice;
-    }
 }

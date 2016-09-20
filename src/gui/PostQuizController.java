@@ -35,6 +35,11 @@ public class PostQuizController implements ControlledScreen{
         _myParentController.setScreen(Main.Screen.TITLE);
     }
 
+    /**
+     * Opened the browser to play video
+     * @param event
+     * @throws IOException
+     */
     public void playVideoButtonPressed(ActionEvent event)throws IOException{
             String path = System.getProperty("user.dir");
             path.replace("\\\\", "/");

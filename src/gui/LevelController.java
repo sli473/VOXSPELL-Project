@@ -74,6 +74,7 @@ public class LevelController implements Initializable,ControlledScreen {
 
         //switch into the quiz menu screen
         _myParentController.setScreen(Main.Screen.QUIZ);
+
         //prevents user from accidentally double clicking a level so they're given two words to spell.
         ((Button) event.getSource()).setDisable(true);
     }

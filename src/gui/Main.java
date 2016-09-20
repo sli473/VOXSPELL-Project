@@ -11,7 +11,7 @@ public class Main extends Application {
 
     private MasterController _mainContainer;
 
-    public enum Screen{TITLE,QUIZ,LEVELSELECT,POSTQUIZ,SETTINGS,STATS};
+    public enum Screen{TITLE,QUIZ,LEVELSELECT,POSTQUIZ,SETTINGS,STATS,VIDEO};
 
     public static final String titleScreenFXML = "titleScreen.fxml";
     public static final String quizScreenFXML = "quizScreen.fxml";
@@ -19,6 +19,8 @@ public class Main extends Application {
     public static final String settingsScreenFXML = "settingsScreen.fxml";
     public static final String levelScreenFXML = "levelSelectScreen.fxml";
     public static final String postQuizScreenFXML = "postQuizScreen.fxml";
+    public static final String videoPlayerFXML = "videoPlayer.fxml";
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -29,6 +31,7 @@ public class Main extends Application {
         _mainContainer.loadScreen(Screen.SETTINGS,settingsScreenFXML);
         _mainContainer.loadScreen(Screen.LEVELSELECT,levelScreenFXML);
         _mainContainer.loadScreen(Screen.POSTQUIZ,postQuizScreenFXML);
+        _mainContainer.loadScreen(Screen.VIDEO,videoPlayerFXML);
 
         _mainContainer.setScreen(Screen.TITLE);
 

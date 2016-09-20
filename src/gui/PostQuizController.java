@@ -4,8 +4,11 @@ package gui;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -44,15 +47,7 @@ public class PostQuizController implements ControlledScreen{
      * @throws IOException
      */
     public void playVideoButtonPressed(ActionEvent event)throws IOException{
-            String path = System.getProperty("user.dir");
-            path.replace("\\\\", "/");
-            path +=  "/src/resources/rewardVideo.html";
-            System.out.println(path);
-            try {
-                new ProcessBuilder("x-www-browser", path).start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        _myParentController.setScreen(Main.Screen.VIDEO);
     }
 
     /**

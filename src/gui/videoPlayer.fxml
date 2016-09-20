@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" style="-fx-background-color: #4d4d4d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VideoPlayerController">
+<BorderPane maxHeight="435.0" maxWidth="675.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" style="-fx-background-color: #4d4d4d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VideoPlayerController">
    <center>
       <MediaView fx:id="_mediaView" fitHeight="350.0" fitWidth="600.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -18,34 +18,44 @@
          <children>
             <Button mnemonicParsing="false" onAction="#play" text="Play">
                <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" left="60.0" top="10.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#pause" text="Pause">
                <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#fastforward" text="Fast Forward">
                <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#slowDown" text="Rewind">
+            <Button mnemonicParsing="false" onAction="#slowDown" text="Slow Down">
                <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#reload" text="Reload">
                <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#returnToPostQuizScreen" text="Return">
                <HBox.margin>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
             </Button>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Volume" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="23.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Slider fx:id="_volumeSlider" value="50.0" />
+               </children>
+            </VBox>
          </children>
       </HBox>
    </bottom>

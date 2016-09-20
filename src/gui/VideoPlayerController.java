@@ -1,10 +1,13 @@
 package gui;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -25,6 +28,10 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
     private MediaPlayer _mediaPlayer;
     private Media _media;
 
+    @FXML
+    private Slider _volumeSlider;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File file = new File("./src/resources/play.mp4");
@@ -34,6 +41,13 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
         _mediaPlayer = new MediaPlayer(_media);
         System.out.println("could compile Media player");
         _mediaView.setMediaPlayer(_mediaPlayer);
+        _volumeSlider.setValue(_mediaPlayer.getVolume() * 100);
+        _volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                _mediaPlayer.setVolume(_volumeSlider.getValue() / 100);
+            }
+        });
 
     }
 

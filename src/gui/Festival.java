@@ -13,7 +13,7 @@ public class Festival extends Service<Void> {
     private Process process;
 
     @Override
-    protected Task createTask() {
+    protected Task<Void> createTask() {
 
         return new Task<Void>(){
 
@@ -31,6 +31,6 @@ public class Festival extends Service<Void> {
     public static void set_phrase(String phrase) {
         _cmd = "sed -i '$d' ./src/resources/festival.scm ; echo \"(SayText \\\"" + phrase + "\\\")\">>./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
 
-        pb = new ProcessBuilder("bash","-c",_cmd);
+        pb = new ProcessBuilder("/bin/bash","-c",_cmd);
     }
 }

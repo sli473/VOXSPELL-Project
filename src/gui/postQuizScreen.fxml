@@ -21,7 +21,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#reviewLevelButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Review Level">
+            <Button fx:id="_reviewButton" mnemonicParsing="false" onAction="#reviewLevelButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Review Level">
                <font>
                   <Font size="14.0" />
                </font>

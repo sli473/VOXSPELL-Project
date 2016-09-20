@@ -14,6 +14,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.util.Arrays;
+
 /**
  * Main controller for both normal quiz mode and review quiz mode.
  * Author: Yuliang Zhou 6/09/2016
@@ -80,6 +82,7 @@ public class QuizScreenController implements ControlledScreen{
     @Override
     public void setup() {
         _festival = new Festival();
+        _database = _myParentController.getDatabase();
     }
 
 
@@ -110,7 +113,6 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void setupTest(String levelKey,boolean isRevision){
         //setup pretest state
-        _database = _myParentController.getDatabase();
         _currentLevel = levelKey;
         _isRevision = isRevision;
         _position = 0;
@@ -122,15 +124,15 @@ public class QuizScreenController implements ControlledScreen{
             _wordList = _database.getNormalQuiz(levelKey);
         }
         _results = new String[_wordList.length];
-
         //if there are no words - from revision mode
         if( _wordList.length == 0){
             //get the PostQuizScreen Controller object
             PostQuizController nextScreen = ((PostQuizController)_myParentController.getScreenController(Main.Screen.POSTQUIZ));
-            nextScreen.set_testResults(_currentLevel,0,0,_wordList.length);
+            nextScreen.set_testResults(_currentLevel,0,0,0);
             nextScreen.showResults();
             //change screen
             _myParentController.setScreen(Main.Screen.POSTQUIZ);
+            _textfield.setText("");
             return;
         }
 
@@ -283,6 +285,7 @@ public class QuizScreenController implements ControlledScreen{
         PostQuizController nextScreen = ((PostQuizController)_myParentController.getScreenController(Main.Screen.POSTQUIZ));
         nextScreen.set_testResults(_currentLevel,accuracy,correctCount,_wordList.length);
         nextScreen.showResults();
+        _textfield.setText("");
 
         //change screen
         _myParentController.setScreen(Main.Screen.POSTQUIZ);

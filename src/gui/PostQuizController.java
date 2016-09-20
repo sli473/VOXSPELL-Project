@@ -1,6 +1,7 @@
 package gui;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +25,8 @@ public class PostQuizController implements ControlledScreen{
     private Button _playVideoButton;
     @FXML
     private Button _nextLevelButton;
+    @FXML
+    private Button _reviewButton;
 
 
     private String _level;
@@ -55,7 +58,7 @@ public class PostQuizController implements ControlledScreen{
     /**
      * This button is only enable if user scored 9 or more and the level is less than level 11.
      */
-    public void nextLevelButtonPressed(){
+    public void nextLevelButtonPressed(ActionEvent event){
         String[] level = _level.split(" ");
         int nextLevelNumber = Integer.parseInt(level[1]);
         nextLevelNumber++;
@@ -67,15 +70,17 @@ public class PostQuizController implements ControlledScreen{
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
         nextScreen.setupTest(nextLevel,false);
+
     }
 
-    public void reviewLevelButtonPressed(ActionEvent e){
+    public void reviewLevelButtonPressed(ActionEvent event){
         //change into the review quiz screen
         _myParentController.setScreen(Main.Screen.QUIZ);
 
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
         nextScreen.setupTest(_level,true);
+
     }
 
     @Override
@@ -94,11 +99,17 @@ public class PostQuizController implements ControlledScreen{
         _total = total;
     }
 
+    /**
+     * This method is called by the QuizScreenController after the results have been set and just before the screen
+     * switches
+     */
     public void showResults() {
         if (_total == 0) {
+            _reviewButton.setDisable(true);
             _userResultsOne.setText("Congratulations. No mistakes to review.");
             _userResultsTwo.setText("Keep up the good work :)");
         }else {
+            _reviewButton.setDisable(false);
             _userResultsOne.setText("Congratulations you scored: " + _correct + " of " + _total);
             _userResultsTwo.setText("Accuracy for  " + _level + ": " + _accuracy + "%");
         }

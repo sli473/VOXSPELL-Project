@@ -87,7 +87,7 @@ public class DatabaseIO {
                 if(line.charAt(0) == '%' ){//change level key
                     levelKey = line.substring(1);
                 }else{
-                    database.addNewWord(levelKey, line);
+                    database.addNewWord(levelKey, line.trim());
                 }
             }
             br.close();

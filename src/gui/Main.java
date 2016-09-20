@@ -45,9 +45,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("VOXSPELL Spelling App");
         primaryStage.setScene(scene);
-
-        //primaryStage.setMinHeight(400);
-        //primaryStage.setMinWidth(600);
+        primaryStage.setResizable(false);
+        //primaryStage.setMinHeight(420);
+        //primaryStage.setMinWidth(660);
 
         primaryStage.show();
 

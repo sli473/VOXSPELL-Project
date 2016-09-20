@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,6 +54,9 @@ public class LevelController implements Initializable,ControlledScreen {
      * @param event
      */
     public void enterNewQuiz(ActionEvent event){
+        //switch into the quiz menu screen
+        _myParentController.setScreen(Main.Screen.QUIZ);
+
         //extracting the text on the button
         String level = "Level "+((Button) event.getSource()).getText();
         boolean isRevision = false;
@@ -72,11 +76,26 @@ public class LevelController implements Initializable,ControlledScreen {
             nextScreen.setupTest(level, false);
         }
 
-        //switch into the quiz menu screen
-        _myParentController.setScreen(Main.Screen.QUIZ);
-
-        //prevents user from accidentally double clicking a level so they're given two words to spell.
-        ((Button) event.getSource()).setDisable(true);
+        //prevents user from accidentally double clicking the button.
+        Button myButton = ((Button) event.getSource());
+        new Thread() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        myButton.setDisable(true);
+                    }
+                });
+                try {
+                    Thread.sleep(3000); //3 seconds, obviously replace with your chosen time
+                }catch(InterruptedException ex) {
+                }
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        myButton.setDisable(false);
+                    }
+                });
+            }
+        }.start();
     }
 
     public void backButtonPressed(){

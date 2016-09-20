@@ -1,6 +1,8 @@
 package gui;
 
 import data.SpellingDatabase;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -26,7 +28,7 @@ public class QuizScreenController implements ControlledScreen{
 
     private Festival _festival;
 
-    private static boolean _enabled = true;
+    private static BooleanProperty _enableInput;
 
     @FXML
     private Text _title;
@@ -41,7 +43,7 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private Label _accuracy;
     @FXML
-    private static Button _submit;
+    private Button _submit;
 
 
     public void repeatButtonPressed(ActionEvent event){
@@ -61,7 +63,7 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void enteredWord(ActionEvent event) {
         //TODO: what if user enters same word - tool tip ? or reset stringproperty
-        if(_enabled){
+        if(is_enableInput()){
             if(_textfield.getText().equals("")){
                 _tooltip.setText("Please enter a word");
             }else if(_textfield.getText().matches(".*\\d+.*")){
@@ -72,9 +74,7 @@ public class QuizScreenController implements ControlledScreen{
                 _userAttempt.set(_textfield.getText());
             }
             _textfield.setText("");
-            //System.out.println(_enabled);
         }
-        else{}
     }
 
     /**
@@ -90,6 +90,9 @@ public class QuizScreenController implements ControlledScreen{
 
     @Override
     public void setup() {
+        _enableInput = new SimpleBooleanProperty(this,"_enableInput",true);
+        _textfield.editableProperty().bind(_enableInput);
+        _submit.disableProperty().bind(_enableInput);
         _festival = new Festival();
         _database = _myParentController.getDatabase();
     }
@@ -299,20 +302,19 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
-        Festival.set_phrase(phrase);
+        _festival.set_phrase(phrase);
         _festival.restart();
     }
 
-    public static void enableEntering(){
-        _submit.setDisable(false);
-        _enabled = false;
+    public static boolean is_enableInput() {
+        return _enableInput.get();
     }
 
-    public static void disableEntering(){
-        _enabled = true;
-        System.out.println(_enabled);
-        _submit.setDisable(true);
+    public static BooleanProperty _enableInputProperty() {
+        return _enableInput;
     }
 
-
+    public static void set_enableInput(boolean _enableInput) {
+        QuizScreenController._enableInput.set(_enableInput);
+    }
 }

@@ -43,17 +43,13 @@ public class Festival extends Service {
 
     }
 
-    public static String get_phrase() {
-        return _phrase;
-    }
 
     public void set_phrase(String phrase) {
-        _phrase = phrase;
         String path = "./resources/festival.scm";
         System.out.println(path);
-        String cmd = "sed -i '$d' "+path+" ; echo \"(SayText \\\"" + _phrase + "\\\")\">>"+path+" ; festival -b "+path+"";
+        String cmd = "sed -i '$d' "+path+" ; echo \"(SayText \\\"" + phrase + "\\\")\">>"+path+" ; festival -b "+path+"";
 
-        pb = new ProcessBuilder("bash","-c",cmd);
-        pb.inheritIO();
+        _pb = new ProcessBuilder("bash","-c",cmd);
+        _pb.inheritIO();
     }
 }

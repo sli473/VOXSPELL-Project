@@ -38,13 +38,13 @@ public class SettingsScreenController implements ControlledScreen{
     public void okButtonPressed() throws IOException {
         //TODO: save changes and go to title screen
         if(getChoice(_voiceSelect).equals("Default")){
-            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./src/resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./resources/festival.scm";
             System.out.println(cmd);
             ProcessBuilder pb = new ProcessBuilder("bash","-c",cmd);
             Process process = pb.start();
         }
         else if(getChoice(_voiceSelect).equals("New Zealand")){
-            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./src/resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("bash","-c",cmd);
             Process process = pb.start();
         }

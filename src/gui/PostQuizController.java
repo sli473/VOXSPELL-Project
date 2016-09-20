@@ -38,7 +38,7 @@ public class PostQuizController implements ControlledScreen{
     public void playVideoButtonPressed(ActionEvent event)throws IOException{
             String path = System.getProperty("user.dir");
             path.replace("\\\\", "/");
-            path +=  "/src/resources/rewardVideo.html";
+            path +=  "/resources/rewardVideo.html";
             System.out.println(path);
             try {
                 new ProcessBuilder("x-www-browser", path).start();

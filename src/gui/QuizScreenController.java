@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 public class QuizScreenController implements ControlledScreen{
 
     private MasterController _myParentController;
-    private Festival festival = new Festival();
+    private Festival _festival;
 
     @FXML
     private Text _title;
@@ -78,6 +78,7 @@ public class QuizScreenController implements ControlledScreen{
 
     @Override
     public void setup() {
+        _festival = new Festival();
     }
 
 
@@ -295,8 +296,8 @@ public class QuizScreenController implements ControlledScreen{
     //stub method for festival reading
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
-        Festival.set_phrase(phrase);
-        festival.restart();
+        _festival.set_phrase(phrase);
+        _festival.restart();
     }
 
 

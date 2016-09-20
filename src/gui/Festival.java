@@ -6,13 +6,13 @@ import javafx.concurrent.Task;
 /**
  * Created by samule on 19/09/16.
  */
-public class Festival extends Service {
+public class Festival extends Service<Void> {
 
-    private static String _phrase;
-    private static ProcessBuilder pb;
-    Process process;
+    private String _phrase;
+    private ProcessBuilder pb;
+    private Process process;
     @Override
-    protected Task createTask() {
+    protected Task<Void> createTask() {
 
         return new Task<Void>(){
 
@@ -26,14 +26,17 @@ public class Festival extends Service {
 
     }
 
-    public static String get_phrase() {
+    public String get_phrase() {
         return _phrase;
     }
 
-    public static void set_phrase(String _phrase) {
-        _phrase = _phrase;
-        String cmd = "sed -i '$d' ./src/resources/festival.scm ; echo \"(SayText \\\"" + _phrase + "\\\")\">>./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
+    public void set_phrase(String phrase) {
+        _phrase = phrase;
+        String path = "./resources/festival.scm";
+        System.out.println(path);
+        String cmd = "sed -i '$d' "+path+" ; echo \"(SayText \\\"" + _phrase + "\\\")\">>"+path+" ; festival -b "+path+"";
 
         pb = new ProcessBuilder("bash","-c",cmd);
+        pb.inheritIO();
     }
 }

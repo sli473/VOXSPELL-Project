@@ -14,15 +14,15 @@ public class Festival extends Service<Void> {
 
     @Override
     protected Task<Void> createTask() {
-
+        enablebutton(false);
         return new Task<Void>(){
 
             @Override
             protected Void call() throws Exception {
                 process = pb.start();
-                enablebutton(true);
-                process.waitFor();
                 enablebutton(false);
+                process.waitFor();
+                enablebutton(true);
                 return null;
             }
         };
@@ -31,6 +31,7 @@ public class Festival extends Service<Void> {
     public void enablebutton(boolean value){
         if (value == true){
             QuizScreenController.enableEntering();
+            System.out.print("yes");
         }
         else if(value == false){
             QuizScreenController.disableEntering();

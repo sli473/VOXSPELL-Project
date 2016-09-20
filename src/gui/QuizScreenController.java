@@ -26,7 +26,7 @@ public class QuizScreenController implements ControlledScreen{
 
     private Festival _festival;
 
-    private static boolean _enabled = true;
+    private boolean _enabled = true;
 
     @FXML
     private Text _title;
@@ -41,7 +41,9 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private Label _accuracy;
     @FXML
-    private static Button _submit;
+    private Button _submit;
+
+    private Button _submitStatic = _submit;
 
 
     public void repeatButtonPressed(ActionEvent event){
@@ -74,7 +76,8 @@ public class QuizScreenController implements ControlledScreen{
             _textfield.setText("");
             //System.out.println(_enabled);
         }
-        else{}
+        else{
+        }
     }
 
     /**
@@ -157,6 +160,7 @@ public class QuizScreenController implements ControlledScreen{
         _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
         _accuracy.setText("Accuracy: "+0.0+"%");
         _tooltip.setText("");
+
     }
 
 
@@ -304,14 +308,22 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     public static void enableEntering(){
+        _enabled = true;
         _submit.setDisable(false);
-        _enabled = false;
+    }
+
+    public void enableSubmit(){
+        _submit.setDisable(false);
+    }
+
+    public void disableSubmit(){
+        _submit.setDisable(true);
     }
 
     public static void disableEntering(){
-        _enabled = true;
-        System.out.println(_enabled);
+        _enabled = false;
         _submit.setDisable(true);
+        System.out.println(_enabled);
     }
 
 

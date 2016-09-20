@@ -1,7 +1,6 @@
 package gui;
 
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -65,7 +64,6 @@ public class PostQuizController implements ControlledScreen{
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
         nextScreen.setupTest(nextLevel,false);
-
     }
 
     public void reviewLevelButtonPressed(ActionEvent event){
@@ -75,7 +73,6 @@ public class PostQuizController implements ControlledScreen{
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
         nextScreen.setupTest(_level,true);
-
     }
 
     @Override

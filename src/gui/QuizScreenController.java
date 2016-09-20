@@ -145,6 +145,7 @@ public class QuizScreenController implements ControlledScreen{
             _wordList = _database.getNormalQuiz(levelKey);
         }
         _results = new String[_wordList.length];
+
         //if there are no words - from revision mode
         if( _wordList.length == 0){
             completeTestSaveData();
@@ -298,7 +299,6 @@ public class QuizScreenController implements ControlledScreen{
 
         //change screen
         _myParentController.setScreen(Main.Screen.POSTQUIZ);
-        _textfield.setText("");
     }
 
     public String get_userAttempt() {
@@ -311,9 +311,8 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
-        /*
-        _festival.set_phrase(phrase);
-        _festival.restart();*/
+        Festival.set_phrase(phrase);
+        festival.restart();
     }
 
     public static boolean is_enableInput() {

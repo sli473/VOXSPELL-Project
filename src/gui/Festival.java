@@ -6,7 +6,7 @@ import javafx.concurrent.Task;
 /**
  * Created by samule on 19/09/16.
  */
-public class Festival extends Service<Void> {
+public class Festival extends Service {
 
     private String _cmd;
     private ProcessBuilder _pb;
@@ -41,13 +41,19 @@ public class Festival extends Service<Void> {
             }
         };
 
-
-
     }
 
+    public static String get_phrase() {
+        return _phrase;
+    }
 
     public void set_phrase(String phrase) {
-        _cmd = "sed -i '$d' ./src/resources/festival.scm ; echo \"(SayText \\\"" + phrase + "\\\")\">>./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
-        _pb = new ProcessBuilder("/bin/bash","-c",_cmd);
+        _phrase = phrase;
+        String path = "./resources/festival.scm";
+        System.out.println(path);
+        String cmd = "sed -i '$d' "+path+" ; echo \"(SayText \\\"" + _phrase + "\\\")\">>"+path+" ; festival -b "+path+"";
+
+        pb = new ProcessBuilder("bash","-c",cmd);
+        pb.inheritIO();
     }
 }

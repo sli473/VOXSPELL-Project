@@ -1,2 +1,2 @@
-(voice_kal_diphone)
-(SayText "Correct. Please spell: he")
+(voice_akl_nz_jdt_diphone)
+(SayText "Please spell: it")

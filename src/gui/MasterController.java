@@ -103,12 +103,10 @@ public class MasterController extends StackPane {
      * @return
      * @throws Exception
      */
-    public boolean loadScreen(Main.Screen nameScreen , String resource) throws IOException{
-        //try {
+    public boolean loadScreen(Main.Screen nameScreen , String resource){
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
             Parent root = loader.load();
-            //root.prefHeightProperty().bind(this.heightProperty());
-            //root.prefWidthProperty().bind(this.widthProperty());
             ControlledScreen myScreenController = loader.getController();
             myScreenController.setScreenParent(this);
             myScreenController.setup();
@@ -117,13 +115,13 @@ public class MasterController extends StackPane {
             _screens.put(nameScreen, root);
             System.out.println ("Screen successfully loaded");
             return true;
-        //}
-        /*catch (Exception e){
+        }
+        catch (Exception e){
             System.out.println("Error loading screen...");
             System.out.println(e.getMessage());
             return false;
         }
-        */
+
     }
 
     /**

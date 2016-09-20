@@ -91,8 +91,17 @@ public class QuizScreenController implements ControlledScreen{
     @Override
     public void setup() {
         _enableInput = new SimpleBooleanProperty(this,"_enableInput",true);
-        _textfield.editableProperty().bind(_enableInput);
-        _submit.disableProperty().bind(_enableInput);
+        //_submit.disableProperty().bind(_enableInput);
+        _enableInput.addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(is_enableInput()){
+                    _submit.setDisable(false);
+                }else{
+                    _submit.setDisable(true);
+                }
+            }
+        });
         _festival = new Festival();
         _database = _myParentController.getDatabase();
     }

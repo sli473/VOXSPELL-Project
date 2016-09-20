@@ -20,6 +20,13 @@ public class Festival extends Service<Void> {
     }
 
     @Override
+    protected void failed() {
+        super.failed();
+        System.out.println("ERROR reading word");
+        QuizScreenController.set_enableInput(true);
+    }
+
+    @Override
     protected Task<Void> createTask() {
 
         return new Task<Void>(){

@@ -86,7 +86,7 @@ public class LevelController implements Initializable,ControlledScreen {
                     }
                 });
                 try {
-                    Thread.sleep(3000); //3 seconds, obviously replace with your chosen time
+                    Thread.sleep(3000); //3 seconds
                 }catch(InterruptedException ex) {
                 }
                 Platform.runLater(new Runnable() {

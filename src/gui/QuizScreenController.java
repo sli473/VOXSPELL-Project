@@ -126,13 +126,7 @@ public class QuizScreenController implements ControlledScreen{
         _results = new String[_wordList.length];
         //if there are no words - from revision mode
         if( _wordList.length == 0){
-            //get the PostQuizScreen Controller object
-            PostQuizController nextScreen = ((PostQuizController)_myParentController.getScreenController(Main.Screen.POSTQUIZ));
-            nextScreen.set_testResults(_currentLevel,0,0,0);
-            nextScreen.showResults();
-            //change screen
-            _myParentController.setScreen(Main.Screen.POSTQUIZ);
-            _textfield.setText("");
+            completeTestSaveData();
             return;
         }
 
@@ -168,9 +162,6 @@ public class QuizScreenController implements ControlledScreen{
         if (_status == Status.FIRSTATTEMPT) {//================================================================MASTERED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
 
-                //FESTIVAL READ
-                //read("Correct!");
-
                 //UPDATE SCORE 4pts MASTERED
                 _results[_position] = "MASTERED";
                 _score+=4;
@@ -192,9 +183,6 @@ public class QuizScreenController implements ControlledScreen{
         } else {//==============================================================================================FAULTED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
 
-                //FESTIVAL READ
-                //read("Correct!");
-
                 //UPDATE SCORE 2pts FAULTED
                 _results[_position] = "FAULTED";
                 _score+=2;
@@ -208,8 +196,6 @@ public class QuizScreenController implements ControlledScreen{
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
             } else {//===========================================================================================FAILED
-                //FESTIVAL READ
-                //read("Incorrect");
 
                 //UPDATE SCORE 0pts FAILED
                 _results[_position] = "FAILED";
@@ -280,22 +266,28 @@ public class QuizScreenController implements ControlledScreen{
 
         _database.addScore(_score,_wordList.length,_currentLevel);
         double accuracy = ((double) _score / (_results.length * 4)) * 100;
+        if(Double.isNaN(accuracy)){
+           accuracy = 0.0;
+        }
 
         //get the PostQuizScreen Controller object
         PostQuizController nextScreen = ((PostQuizController)_myParentController.getScreenController(Main.Screen.POSTQUIZ));
         nextScreen.set_testResults(_currentLevel,accuracy,correctCount,_wordList.length);
         nextScreen.showResults();
-        _textfield.setText("");
 
         //change screen
         _myParentController.setScreen(Main.Screen.POSTQUIZ);
+        _textfield.setText("");
     }
 
     public String get_userAttempt() {
         return _userAttempt.get();
     }
 
-
+    /**
+     * Uses the Festival Service class to read the phrase.
+     * @param phrase
+     */
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
         Festival.set_phrase(phrase);

@@ -32,14 +32,6 @@ public class SpellingDatabase implements Serializable{
         _voice = "Default";
     }
 
-    public String get_voice(){
-        return _voice;
-    }
-
-    public void set_voice(String _newVoice){
-        _voice =  _newVoice;
-    }
-
     /**
      * Adds a new word given as a string to the database with a given level. If the
      * word is already in the list then it is not added. Words are saved in an
@@ -292,4 +284,11 @@ public class SpellingDatabase implements Serializable{
         }
     }
 
+    public String get_voice() {
+        return _voice;
+    }
+
+    public void set_voice(String _voice) {
+        this._voice = _voice;
+    }
 }

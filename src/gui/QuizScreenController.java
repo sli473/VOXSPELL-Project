@@ -21,7 +21,8 @@ import javafx.scene.text.Text;
 public class QuizScreenController implements ControlledScreen{
 
     private MasterController _myParentController;
-    private Festival festival = new Festival();
+    
+    private Festival _festival;
 
     @FXML
     private Text _title;
@@ -78,6 +79,7 @@ public class QuizScreenController implements ControlledScreen{
 
     @Override
     public void setup() {
+        _festival = new Festival();
     }
 
 
@@ -154,7 +156,6 @@ public class QuizScreenController implements ControlledScreen{
 
 
     /**
-     * TODO: festival reading
      * This method is called whenever the user attempt string property is changed. This occurs
      * when the user enters a word. Checks if the user's attempt is same as the correct spelling
      * of the word. Ignores case.
@@ -292,11 +293,10 @@ public class QuizScreenController implements ControlledScreen{
     }
 
 
-    //stub method for festival reading
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
         Festival.set_phrase(phrase);
-        festival.restart();
+        _festival.restart();
     }
 
 

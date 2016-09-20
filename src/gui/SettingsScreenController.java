@@ -36,7 +36,7 @@ public class SettingsScreenController implements ControlledScreen{
     }
 
     public void okButtonPressed() throws IOException {
-        //TODO: save changes and go to title screen
+        //TODO: make process concurrent? multithreading?
         if(getChoice(_voiceSelect).equals("Default")){
             String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./src/resources/festival.scm";
             System.out.println(cmd);

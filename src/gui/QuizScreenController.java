@@ -311,8 +311,9 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
+        /*
         _festival.set_phrase(phrase);
-        _festival.restart();
+        _festival.restart();*/
     }
 
     public static boolean is_enableInput() {

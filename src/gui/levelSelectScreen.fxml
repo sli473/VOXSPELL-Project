@@ -30,7 +30,7 @@
    <center>
       <GridPane BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#enterNewQuiz" prefHeight="70.0" prefWidth="70.0" text="1" textAlignment="CENTER">
+            <Button fx:id="_button1" alignment="CENTER" mnemonicParsing="false" onAction="#enterNewQuiz" prefHeight="70.0" prefWidth="70.0" text="1" textAlignment="CENTER">
                <font>
                   <Font name="Abyssinica SIL" size="28.0" />
                </font>

@@ -23,6 +23,8 @@ public class LevelController implements Initializable,ControlledScreen {
 
     private MasterController _myParentController;
 
+    private Button _lastButtonpressed;
+
     @FXML
     private ChoiceBox<String> _quizType;
 
@@ -75,7 +77,9 @@ public class LevelController implements Initializable,ControlledScreen {
         //switch into the quiz menu screen
         _myParentController.setScreen(Main.Screen.QUIZ);
         //prevents user from accidentally double clicking a level so they're given two words to spell.
-        ((Button) event.getSource()).setDisable(true);
+        _lastButtonpressed = ((Button) event.getSource());
+        _lastButtonpressed.setDisable(true);
+
     }
 
     public void backButtonPressed(){

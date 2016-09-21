@@ -18,22 +18,22 @@
          <children>
             <Button fx:id="_nextLevelButton" mnemonicParsing="false" onAction="#nextLevelButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Next Level">
                <font>
-                  <Font size="14.0" />
+                  <Font size="10.0" />
                </font>
             </Button>
             <Button fx:id="_reviewButton" mnemonicParsing="false" onAction="#reviewLevelButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Review Level">
                <font>
-                  <Font size="14.0" />
+                  <Font size="10.0" />
                </font>
             </Button>
             <Button mnemonicParsing="false" onAction="#returnToTitleButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Return to Main menu">
                <font>
-                  <Font size="14.0" />
+                  <Font size="10.0" />
                </font>
             </Button>
             <Button fx:id="_playVideoButton" mnemonicParsing="false" onAction="#playVideoButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Play Video Reward">
                <font>
-                  <Font size="14.0" />
+                  <Font size="10.0" />
                </font>
             </Button>
          </children>

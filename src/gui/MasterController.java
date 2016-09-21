@@ -31,7 +31,7 @@ import java.util.HashMap;
 
 /**
  * The MasterController extends StackPane and contains a HashMap of all the screens.
- * Once hte screen has been loaded it can change screen with a fade in/out transition.
+ * Once the screen has been loaded it can change screen with a fade in/out transition.
  * Also contains the DatabaseIO object for opening and saving the SpellingDatabase object
  * which contains all the spelling words and user stats. All screens has a reference to the
  * MasterController to switch screens, request info from database, etc.

@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -78,7 +80,13 @@ public class StatsScreenController implements ControlledScreen{
      */
     public void screenOpened(){
         _table.setItems(_database.getLevel(_levelSelection.getValue()));
-        _accuracyForLevel.setText("Accuracy: " + _database.getAccuracyScore(_levelSelection.getValue())+"%");
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        Number n =_database.getAccuracyScore(_levelSelection.getValue());
+
+        _accuracyForLevel.setText("Accuracy: " + df.format(n.doubleValue()) +"%");
+        _accuracyForLevel.setText("Accuracy: " + df.format(n.doubleValue()) +"%");
     }
 
 }

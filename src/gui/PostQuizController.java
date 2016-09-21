@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * Author: Yuliang Zhou 6/09/2016
@@ -87,7 +89,10 @@ public class PostQuizController implements ControlledScreen{
     public void set_testResults(String level, double accuracy, int correct, int total){
         _level = level;
         _correct = correct;
-        _accuracy = accuracy;
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        _accuracy = Double.parseDouble(df.format(accuracy));
+
         _total = total;
     }
 

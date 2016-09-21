@@ -16,6 +16,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 /**
@@ -241,10 +243,12 @@ public class QuizScreenController implements ControlledScreen{
 
         //update accuracy rating
         double accuracy = ((double) _score / (_position * 4)) * 100;
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         if(Double.isNaN(accuracy)){
             _accuracy.setText("Accuracy: " + 0.0 + "%");
         }else {
-            _accuracy.setText("Accuracy: " + accuracy + "%");
+            _accuracy.setText("Accuracy: " + df.format(accuracy) + "%");
         }
 
         //end test and change screen

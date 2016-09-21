@@ -2,6 +2,8 @@ package gui;
 
 /**
  * Created by Yuliang on 6/09/2016.
+ * ControlledScreen is implemented from https://github.com/acaicedo/JFX-MultiScreen/blob/master/ScreensFramework/src/screensframework/ControlledScreen.java
+ *
  */
 public interface ControlledScreen {
 

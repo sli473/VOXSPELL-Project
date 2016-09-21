@@ -16,7 +16,8 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 /**
- *
+ * This is the controller for that settingsScreen.fxml. In this Screen it is possible to change the type of voice
+ * used by festival. It also has the option of clearing stats.
  * Author: Yuliang Zhou 7/09/2016
  */
 public class SettingsScreenController implements ControlledScreen{
@@ -36,6 +37,7 @@ public class SettingsScreenController implements ControlledScreen{
     }
 
     /**
+     * Once the okay button is pressed, this method
      * TODO: IOEXCEPTION catch
      * @throws IOException
      */

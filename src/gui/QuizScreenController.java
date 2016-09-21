@@ -45,11 +45,18 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private Button _submit;
 
-
+    /**
+     * reads out the word that needs to be spelt, can be pressed multiple times without penalty.
+     * @param event
+     */
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
     }
 
+    /**
+     * Allows user to quit the current quiz and abandon current progress to go back to the main title screen.
+     * @param event
+     */
     public void abortQuizButtonPressed(ActionEvent event){
         boolean confirm = DialogBox.displayConfirmDialogBox("Quit current quiz","Are you sure you wish to " +
                 "quit current quiz. Unsaved progress will be lost");
@@ -59,7 +66,8 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     /**
-     * enteredWord is called whenever Enter button is pressed or enter key is pressed
+     * enteredWord is called whenever Enter button is pressed or enter key is pressed, it takes the user input from the
+     * textfield and checks if the word matches the proposed word.
      */
     public void enteredWord(ActionEvent event) {
         //TODO: what if user enters same word - tool tip ? or reset stringproperty

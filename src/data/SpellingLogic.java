@@ -83,7 +83,7 @@ public class SpellingLogic {
 
     //stub method
     public void read(String phrase){
-        System.out.println("FESTIVAL: " + phrase);
+        //System.out.println("FESTIVAL: " + phrase);
     }
 
     public String getUserAttempt() {

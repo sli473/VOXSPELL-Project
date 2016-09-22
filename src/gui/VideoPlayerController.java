@@ -53,7 +53,6 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
                 _mediaPlayer.setVolume(_volumeSlider.getValue() / 100);
             }
         });
-
     }
 
     /**
@@ -103,12 +102,10 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
      * returns the creen back into the post screen and stops the video.
      * @param event
      */
-    public void returnToPostQuizScreen(ActionEvent event){
+    public void returnToPostQuizScreen(ActionEvent event) {
         _mediaPlayer.stop();
         _myParentScreensController.setScreen(Main.Screen.POSTQUIZ);
     }
-
-
 
     @Override
     public void setScreenParent(MasterController screenParent) {

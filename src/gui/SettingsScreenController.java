@@ -51,18 +51,24 @@ public class SettingsScreenController implements ControlledScreen{
      * Once the okay button is pressed, this method
      * @throws IOException
      */
-    public void okButtonPressed() throws IOException {
+    public void okButtonPressed() throws IOException, InterruptedException {
         if(getChoice(_voiceSelect).equals("Default")){
-            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./resources/festival.scm ;" +
-                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./resources/festival.scm";
+            String cmd2 ="sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
+            process.waitFor();
+            ProcessBuilder pb2= new ProcessBuilder("/bin/bash", "-c",cmd2);
+            Process process2 = pb2.start();
         }
         else if(getChoice(_voiceSelect).equals("New Zealand")){
-            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./resources/festival.scm ;" +
-                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./resources/festival.scm";
+            String cmd2 = "sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
+            process.waitFor();
+            ProcessBuilder pb2= new ProcessBuilder("/bin/bash", "-c",cmd2);
+            Process process2 = pb2.start();
         }
         _myParentScreensController.getDatabase().set_voice(getChoice(_voiceSelect));
         _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
@@ -114,20 +120,24 @@ public class SettingsScreenController implements ControlledScreen{
     /**
      * when the test button is clicked it will test out the voice settings you've selected.
      */
-    public void testFestival() throws IOException {
+    public void testFestival() throws IOException, InterruptedException {
         if(getChoice(_voiceSelect).equals("Default")){
-            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./resources/festival.scm ;" +
-                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
-            System.out.print(cmd);
+            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./resources/festival.scm";
+            String cmd2 ="sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
-
             Process process = pb.start();
+            process.waitFor();
+            ProcessBuilder pb2= new ProcessBuilder("/bin/bash", "-c",cmd2);
+            Process process2 = pb2.start();
         }
         else if(getChoice(_voiceSelect).equals("New Zealand")){
-            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./resources/festival.scm ;" +
-                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./resources/festival.scm";
+            String cmd2 = "sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
+            process.waitFor();
+            ProcessBuilder pb2= new ProcessBuilder("/bin/bash", "-c",cmd2);
+            Process process2 = pb2.start();
         }
         _myParentScreensController.getDatabase().set_voice(getChoice(_voiceSelect));
         _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
@@ -145,5 +155,4 @@ public class SettingsScreenController implements ControlledScreen{
     public static void set_enableInput(boolean _enableInput) {
         SettingsScreenController._enableInput.set(_enableInput);
     }
-
 }

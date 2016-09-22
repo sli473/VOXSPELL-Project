@@ -88,5 +88,4 @@ public class StatsScreenController implements ControlledScreen{
         _accuracyForLevel.setText("Accuracy: " + df.format(n.doubleValue()) +"%");
         _accuracyForLevel.setText("Accuracy: " + df.format(n.doubleValue()) +"%");
     }
-
 }

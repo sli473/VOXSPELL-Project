@@ -260,8 +260,8 @@ public class QuizScreenController implements ControlledScreen{
 
         //set progress bar
         _progressBar.setProgress((double)(_position)/_wordList.length);
-        System.out.println("SCORE:"+_score);
-        System.out.println("total:"+(_position)*4);
+        //System.out.println("SCORE:"+_score);
+        //System.out.println("total:"+(_position)*4);
 
         //update accuracy rating
         double accuracy = ((double) _score / (_position * 4)) * 100;
@@ -341,8 +341,7 @@ public class QuizScreenController implements ControlledScreen{
      * @param phrase
      */
     public void read(String phrase) {
-        System.out.println("FESTIVAL: " + phrase);
-
+        //System.out.println("FESTIVAL: " + phrase);
         _festival.set_phrase(phrase);
         _festival.restart();
     }

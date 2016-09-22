@@ -9,41 +9,58 @@ import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
-    //TODO
-    //public enum Screen{TITLE,QUIZ,SETTINGS,STATS};
+    private MasterController _mainContainer;
 
-    public static final String titleScreenID = "mainTitle";
+    //Set enums for each screen that has been loaded.
+    public enum Screen{TITLE,QUIZ,LEVELSELECT,POSTQUIZ,SETTINGS,STATS,VIDEO};
+
     public static final String titleScreenFXML = "titleScreen.fxml";
-    public static final String quizScreenID = "quiz";
     public static final String quizScreenFXML = "quizScreen.fxml";
-    public static final String statsScreenID = "statsScreen";
     public static final String statsScreenFXML = "statsScreen.fxml";
-    public static final String optionScreenID = "optionScreen";
-    public static final String optionScreenFXML = "optionScreen.fxml";
+    public static final String settingsScreenFXML = "settingsScreen.fxml";
+    public static final String levelScreenFXML = "levelSelectScreen.fxml";
+    public static final String postQuizScreenFXML = "postQuizScreen.fxml";
+    public static final String videoPlayerFXML = "videoPlayer.fxml";
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(titleScreenID,titleScreenFXML);
-        mainContainer.loadScreen(quizScreenID,quizScreenFXML);
-        mainContainer.loadScreen(statsScreenID,statsScreenFXML);
-        mainContainer.loadScreen(optionScreenID,optionScreenFXML);
+        //loading in all the screens in the main container.
+        _mainContainer = new MasterController();
+        _mainContainer.loadScreen(Screen.TITLE,titleScreenFXML);
+        _mainContainer.loadScreen(Screen.QUIZ,quizScreenFXML);
+        _mainContainer.loadScreen(Screen.STATS,statsScreenFXML);
+        _mainContainer.loadScreen(Screen.SETTINGS,settingsScreenFXML);
+        _mainContainer.loadScreen(Screen.LEVELSELECT,levelScreenFXML);
+        _mainContainer.loadScreen(Screen.POSTQUIZ,postQuizScreenFXML);
+        _mainContainer.loadScreen(Screen.VIDEO,videoPlayerFXML);
 
-        mainContainer.setScreen(titleScreenID);
+        //set the screen on launch to the TITLE screen.
+        _mainContainer.setScreen(Screen.TITLE);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 event.consume(); //prevents window from automatically closing
-                mainContainer.confirmCloseProgram();
+                _mainContainer.confirmCloseProgram();
             }
         });
 
+        // Creates a node that contains an ObservableList of children in order.
         Group root = new Group();
-        root.getChildren().add(mainContainer);
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root));
+        root.getChildren().add(_mainContainer);
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("VOXSPELL Spelling App");
+        //Setting the first stage as the titleScreen.
+        primaryStage.setScene(scene);
+        
+        primaryStage.setMaxHeight(425);
+        primaryStage.setMaxWidth(675);
+        primaryStage.setMinHeight(425);
+        primaryStage.setMinWidth(650);
+
         primaryStage.show();
+
     }
 
     /**
@@ -53,8 +70,8 @@ public class Main extends Application {
      */
     @Override
     public void stop() throws Exception {
-        System.out.println("exited?");
-        //TODO: save object state
+        System.out.println("Exiting...");
+        _mainContainer.saveData();
     }
 
     public static void main(String[] args) {

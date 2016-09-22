@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PostQuizController">
+   <center>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="_nextLevelButton" mnemonicParsing="false" onAction="#nextLevelButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Next Level">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="_reviewButton" mnemonicParsing="false" onAction="#reviewLevelButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Review Level">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#returnToTitleButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Return to Main menu">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="_playVideoButton" mnemonicParsing="false" onAction="#playVideoButtonPressed" prefHeight="120.0" prefWidth="120.0" text="Play Video Reward">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <VBox alignment="CENTER" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="VOXSPELL Level Complete">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Label fx:id="_userResultsOne" text="Display some stats here or something" />
+            <Label fx:id="_userResultsTwo" text="Display some stats here or something" />
+         </children>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
+      </VBox>
+   </top>
+</BorderPane>

@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
  */
 public class TitleScreenController implements ControlledScreen{
 
-    private ScreensController _myParentScreensController;
+    private MasterController _myParentScreensController;
 
     @FXML
     private Button _startButton;
@@ -20,12 +20,20 @@ public class TitleScreenController implements ControlledScreen{
     @FXML
     private Button _quitButton;
 
+    @Override
+    public void setScreenParent(MasterController screenParent) {
+        _myParentScreensController = screenParent;
+    }
+
+    @Override
+    public void setup() {}
+
     /**
      * Requests main screen controller to switch to the quiz scene.
      * Uses a fade in and out transition.
      */
     public void startButtonPressed(){
-        _myParentScreensController.setScreen(Main.quizScreenID);
+        _myParentScreensController.setScreen(Main.Screen.LEVELSELECT);
     }
 
     /**
@@ -34,7 +42,9 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition
      */
     public void displayStatsButtonPressed(){
-        _myParentScreensController.setScreen(Main.statsScreenID);
+        _myParentScreensController.setScreen(Main.Screen.STATS);
+        StatsScreenController nextScreen = (StatsScreenController)_myParentScreensController.getScreenController(Main.Screen.STATS);
+        nextScreen.screenOpened();
     }
 
     /**
@@ -42,15 +52,13 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition.
      */
     public void settingsButtonPressed(){
-        _myParentScreensController.setScreen(Main.optionScreenID);
+        _myParentScreensController.setScreen(Main.Screen.SETTINGS);
     }
 
     public void quitButtonPressed(){
         _myParentScreensController.confirmCloseProgram();
     }
 
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-        _myParentScreensController = screenParent;
-    }
+
+
 }

@@ -42,7 +42,6 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
         File file = new File("./src/resources/play.mp4");
         //converts the media path to a URI.
         _media = new Media(file.toURI().toString());
-        System.out.println(_media);
         _mediaPlayer = new MediaPlayer(_media);
         _mediaView.setMediaPlayer(_mediaPlayer);
         //sets a volume of the mediaPlayer

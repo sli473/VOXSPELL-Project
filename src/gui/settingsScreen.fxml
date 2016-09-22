@@ -68,13 +68,13 @@
                   </HBox>
                   <HBox prefHeight="73.0" prefWidth="610.0">
                      <children>
-                        <Label text="Test Voice" textFill="WHITE">
+                        <Label prefHeight="20.0" prefWidth="115.0" text="Test Voice" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <Region prefHeight="43.0" prefWidth="475.0" />
-                        <Button mnemonicParsing="false" onAction="#testFestival" text="Test">
+                        <Button mnemonicParsing="false" onAction="#testFestival" prefHeight="28.0" prefWidth="70.0" text="Test">
                            <font>
                               <Font size="14.0" />
                            </font>

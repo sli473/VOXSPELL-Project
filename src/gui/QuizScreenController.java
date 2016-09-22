@@ -51,7 +51,10 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
+        //sets focus onto textfield after repeated word.
+        _textfield.requestFocus();
     }
+
 
     /**
      * Allows user to quit the current quiz and abandon current progress to go back to the main title screen.
@@ -82,6 +85,7 @@ public class QuizScreenController implements ControlledScreen{
                 _userAttempt.set(_textfield.getText());
             }
             _textfield.setText("");
+            _textfield.requestFocus();
         }
     }
 

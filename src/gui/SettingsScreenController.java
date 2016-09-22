@@ -42,11 +42,9 @@ public class SettingsScreenController implements ControlledScreen{
 
     /**
      * Once the okay button is pressed, this method
-     * TODO: IOEXCEPTION catch
      * @throws IOException
      */
     public void okButtonPressed() throws IOException {
-        //TODO: make process concurrent? multithreading?
         if(getChoice(_voiceSelect).equals("Default")){
             String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./src/resources/festival.scm ;" +
                     " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./src/resources/festival.scm";
@@ -59,6 +57,8 @@ public class SettingsScreenController implements ControlledScreen{
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
         }
+        _myParentScreensController.getDatabase().set_voice(getChoice(_voiceSelect));
+        _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
         _myParentScreensController.setScreen(Main.Screen.TITLE);
     }
 
@@ -107,6 +107,8 @@ public class SettingsScreenController implements ControlledScreen{
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
         }
+        _myParentScreensController.getDatabase().set_voice(getChoice(_voiceSelect));
+        _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
         _festival.set_phrase("Testing the current voice settings");
         _festival.restart();
     }

@@ -286,6 +286,8 @@ public class SpellingDatabase implements Serializable{
 
     public String get_voiceSpeed() {return _voiceSpeed;}
 
+    public void set_voiceSpeed(String _voiceSpeed) { this._voiceSpeed = _voiceSpeed;}
+
     /**
      * Debugging purposes only
      */

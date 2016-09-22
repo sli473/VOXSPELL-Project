@@ -122,7 +122,7 @@ public class SettingsScreenController implements ControlledScreen{
             Process process = pb.start();
         }
         else if(getChoice(_voiceSelect).equals("New Zealand")){
-            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./resources/festival.scm ;" +
+            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./resources/festival.scm ;" +
                     " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();

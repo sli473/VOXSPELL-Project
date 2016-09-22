@@ -1,3 +1,4 @@
+This project was run on JDK 1.8.
 To run the game you want to take the following steps:
 	
 	1. change the current directory of the terminal to the VOXSPELL_

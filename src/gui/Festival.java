@@ -67,7 +67,7 @@ public class Festival extends Service<Void> {
      * @param phrase
      */
     public void set_phrase(String phrase) {
-        _cmd = "sed -i \"3s/.*/(SayText \\\""+phrase+"\\\")/\" ./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
+        _cmd = "sed -i \"3s/.*/(SayText \\\""+phrase+"\\\")/\" ./resources/festival.scm ; festival -b ./resources/festival.scm";
         _pb = new ProcessBuilder("/bin/bash","-c",_cmd);
     }
 }

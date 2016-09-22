@@ -23,6 +23,7 @@ public class Festival extends Service<Void> {
         super.succeeded();
         //enables the enteredWord method and _submit method.
         QuizScreenController.set_enableInput(true);
+        SettingsScreenController.set_enableInput(true);
     }
 
     /**
@@ -33,6 +34,7 @@ public class Festival extends Service<Void> {
         super.failed();
         //enables the enteredWord method and _submit method.
         QuizScreenController.set_enableInput(true);
+        SettingsScreenController.set_enableInput(true);
     }
 
     /**
@@ -49,6 +51,7 @@ public class Festival extends Service<Void> {
             protected Void call() throws Exception {
                 //disables the enteredWord method and _submit method.
                 QuizScreenController.set_enableInput(false);
+                SettingsScreenController.set_enableInput(false);
                 //starts the process
                 process = _pb.start();
                 //waits for the process to finish before calling succeeded or failed methodss

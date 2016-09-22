@@ -1,6 +1,10 @@
 package gui;
 
 import data.SpellingDatabase;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,8 +30,11 @@ public class SettingsScreenController implements ControlledScreen{
     private ObservableList<String> _voiceTypeList;
     private ObservableList<String> _voiceSpeedList;
     private Festival _festival = new Festival();
+    private static BooleanProperty _enableInput;
 
 
+    @FXML
+    private Button _testButton;
     @FXML
     private ChoiceBox<String> _voiceSelect;
     @FXML
@@ -89,6 +96,19 @@ public class SettingsScreenController implements ControlledScreen{
         _voiceSpeedList = FXCollections.observableArrayList("1.00","1.25","1.50","1.75","2.00");
         _voiceSpeed.setItems(_voiceSpeedList);
         _voiceSpeed.setValue(_myParentScreensController.getDatabase().get_voiceSpeed());
+        _enableInput = new SimpleBooleanProperty(this,"_enableInput",true);
+        //_submit.disableProperty().bind(_enableInput);
+        _enableInput.addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(is_enableInput()){
+                    _testButton.setDisable(false);
+
+                }else{
+                    _testButton.setDisable(true);
+                }
+            }
+        });
     }
 
     /**
@@ -112,6 +132,16 @@ public class SettingsScreenController implements ControlledScreen{
         _festival.set_phrase("Testing the current voice settings");
         _festival.restart();
     }
+    public static boolean is_enableInput() {
+        return _enableInput.get();
+    }
 
+    public static BooleanProperty _enableInputProperty() {
+        return _enableInput;
+    }
+
+    public static void set_enableInput(boolean _enableInput) {
+        SettingsScreenController._enableInput.set(_enableInput);
+    }
 
 }

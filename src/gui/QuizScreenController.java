@@ -46,7 +46,8 @@ public class QuizScreenController implements ControlledScreen{
     private Label _accuracy;
     @FXML
     private Button _submit;
-
+    @FXML
+    private Button _repeat;
     /**
      * reads out the word that needs to be spelt, can be pressed multiple times without penalty.
      * @param event
@@ -114,8 +115,11 @@ public class QuizScreenController implements ControlledScreen{
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(is_enableInput()){
                     _submit.setDisable(false);
+                    _repeat.setDisable(false);
+
                 }else{
                     _submit.setDisable(true);
+                    _repeat.setDisable(true);
                 }
             }
         });

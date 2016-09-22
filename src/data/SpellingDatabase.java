@@ -256,7 +256,9 @@ public class SpellingDatabase implements Serializable{
         return levels;
     }
 
-
+    /**
+     * Sorts the spelling levels from Level 1 to Level 11.
+     */
     private class LevelComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {

@@ -26,9 +26,7 @@ public class TitleScreenController implements ControlledScreen{
     }
 
     @Override
-    public void setup() {
-
-    }
+    public void setup() {}
 
     /**
      * Requests main screen controller to switch to the quiz scene.

@@ -61,10 +61,9 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     /**
-     * enteredWord is called whenever Enter button is pressed or enter key is pressed
+     * The method enteredWord() is called whenever Enter button is pressed or enter key is pressed.
      */
     public void enteredWord(ActionEvent event) {
-        //TODO: what if user enters same word - tool tip ? or reset stringproperty
         if(is_enableInput()){
             if(_textfield.getText().equals("")){
                 _tooltip.setText("Please enter a word");
@@ -90,6 +89,10 @@ public class QuizScreenController implements ControlledScreen{
         _myParentController = screenParent;
     }
 
+    /**
+     * This method is called after the parent screen controller reference is set. Initializes the Festival object
+     * for reading the words, and gets a reference to the database object.
+     */
     @Override
     public void setup() {
         _enableInput = new SimpleBooleanProperty(this,"_enableInput",true);
@@ -260,6 +263,10 @@ public class QuizScreenController implements ControlledScreen{
         }
     }
 
+    /**
+     * Saves the user's test scores to the SpellingDatabase object, then switches to the post quiz screen
+     * and passes the results to the post quiz screen
+     */
     public void completeTestSaveData(){
         int correctCount = 0;
         for(int i=0;i<_results.length;i++){

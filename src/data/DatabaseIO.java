@@ -1,5 +1,7 @@
 package data;
 
+import gui.DialogBox;
+
 import java.io.*;
 
 /**
@@ -23,6 +25,7 @@ public class DatabaseIO {
      * Upon creating the GUI frame open the saved data if it exists.
      * Otherwise create a new object.
      * Only called in initialisation of main GUI frame.
+     * @return SpellingDatabase
      */
     public SpellingDatabase openData() {
         SpellingDatabase data = null;
@@ -47,9 +50,11 @@ public class DatabaseIO {
         return data;
     }
 
+
     /**
      * Saves the SpellingStatsModel object instance to a hidden .ser file.
      * Called when main GUI frame is closed.
+     * @param data
      */
     public void writeData(SpellingDatabase data){
         if(!_hiddenFile.exists()){ //create hidden .ser file if it does not exist
@@ -75,7 +80,9 @@ public class DatabaseIO {
     }
 
     /**
-     * Reads each line of "wordlist" file and adds any new words to current word list object in SpellingStatsModel
+     * Reads each line of "wordlist" file and adds any new words to current word list object in SpellingStatsModel.
+     * This method is called after reading the data.
+     * @param database
      */
     public void updateWordList(SpellingDatabase database){
         try {
@@ -84,7 +91,7 @@ public class DatabaseIO {
             String line;
             String levelKey = "";
             while((line = br.readLine())!=null){
-                if(line.charAt(0) == '%' ){//change level key
+                if(line.charAt(0) == '%' ){//get level key
                     levelKey = line.substring(1);
                 }else{
                     database.addNewWord(levelKey, line.trim());
@@ -92,7 +99,7 @@ public class DatabaseIO {
             }
             br.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            DialogBox.errorDialogBox("Error","Could not find spelling list text file. Please refer to README and try again.");
         } catch (IOException e) {
             e.printStackTrace();
         }

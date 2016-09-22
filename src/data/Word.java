@@ -4,7 +4,8 @@ package data;
 import java.io.Serializable;
 
 /**
- *
+ * The Word object is a serializable class which stores the spelling of a word along with the number
+ * of times it has been Mastered, Faulted, and Failed.
  * @author Yuliang Zhou yzho746 7/09/2016
  *
  */
@@ -78,7 +79,7 @@ public class Word implements Serializable{
     }
 
     /**
-     * returns the name of the word
+     * Returns the name of the word
      */
     @Override
     public String toString() {

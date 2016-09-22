@@ -50,7 +50,6 @@ public class Festival extends Service<Void> {
                 //disables the enteredWord method and _submit method.
                 QuizScreenController.set_enableInput(false);
                 //starts the process
-                System.out.println("read");
                 process = _pb.start();
                 //waits for the process to finish before calling succeeded or failed methodss
                 process.waitFor();

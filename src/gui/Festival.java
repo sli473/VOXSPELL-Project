@@ -50,7 +50,6 @@ public class Festival extends Service<Void> {
                 //disables the enteredWord method and _submit method.
                 QuizScreenController.set_enableInput(false);
                 //starts the process
-                System.out.println("read");
                 process = _pb.start();
                 //waits for the process to finish before calling succeeded or failed methodss
                 process.waitFor();
@@ -68,7 +67,7 @@ public class Festival extends Service<Void> {
      * @param phrase
      */
     public void set_phrase(String phrase) {
-        _cmd = "sed -i \"3s/.*/(SayText \\\""+phrase+"\\\")/\" ./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
+        _cmd = "sed -i \"3s/.*/(SayText \\\""+phrase+"\\\")/\" ./resources/festival.scm ; festival -b ./resources/festival.scm";
         _pb = new ProcessBuilder("/bin/bash","-c",_cmd);
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.media.*?>
@@ -16,36 +17,93 @@
    <bottom>
       <HBox prefHeight="50.0" prefWidth="650.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#play" text="Play">
+            <Button mnemonicParsing="false" onAction="#play">
                <HBox.margin>
-                  <Insets bottom="10.0" left="60.0" top="10.0" />
+                  <Insets bottom="10.0" left="160.0" top="10.0" />
                </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/playbutton.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#pause" text="Pause">
-               <HBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#fastforward" text="Fast Forward">
-               <HBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#slowDown" text="Slow Down">
+            <Button mnemonicParsing="false" onAction="#slowDown">
                <HBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/rewind.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#reload" text="Reload">
+            <Button mnemonicParsing="false" onAction="#fastforward" prefHeight="28.0" prefWidth="41.0">
                <HBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/fastforward.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#returnToPostQuizScreen" text="Return">
+            <Button mnemonicParsing="false" onAction="#pause">
                <HBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="63.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pause.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
+            <Button mnemonicParsing="false" onAction="#reload">
+               <HBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/reload.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#returnToPostQuizScreen">
+               <HBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="76.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/return.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/sound.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Volume" textFill="WHITE">

@@ -39,10 +39,9 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //locates the file location of play.mp4
-        File file = new File("./src/resources/play.mp4");
+        File file = new File("./resources/play.mp4");
         //converts the media path to a URI.
         _media = new Media(file.toURI().toString());
-        System.out.println(_media);
         _mediaPlayer = new MediaPlayer(_media);
         _mediaView.setMediaPlayer(_mediaPlayer);
         //sets a volume of the mediaPlayer

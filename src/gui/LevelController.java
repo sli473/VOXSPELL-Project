@@ -16,17 +16,24 @@ import java.util.ResourceBundle;
 
 
 /**
+ * This class is the Controller for the levelSelectScreen.fxml. It transitions the to the quizScreen.fxml when a
+ * level button is clicked. This screen also gives the user the option to set which Test mode they wish to enter
+ * depending on their decision at the choicebox _quizType.
  * Created by Samule Li on 13/09/16.
  */
 public class LevelController implements Initializable,ControlledScreen {
     
     ObservableList<String> _quizTypeList;
-
     private MasterController _myParentController;
-
     @FXML
     private ChoiceBox<String> _quizType;
 
+    /**
+     * Intializes the fields for the Choicebox after the fxml annotated members have been injected.
+     * Gives the Choicebox the options "New Quiz" and "Revision Quiz"
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         _quizTypeList = FXCollections.observableArrayList("New Quiz","Revision Quiz");
@@ -49,7 +56,7 @@ public class LevelController implements Initializable,ControlledScreen {
     }
 
     /**
-     * This is method called whenever a level tile button is clicked. Switches the scene to
+     * This method is called whenever a level tile button is clicked. Switches the scene to
      * quizScreen and calls the setupTest method in the MasterController.
      * @param event
      */
@@ -98,6 +105,9 @@ public class LevelController implements Initializable,ControlledScreen {
         }.start();
     }
 
+    /**
+     * This method is called when the back button is pressed and Switches the scene to the TITLE screen.
+     */
     public void backButtonPressed(){
         _myParentController.setScreen(Main.Screen.TITLE);
     }

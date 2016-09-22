@@ -31,15 +31,23 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
     @FXML
     private Slider _volumeSlider;
 
-
+    /**
+     * Initialises media by locating the position of the media file that we wish to play.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("./resources/play.mp4");
+        //locates the file location of play.mp4
+        File file = new File("./src/resources/play.mp4");
+        //converts the media path to a URI.
         _media = new Media(file.toURI().toString());
+        System.out.println(_media);
         _mediaPlayer = new MediaPlayer(_media);
-        System.out.println("could compile Media player");
         _mediaView.setMediaPlayer(_mediaPlayer);
+        //sets a volume of the mediaPlayer
         _volumeSlider.setValue(_mediaPlayer.getVolume() * 100);
+        //makes the volume adjustable via a slider.
         _volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -49,29 +57,53 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
 
     }
 
+    /**
+     * plays the video at speed 1.
+     * @param event
+     */
     public void play(ActionEvent event){
         _mediaPlayer.play();
         _mediaPlayer.setRate(1);
     }
 
+    /**
+     * pauses the video.
+     * @param event
+     */
     public void pause(ActionEvent event){
         _mediaPlayer.pause();
     }
 
+    /**
+     * fastforwards the video.
+     * @param event
+     */
     public void fastforward(ActionEvent event){
         _mediaPlayer.setRate(2);
     }
 
+    /**
+     * slows down the video.
+     * @param event
+     */
     public void slowDown(ActionEvent event){
         _mediaPlayer.setRate(0.5);
     }
 
+    /**
+     * starts the video from the beginnning again.
+     * @param event
+     */
     public void reload(ActionEvent event){
         _mediaPlayer.seek(_mediaPlayer.getStartTime());
         _mediaPlayer.play();
         _mediaPlayer.setRate(1);
     }
 
+    /**
+     * returns the creen back into the post screen and stops the video.
+     * @param event
+     */
     public void returnToPostQuizScreen(ActionEvent event){
         _mediaPlayer.stop();
         _myParentScreensController.setScreen(Main.Screen.POSTQUIZ);

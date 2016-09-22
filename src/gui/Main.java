@@ -11,6 +11,7 @@ public class Main extends Application {
 
     private MasterController _mainContainer;
 
+    //Set enums for each screen that has been loaded.
     public enum Screen{TITLE,QUIZ,LEVELSELECT,POSTQUIZ,SETTINGS,STATS,VIDEO};
 
     public static final String titleScreenFXML = "titleScreen.fxml";
@@ -24,6 +25,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        //loading in all the screens in the main container.
         _mainContainer = new MasterController();
         _mainContainer.loadScreen(Screen.TITLE,titleScreenFXML);
         _mainContainer.loadScreen(Screen.QUIZ,quizScreenFXML);
@@ -33,6 +35,7 @@ public class Main extends Application {
         _mainContainer.loadScreen(Screen.POSTQUIZ,postQuizScreenFXML);
         _mainContainer.loadScreen(Screen.VIDEO,videoPlayerFXML);
 
+        //set the screen on launch to the TITLE screen.
         _mainContainer.setScreen(Screen.TITLE);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -43,16 +46,18 @@ public class Main extends Application {
             }
         });
 
+        // Creates a node that contains an ObservableList of children in order.
         Group root = new Group();
         root.getChildren().add(_mainContainer);
         Scene scene = new Scene(root);
         primaryStage.setTitle("VOXSPELL Spelling App");
+        //Setting the first stage as the titleScreen.
         primaryStage.setScene(scene);
         
-        primaryStage.setMaxHeight(435);
+        primaryStage.setMaxHeight(425);
         primaryStage.setMaxWidth(675);
-        primaryStage.setMinHeight(435);
-        primaryStage.setMinWidth(675);
+        primaryStage.setMinHeight(425);
+        primaryStage.setMinWidth(650);
 
         primaryStage.show();
 

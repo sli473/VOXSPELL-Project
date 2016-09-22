@@ -15,6 +15,9 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
+ * This is the controller for the postQuizScreen.fxml. This screen gives the user the option to play the next level,
+ * review the mistakes made on the current level, return to the main menu or play the reward video. Playing the reward
+ * video or play next level is only available if you get 9 or more words correct.
  * Author: Yuliang Zhou 6/09/2016
  */
 public class PostQuizController implements ControlledScreen{
@@ -68,6 +71,11 @@ public class PostQuizController implements ControlledScreen{
         nextScreen.setupTest(nextLevel,false);
     }
 
+    /**
+     * When the reivew Level button is pressed this method is called. When called the screen will be set into the
+     * quiz screen on review mode.
+     * @param event
+     */
     public void reviewLevelButtonPressed(ActionEvent event){
         //change into the review quiz screen
         _myParentController.setScreen(Main.Screen.QUIZ);
@@ -85,7 +93,7 @@ public class PostQuizController implements ControlledScreen{
     @Override
     public void setup() {
     }
-
+    // sets the fields of the test results of the current level.
     public void set_testResults(String level, double accuracy, int correct, int total){
         _level = level;
         _correct = correct;

@@ -1,2 +1,3 @@
-(voice_akl_nz_jdt_diphone)
+(voice_kal_diphone)
+(Parameter.set 'Duration_Stretch 1.00)
 (SayText "Correct. Please spell: it")

@@ -47,11 +47,21 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private Button _submit;
 
-
+    /**
+     * reads out the word that needs to be spelt, can be pressed multiple times without penalty.
+     * @param event
+     */
     public void repeatButtonPressed(ActionEvent event){
         read(_wordList[_position]);
+        //sets focus onto textfield after repeated word.
+        _textfield.requestFocus();
     }
 
+
+    /**
+     * Allows user to quit the current quiz and abandon current progress to go back to the main title screen.
+     * @param event
+     */
     public void abortQuizButtonPressed(ActionEvent event){
         boolean confirm = DialogBox.displayConfirmDialogBox("Quit current quiz","Are you sure you wish to " +
                 "quit current quiz. Unsaved progress will be lost");
@@ -61,7 +71,8 @@ public class QuizScreenController implements ControlledScreen{
     }
 
     /**
-     * The method enteredWord() is called whenever Enter button is pressed or enter key is pressed.
+     * enteredWord is called whenever Enter button is pressed or enter key is pressed, it takes the user input from the
+     * textfield and checks if the word matches the proposed word.
      */
     public void enteredWord(ActionEvent event) {
         if(is_enableInput()){
@@ -75,6 +86,7 @@ public class QuizScreenController implements ControlledScreen{
                 _userAttempt.set(_textfield.getText());
             }
             _textfield.setText("");
+            _textfield.requestFocus();
         }
     }
 
@@ -313,6 +325,7 @@ public class QuizScreenController implements ControlledScreen{
 
         //change screen
         _myParentController.setScreen(Main.Screen.POSTQUIZ);
+        _textfield.setText("");
     }
 
     public String get_userAttempt() {
@@ -325,6 +338,7 @@ public class QuizScreenController implements ControlledScreen{
      */
     public void read(String phrase) {
         System.out.println("FESTIVAL: " + phrase);
+
         _festival.set_phrase(phrase);
         _festival.restart();
     }

@@ -28,12 +28,27 @@
             </HBox>
             <HBox prefWidth="200.0">
                <children>
-                  <Label text="Level">
+                  <Label text="Voice Speed">
                      <font>
                         <Font size="16.0" />
                      </font></Label>
                   <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <ChoiceBox prefWidth="150.0" />
+                  <ChoiceBox fx:id="_voiceSpeed" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="73.0" prefWidth="610.0">
+               <children>
+                  <Label text="Test Voice">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="43.0" prefWidth="475.0" />
+                  <Button mnemonicParsing="false" onAction="#testFestival" text="Test">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
             <HBox prefWidth="200.0">

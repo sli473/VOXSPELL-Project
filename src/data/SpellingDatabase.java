@@ -23,6 +23,7 @@ public class SpellingDatabase implements Serializable{
     private HashMap< String, Integer > _attemptsForLevel;
 
     private String _voice;
+    private String _voiceSpeed;
 
     public SpellingDatabase(){
         _spellingWords = new HashMap<>();
@@ -30,6 +31,7 @@ public class SpellingDatabase implements Serializable{
         _scoreForLevel = new HashMap<>();
         _attemptsForLevel = new HashMap<>();
         _voice = "Default";
+        _voiceSpeed = "1.00";
     }
 
     /**
@@ -283,6 +285,10 @@ public class SpellingDatabase implements Serializable{
     public void set_voice(String _voice) {
         this._voice = _voice;
     }
+
+    public String get_voiceSpeed() {return _voiceSpeed;}
+
+    public void set_voiceSpeed(String _voiceSpeed) { this._voiceSpeed = _voiceSpeed;}
 
     /**
      * Debugging purposes only

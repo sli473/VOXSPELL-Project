@@ -23,11 +23,15 @@ import java.util.ResourceBundle;
 public class SettingsScreenController implements ControlledScreen{
 
     private MasterController _myParentScreensController;
-    ObservableList<String> _voiceTypeList;
+    private ObservableList<String> _voiceTypeList;
+    private ObservableList<String> _voiceSpeedList;
+    private Festival _festival = new Festival();
 
 
     @FXML
     private ChoiceBox<String> _voiceSelect;
+    @FXML
+    private ChoiceBox<String> _voiceSpeed;
     @FXML
     private Button _okButton;
 
@@ -44,12 +48,14 @@ public class SettingsScreenController implements ControlledScreen{
     public void okButtonPressed() throws IOException {
         //TODO: make process concurrent? multithreading?
         if(getChoice(_voiceSelect).equals("Default")){
-            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./src/resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./src/resources/festival.scm ;" +
+                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./src/resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
         }
         else if(getChoice(_voiceSelect).equals("New Zealand")){
-            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./src/resources/festival.scm";
+            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./src/resources/festival.scm ;" +
+                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./src/resources/festival.scm";
             ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
             Process process = pb.start();
         }
@@ -80,6 +86,29 @@ public class SettingsScreenController implements ControlledScreen{
         _voiceTypeList = FXCollections.observableArrayList("Default","New Zealand");
         _voiceSelect.setItems(_voiceTypeList);
         _voiceSelect.setValue(_myParentScreensController.getDatabase().get_voice());
+        _voiceSpeedList = FXCollections.observableArrayList("1.00","1.25","1.50","1.75","2.00");
+        _voiceSpeed.setItems(_voiceSpeedList);
+        _voiceSpeed.setValue(_myParentScreensController.getDatabase().get_voiceSpeed());
+    }
+
+    /**
+     * when the test button is clicked it will test out the voice settings you've selected.
+     */
+    public void testFestival() throws IOException {
+        if(getChoice(_voiceSelect).equals("Default")){
+            String cmd = "sed -i \"1s/.*/(voice_kal_diphone)/\" ./src/resources/festival.scm ;" +
+                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./src/resources/festival.scm";
+            ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
+            Process process = pb.start();
+        }
+        else if(getChoice(_voiceSelect).equals("New Zealand")){
+            String cmd = "sed -i \"1s/.*/(voice_akl_nz_jdt_diphone)/\" ./src/resources/festival.scm ;" +
+                    " sed -i \"2s/.*/(Parameter.set 'Duration_Stretch "+getChoice(_voiceSpeed)+")/\" ./src/resources/festival.scm";
+            ProcessBuilder pb = new ProcessBuilder("/bin/bash","-c",cmd);
+            Process process = pb.start();
+        }
+        _festival.set_phrase("Testing the current voice settings");
+        _festival.restart();
     }
 
 

@@ -1,2 +1,3 @@
-(voice_akl_nz_jdt_diphone)
-(SayText "Correct. Please spell: acceptance")
+(voice_kal_diphone)
+(Parameter.set 'Duration_Stretch 1.00)
+(SayText "and")

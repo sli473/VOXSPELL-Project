@@ -25,10 +25,15 @@
          <center>
             <VBox alignment="CENTER" prefHeight="150.0" spacing="15.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="_startButton" alignment="CENTER" mnemonicParsing="false" onAction="#startButtonPressed" prefWidth="150.0" text="Start Quiz">
+                  <Button fx:id="_startButton" alignment="CENTER" mnemonicParsing="false" onAction="#startButtonPressed" prefWidth="150.0" text="Story Mode">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Custom Mode">
                      <font>
                         <Font size="14.0" />
                      </font>

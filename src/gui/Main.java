@@ -4,8 +4,12 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.File;
 
 public class Main extends Application {
 
@@ -21,7 +25,7 @@ public class Main extends Application {
     public static final String levelScreenFXML = "levelSelectScreen.fxml";
     public static final String postQuizScreenFXML = "postQuizScreen.fxml";
     public static final String videoPlayerFXML = "videoPlayer.fxml";
-
+    public static MediaPlayer _mediaPlayer;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -61,6 +65,15 @@ public class Main extends Application {
 
         primaryStage.show();
 
+        File file = new File("./src/resources/play.mp3");
+        Media musicFile = new Media(file.toURI().toString());
+        _mediaPlayer = new MediaPlayer(musicFile);
+        _mediaPlayer.setAutoPlay(true);
+        _mediaPlayer.setVolume(0.1);
+
+
+
+
     }
 
     /**
@@ -72,6 +85,14 @@ public class Main extends Application {
     public void stop() throws Exception {
         System.out.println("Exiting...");
         _mainContainer.saveData();
+    }
+
+    public static void toggleMusic(){
+        if(_mediaPlayer.isMute())
+            _mediaPlayer.setMute(false);
+        else{
+            _mediaPlayer.setMute(true);
+        }
     }
 
     public static void main(String[] args) {

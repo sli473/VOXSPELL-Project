@@ -121,6 +121,11 @@ public class SettingsScreenController implements ControlledScreen{
         _festival.change_settings("Testing the current voice settings");
         _festival.restart();
     }
+
+    public void toggleMute(){
+        Main.toggleMusic();
+    }
+
     public static boolean is_enableInput() {
         return _enableInput.get();
     }

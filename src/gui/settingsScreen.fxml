@@ -24,6 +24,14 @@
          <bottom>
             <HBox prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
+                  <Button mnemonicParsing="false" onAction="#toggleMute" text="Mute">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                   <Region HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#okButtonPressed" text="OK">
                      <font>

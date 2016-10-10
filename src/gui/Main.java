@@ -16,7 +16,7 @@ public class Main extends Application {
     private MasterController _mainContainer;
 
     //Set enums for each screen that has been loaded.
-    public enum Screen{TITLE,QUIZ,LEVELSELECT,POSTQUIZ,SETTINGS,STATS,VIDEO};
+    public enum Screen{TITLE,QUIZ,LEVELSELECT,POSTQUIZ,SETTINGS,STATS,VIDEO,CUSTOM};
 
     public static final String titleScreenFXML = "titleScreen.fxml";
     public static final String quizScreenFXML = "quizScreen.fxml";
@@ -25,6 +25,7 @@ public class Main extends Application {
     public static final String levelScreenFXML = "levelSelectScreen.fxml";
     public static final String postQuizScreenFXML = "postQuizScreen.fxml";
     public static final String videoPlayerFXML = "videoPlayer.fxml";
+    public static final String customLevelFXML = "customLevel.fxml";
     public static MediaPlayer _mediaPlayer;
     public static MediaPlayer _click;
     public static MediaPlayer _victory;
@@ -41,6 +42,7 @@ public class Main extends Application {
         _mainContainer.loadScreen(Screen.LEVELSELECT,levelScreenFXML);
         _mainContainer.loadScreen(Screen.POSTQUIZ,postQuizScreenFXML);
         _mainContainer.loadScreen(Screen.VIDEO,videoPlayerFXML);
+        _mainContainer.loadScreen(Screen.CUSTOM,customLevelFXML);
 
         //set the screen on launch to the TITLE screen.
         _mainContainer.setScreen(Screen.TITLE);
@@ -62,7 +64,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         
         primaryStage.setMaxHeight(425);
-        primaryStage.setMaxWidth(675);
+        primaryStage.setMaxWidth(650);
         primaryStage.setMinHeight(425);
         primaryStage.setMinWidth(650);
 

@@ -62,4 +62,9 @@ public class TitleScreenController implements ControlledScreen{
         _myParentScreensController.confirmCloseProgram();
         Main.click();
     }
+
+    public void customButtonPressed(){
+        _myParentScreensController.setScreen(Main.Screen.CUSTOM);
+        Main.click();
+    }
 }

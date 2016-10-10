@@ -33,7 +33,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Custom Mode">
+                  <Button mnemonicParsing="false" onAction="#customButtonPressed" prefHeight="25.0" prefWidth="151.0" text="Custom Mode">
                      <font>
                         <Font size="14.0" />
                      </font>

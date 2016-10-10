@@ -62,7 +62,7 @@ public class SettingsScreenController implements ControlledScreen{
         _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
         _festival.change_settings("Settings Changed");
         _festival.restart();
-
+        Main.click();
         _myParentScreensController.setScreen(Main.Screen.TITLE);
     }
 
@@ -70,6 +70,7 @@ public class SettingsScreenController implements ControlledScreen{
 
     public void clearStatsButtonPressed(){
         _myParentScreensController.requestClearStats();
+        Main.click();
     }
 
     /**
@@ -120,10 +121,12 @@ public class SettingsScreenController implements ControlledScreen{
         _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
         _festival.change_settings("Testing the current voice settings");
         _festival.restart();
+        Main.click();
     }
 
     public void toggleMute(){
         Main.toggleMusic();
+        Main.click();
     }
 
     public static boolean is_enableInput() {

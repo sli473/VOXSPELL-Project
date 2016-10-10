@@ -26,6 +26,9 @@ public class Main extends Application {
     public static final String postQuizScreenFXML = "postQuizScreen.fxml";
     public static final String videoPlayerFXML = "videoPlayer.fxml";
     public static MediaPlayer _mediaPlayer;
+    public static MediaPlayer _click;
+    public static MediaPlayer _victory;
+    public static MediaPlayer _failiure;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -69,11 +72,22 @@ public class Main extends Application {
         Media musicFile = new Media(file.toURI().toString());
         _mediaPlayer = new MediaPlayer(musicFile);
         _mediaPlayer.setAutoPlay(true);
-        _mediaPlayer.setVolume(0.1);
+        _mediaPlayer.setVolume(0.05);
 
+       File clickSoundFile = new File("./src/resources/menuclick.wav");
+       Media clickSound = new Media(clickSoundFile.toURI().toString());
+        _click = new MediaPlayer(clickSound);
+        _click.setVolume(1);
 
+        File SuccessFile = new File("./src/resources/success.wav");
+        Media success = new Media(SuccessFile.toURI().toString());
+        _victory = new MediaPlayer(success);
+        _victory.setVolume(1);
 
-
+        File FailFile = new File("./src/resources/fail.wav");
+        Media fail = new Media(FailFile.toURI().toString());
+        _failiure = new MediaPlayer(fail);
+        _failiure.setVolume(1);
     }
 
     /**
@@ -93,6 +107,21 @@ public class Main extends Application {
         else{
             _mediaPlayer.setMute(true);
         }
+    }
+
+    public static void click(){
+        _click.seek(_click.getStartTime());
+        _click.play();
+    }
+
+    public static void victory(){
+        _victory.seek(_victory.getStartTime());
+        _victory.play();
+    }
+
+    public static void failiure(){
+        _failiure.seek(_failiure.getStartTime());
+        _failiure.play();
     }
 
     public static void main(String[] args) {

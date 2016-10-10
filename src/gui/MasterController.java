@@ -137,7 +137,7 @@ public class MasterController extends StackPane {
                 //fade out/fade in transition
                 Timeline transition = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
+                        new KeyFrame(new Duration(500), new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
                                 getChildren().remove(0);    //remove the displayed screens
@@ -156,7 +156,7 @@ public class MasterController extends StackPane {
                 //fade in transition
                 Timeline transition = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                        new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
+                        new KeyFrame(new Duration(500), new KeyValue(opacity, 1.0)));
                 transition.play();
             }
             return true;

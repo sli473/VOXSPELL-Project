@@ -34,6 +34,7 @@ public class TitleScreenController implements ControlledScreen{
      */
     public void startButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.LEVELSELECT);
+        Main.click();
     }
 
     /**
@@ -45,6 +46,7 @@ public class TitleScreenController implements ControlledScreen{
         _myParentScreensController.setScreen(Main.Screen.STATS);
         StatsScreenController nextScreen = (StatsScreenController)_myParentScreensController.getScreenController(Main.Screen.STATS);
         nextScreen.screenOpened();
+        Main.click();
     }
 
     /**
@@ -53,9 +55,11 @@ public class TitleScreenController implements ControlledScreen{
      */
     public void settingsButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.SETTINGS);
+        Main.click();
     }
 
     public void quitButtonPressed(){
         _myParentScreensController.confirmCloseProgram();
+        Main.click();
     }
 }

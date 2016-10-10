@@ -39,6 +39,7 @@ public class StatsScreenController implements ControlledScreen{
 
     public void backButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.TITLE);
+        Main.click();
     }
 
     @Override

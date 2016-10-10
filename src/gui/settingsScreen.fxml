@@ -24,13 +24,20 @@
          <bottom>
             <HBox prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#toggleMute" text="Mute">
+                  <Button mnemonicParsing="false" onAction="#toggleMute">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Logomakr_4INmcr.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                   <Region HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#okButtonPressed" text="OK">

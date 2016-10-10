@@ -213,13 +213,16 @@ public class QuizScreenController implements ControlledScreen{
                 _position++;
                 if( _position == _wordList.length ){
                     completed = true;
+                    Main.victory();
                     read("Correct.");
                 }else {//Move onto next word
+                    Main.victory();
                     read("Correct. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
 
             } else { // GO TO SECOND ATTEMPT
+                Main.failiure();
                 read("Incorrect. Please try again: " + _wordList[_position]);
                 _progressLabel.setText("Incorrect. Please spell word "+(_position+1)+" of "+_wordList.length);
                 _status = Status.SECONDATTEMPT;
@@ -235,8 +238,10 @@ public class QuizScreenController implements ControlledScreen{
                 _position++;
                 if( _position == _wordList.length ){
                     completed = true;
+                    Main.victory();
                     read("Correct.");
                 }else {//Correct on second attempt. Move onto next word
+                    Main.victory();
                     read("Correct. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
@@ -249,8 +254,10 @@ public class QuizScreenController implements ControlledScreen{
                 _position++;
                 if( _position == _wordList.length ){
                     completed = true;
+                    Main.failiure();
                     read("Incorrect");
                 }else {
+                    Main.failiure();
                     read("Incorrect. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }

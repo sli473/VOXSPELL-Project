@@ -51,6 +51,7 @@ public class PostQuizController implements ControlledScreen{
      * @throws IOException
      */
     public void playVideoButtonPressed(ActionEvent event)throws IOException{
+        Main.click();
         _myParentController.setScreen(Main.Screen.VIDEO);
     }
 
@@ -65,6 +66,7 @@ public class PostQuizController implements ControlledScreen{
 
         //change into quiz screen
         _myParentController.setScreen(Main.Screen.QUIZ);
+        Main.click();
 
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
@@ -79,6 +81,7 @@ public class PostQuizController implements ControlledScreen{
     public void reviewLevelButtonPressed(ActionEvent event){
         //change into the review quiz screen
         _myParentController.setScreen(Main.Screen.QUIZ);
+        Main.click();
 
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
@@ -128,6 +131,7 @@ public class PostQuizController implements ControlledScreen{
         }else{
             _nextLevelButton.setDisable(false);
         }
+        Main.click();
 
     }
 }

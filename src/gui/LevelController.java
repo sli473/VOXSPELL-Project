@@ -103,6 +103,7 @@ public class LevelController implements Initializable,ControlledScreen {
                 });
             }
         }.start();
+        Main.click();
     }
 
     /**
@@ -110,6 +111,7 @@ public class LevelController implements Initializable,ControlledScreen {
      */
     public void backButtonPressed(){
         _myParentController.setScreen(Main.Screen.TITLE);
+        Main.click();
     }
 
 

@@ -8,6 +8,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -75,6 +76,13 @@ public class Main extends Application {
         _mediaPlayer = new MediaPlayer(musicFile);
         _mediaPlayer.setAutoPlay(true);
         _mediaPlayer.setVolume(0.05);
+        _mediaPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                _mediaPlayer.seek(Duration.ZERO);
+            }
+        });
+        _mediaPlayer.onRepeatProperty();
+
 
        File clickSoundFile = new File("./src/resources/menuclick.wav");
        Media clickSound = new Media(clickSoundFile.toURI().toString());

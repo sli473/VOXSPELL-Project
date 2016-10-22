@@ -15,10 +15,14 @@ public class DatabaseIO {
 
     private File _hiddenFile;
     private File _wordListFile;
+    private File _customFile;
+    private File _customListFile;
 
     public DatabaseIO(){
         _hiddenFile = new File(".spellingData.ser");
         _wordListFile = new File("NZCER-spelling-lists.txt");
+        _customFile = new File(".customSpellingData.ser");
+        //_customListFile = new File();
     }
 
     /**
@@ -27,11 +31,11 @@ public class DatabaseIO {
      * Only called in initialisation of main GUI frame.
      * @return SpellingDatabase
      */
-    public SpellingDatabase openData() {
+    public SpellingDatabase openData(File spellingData, File spellingList, boolean custom) { // have an input argument of of which List it is
         SpellingDatabase data = null;
-        if(_hiddenFile.exists()){
+        if(spellingData.exists()){
             try {
-                FileInputStream streamIn = new FileInputStream(".spellingData.ser");
+                FileInputStream streamIn = new FileInputStream(spellingData);
                 ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
                 data = (SpellingDatabase) objectinputstream.readObject();
                 streamIn.close();
@@ -46,7 +50,8 @@ public class DatabaseIO {
             data = new SpellingDatabase();
             System.out.println("New object created");
         }
-        updateWordList(data);
+
+        updateWordList(data, spellingList, custom);
         return data;
     }
 
@@ -56,17 +61,17 @@ public class DatabaseIO {
      * Called when main GUI frame is closed.
      * @param data
      */
-    public void writeData(SpellingDatabase data){
-        if(!_hiddenFile.exists()){ //create hidden .ser file if it does not exist
+    public void writeData(SpellingDatabase data, File file){
+        if(!file.exists()){ //create hidden .ser file if it does not exist
             try {
-                _hiddenFile.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {
                 //error creating hidden .ser file
             }
         }
         //write SpellingStatsModel object instance's data to the hidden file
         try {
-            FileOutputStream fout = new FileOutputStream(".spellingData.ser", false);
+            FileOutputStream fout = new FileOutputStream(file, false);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(data);
             fout.close();
@@ -84,15 +89,20 @@ public class DatabaseIO {
      * This method is called after reading the data.
      * @param database
      */
-    public void updateWordList(SpellingDatabase database){
+    public void updateWordList(SpellingDatabase database, File spellingList, boolean custom){
         try {
-            FileReader fr = new FileReader(_wordListFile);
+            FileReader fr = new FileReader(spellingList); //change it to wordList argument file
             BufferedReader br = new BufferedReader(fr);
             String line;
             String levelKey = "";
             while((line = br.readLine())!=null){
                 if(line.charAt(0) == '%' ){//get level key
-                    levelKey = line.substring(1);
+                    if(custom){
+                        levelKey = "C"+line.substring(1);
+                    }
+                    else {
+                        levelKey = line.substring(1);
+                    }
                 }else{
                     database.addNewWord(levelKey, line.trim());
                 }
@@ -104,6 +114,21 @@ public class DatabaseIO {
             e.printStackTrace();
         }
 
+    }
+    public void set_customListFile(File file){
+        _customListFile = file;
+    }
+
+    public File get_hiddenFile(){
+        return _hiddenFile;
+    }
+
+    public File get_wordListFile(){
+        return _wordListFile;
+    }
+
+    public File get_customFile(){
+        return _customFile;
     }
 
 }

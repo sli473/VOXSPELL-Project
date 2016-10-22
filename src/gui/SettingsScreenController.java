@@ -1,5 +1,6 @@
 package gui;
 
+import data.DatabaseIO;
 import data.SpellingDatabase;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,7 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -137,6 +141,18 @@ public class SettingsScreenController implements ControlledScreen{
 
     public void toggleMute(){
         Main.toggleMusic();
+        Main.click();
+    }
+
+    public void uploadList(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose new wordlist");
+        File file = fileChooser.showOpenDialog(new Stage());
+
+        if(file != null){
+            DatabaseIO data = _myParentScreensController.get_dataIO();
+            data.openData(data.get_customFile(),file,true);
+        }
         Main.click();
     }
 

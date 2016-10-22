@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
 public class CustomLevelController implements Initializable, ControlledScreen {
 
     private MasterController _myParentController;
-    private CustomLevelController thisScreen = this;
 
     @Override
     public void setScreenParent(MasterController screenParent) {
@@ -33,14 +32,5 @@ public class CustomLevelController implements Initializable, ControlledScreen {
 
     }
 
-    public void uploadList(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose new wordlist");
-        File file = fileChooser.showOpenDialog(new Stage());
-
-        if(file != null){
-
-        }
-    }
 
 }

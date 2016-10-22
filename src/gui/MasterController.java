@@ -51,7 +51,7 @@ public class MasterController extends StackPane {
         _screens = new HashMap<>();
         _controllers = new HashMap<>();
         _dataIO = new DatabaseIO();
-        _spellingDatabase = _dataIO.openData();
+        _spellingDatabase = _dataIO.openData(_dataIO.get_hiddenFile(),_dataIO.get_wordListFile(),false);
     }
 
     /**
@@ -71,6 +71,8 @@ public class MasterController extends StackPane {
     public SpellingDatabase getDatabase() {
         return _spellingDatabase;
     }
+
+    public DatabaseIO get_dataIO() {return _dataIO; }
 
     /**
      *  Checks if user really wants to delete data before deleting.
@@ -194,7 +196,7 @@ public class MasterController extends StackPane {
      * to a hidden .ser file
      */
     public void saveData(){
-        _dataIO.writeData(_spellingDatabase);
+        _dataIO.writeData(_spellingDatabase,_dataIO.get_hiddenFile());
     }
 
     //debugging only

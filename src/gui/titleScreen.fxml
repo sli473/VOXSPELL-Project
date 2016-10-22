@@ -92,7 +92,7 @@
          <bottom>
             <HBox BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Welcome to Sam &amp; Yuliang's VOXSPELL" />
+                  <Label text="Sam's VoxSpell" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Label text="Version 1.0" />
                </children>

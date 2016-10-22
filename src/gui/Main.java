@@ -31,6 +31,7 @@ public class Main extends Application {
     public static MediaPlayer _click;
     public static MediaPlayer _victory;
     public static MediaPlayer _failiure;
+    public static Festival _festival = new Festival();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -92,12 +93,12 @@ public class Main extends Application {
         File SuccessFile = new File("./src/resources/success.wav");
         Media success = new Media(SuccessFile.toURI().toString());
         _victory = new MediaPlayer(success);
-        _victory.setVolume(0.2);
+        _victory.setVolume(0.7);
 
         File FailFile = new File("./src/resources/fail.wav");
         Media fail = new Media(FailFile.toURI().toString());
         _failiure = new MediaPlayer(fail);
-        _failiure.setVolume(1.5);
+        _failiure.setVolume(1);
     }
 
     /**

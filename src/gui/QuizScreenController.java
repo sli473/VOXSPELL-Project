@@ -123,7 +123,7 @@ public class QuizScreenController implements ControlledScreen{
                 }
             }
         });
-        _festival = new Festival();
+        _festival = Main._festival;
         _database = _myParentController.getDatabase();
     }
 

@@ -1,5 +1,6 @@
 package gui;
 
+import data.SpellingDatabase;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -21,9 +22,10 @@ public class Festival extends Service<Void> {
     private String _cmd;
     private ProcessBuilder _pb;
     private Process process;
-    private String _voicetype;
-    private String _voicespeed;
+    private String _voicetype = "voice_kal_diphone";
+    private String _voicespeed = "1.00";
     private File _file;
+
 
     /**
      *  Enables the submit and enter button on the QuizScreenController after the Task successfully finishes.
@@ -87,13 +89,24 @@ public class Festival extends Service<Void> {
         _voicespeed = voiceSpeed;
     }
 
+    public String getVoiceSpeed() {return _voicespeed;}
+
+    public String getVoiceType(){
+        if(_voicetype.equals("voice_kal_diphone")){
+            return "Default";
+        }
+        else{
+            return "New Zealand";
+        }
+    }
+
 
     /**
      * edits the final line of the Festival.scm, inserts the phrase that needs to be read out by festival into SayText.
      * The ProcessBuilder then reads the Festival.scm file executing all the commands inside.
      * @param phrase
      */
-    public void change_settings(String phrase) {
+    public void set_phrase(String phrase) {
         BufferedWriter out = null;
         _file = new File("./src/resources/festival.scm");
         try{
@@ -123,8 +136,8 @@ public class Festival extends Service<Void> {
         _pb = new ProcessBuilder("/bin/bash","-c",_cmd);
     }
 
-    public void set_phrase(String phrase){
-        _cmd = "sed -i \"3s/.*/(SayText \\\""+phrase+"\\\")/\" ./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
-        _pb = new ProcessBuilder("/bin/bash","-c",_cmd);
-    }
+    //public void set_phrase(String phrase){
+    //    _cmd = "sed -i \"3s/.*/(SayText \\\""+phrase+"\\\")/\" ./src/resources/festival.scm ; festival -b ./src/resources/festival.scm";
+    //    _pb = new ProcessBuilder("/bin/bash","-c",_cmd);
+    //}
 }

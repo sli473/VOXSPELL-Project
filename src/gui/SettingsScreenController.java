@@ -29,10 +29,12 @@ public class SettingsScreenController implements ControlledScreen{
     private MasterController _myParentScreensController;
     private ObservableList<String> _voiceTypeList;
     private ObservableList<String> _voiceSpeedList;
-    private Festival _festival = new Festival();
+    private Festival _festival = Main._festival;
     private static BooleanProperty _enableInput;
     private static String _voiceType;
     private static String _voicespeed;
+    private String _tempVoice;
+    private String _tempSpeed;
 
 
     @FXML
@@ -46,7 +48,10 @@ public class SettingsScreenController implements ControlledScreen{
 
 
     public void cancelButtonPressed(){
+
         _myParentScreensController.setScreen(Main.Screen.TITLE);
+        _voiceSelect.setValue(_festival.getVoiceType());
+        _voiceSpeed.setValue(_festival.getVoiceSpeed());
     }
 
     /**
@@ -60,7 +65,7 @@ public class SettingsScreenController implements ControlledScreen{
         set_voiceType(getChoice(_voiceSelect));
         _myParentScreensController.getDatabase().set_voice(getChoice(_voiceSelect));
         _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
-        _festival.change_settings("Settings Changed");
+        _festival.set_phrase("Settings Changed");
         _festival.restart();
         Main.click();
         _myParentScreensController.setScreen(Main.Screen.TITLE);
@@ -90,10 +95,10 @@ public class SettingsScreenController implements ControlledScreen{
     public void setup() {
         _voiceTypeList = FXCollections.observableArrayList("Default","New Zealand");
         _voiceSelect.setItems(_voiceTypeList);
-        _voiceSelect.setValue(_myParentScreensController.getDatabase().get_voice());
+        _voiceSelect.setValue(_festival.getVoiceType());
         _voiceSpeedList = FXCollections.observableArrayList("1.00","1.25","1.50","1.75","2.00");
         _voiceSpeed.setItems(_voiceSpeedList);
-        _voiceSpeed.setValue(_myParentScreensController.getDatabase().get_voiceSpeed());
+        _voiceSpeed.setValue(_festival.getVoiceSpeed());
         _enableInput = new SimpleBooleanProperty(this,"_enableInput",true);
         //_submit.disableProperty().bind(_enableInput);
         _enableInput.addListener(new ChangeListener<Boolean>() {
@@ -113,14 +118,20 @@ public class SettingsScreenController implements ControlledScreen{
      * when the test button is clicked it will test out the voice settings you've selected.
      */
     public void testFestival() throws IOException, InterruptedException {
+        _tempSpeed = _festival.getVoiceSpeed();
+        _tempVoice = _festival.getVoiceType();
         _festival.setVoiceType(getChoice(_voiceSelect));
         _festival.setVoiceSpeed(getChoice(_voiceSpeed));
         set_voicespeed(getChoice(_voiceSpeed));
         set_voiceType(getChoice(_voiceSelect));
         _myParentScreensController.getDatabase().set_voice(getChoice(_voiceSelect));
         _myParentScreensController.getDatabase().set_voiceSpeed(getChoice(_voiceSpeed));
-        _festival.change_settings("Testing the current voice settings");
+        _festival.set_phrase("Testing the current voice settings");
         _festival.restart();
+        _festival.setVoiceSpeed(_tempSpeed);
+        System.out.println(_tempSpeed);
+        System.out.println(_festival.getVoiceSpeed());
+        _festival.setVoiceType(_tempVoice);
         Main.click();
     }
 

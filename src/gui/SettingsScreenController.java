@@ -151,7 +151,7 @@ public class SettingsScreenController implements ControlledScreen{
 
         if(file != null){
             DatabaseIO data = _myParentScreensController.get_dataIO();
-            data.openData(data.get_customFile(),file,true);
+            _myParentScreensController.set_customDatabase(data.openData(data.get_customFile(),file,true));
         }
         Main.click();
     }

@@ -97,12 +97,12 @@ public class DatabaseIO {
             String levelKey = "";
             while((line = br.readLine())!=null){
                 if(line.charAt(0) == '%' ){//get level key
-                    if(custom){
-                        levelKey = "C"+line.substring(1);
-                    }
-                    else {
+                    //if(custom){
                         levelKey = line.substring(1);
-                    }
+                    //}
+                    //else {
+                    //    levelKey = line.substring(1);
+                    //}
                 }else{
                     database.addNewWord(levelKey, line.trim());
                 }

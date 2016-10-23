@@ -40,6 +40,7 @@ public class PostQuizController implements ControlledScreen{
     private int _correct;
     private int _total;
     private double _accuracy;
+    private boolean _isCustom;
 
     public void returnToTitleButtonPressed(ActionEvent event){
         _myParentController.setScreen(Main.Screen.TITLE);
@@ -52,6 +53,7 @@ public class PostQuizController implements ControlledScreen{
      */
     public void playVideoButtonPressed(ActionEvent event)throws IOException{
         Main.click();
+        Main.toggleMusic();
         _myParentController.setScreen(Main.Screen.VIDEO);
     }
 
@@ -70,7 +72,11 @@ public class PostQuizController implements ControlledScreen{
 
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
-        nextScreen.setupTest(nextLevel,false);
+        if(_isCustom)
+            nextScreen.setupTest(nextLevel,false, true);
+        else{
+            nextScreen.setupTest(nextLevel,false,false);
+        }
     }
 
     /**
@@ -85,7 +91,12 @@ public class PostQuizController implements ControlledScreen{
 
         //get the QuizScreen Controller
         QuizScreenController nextScreen = (QuizScreenController)_myParentController.getScreenController(Main.Screen.QUIZ);
-        nextScreen.setupTest(_level,true);
+        if(_isCustom) {
+            nextScreen.setupTest(_level, true, true);
+        }
+        else{
+            nextScreen.setupTest(_level,true,false);
+        }
     }
 
     @Override
@@ -133,5 +144,9 @@ public class PostQuizController implements ControlledScreen{
         }
         Main.click();
 
+    }
+
+    public void set_isCustom(boolean isCustom){
+        _isCustom = isCustom;
     }
 }

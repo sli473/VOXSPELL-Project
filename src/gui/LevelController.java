@@ -78,9 +78,9 @@ public class LevelController implements Initializable,ControlledScreen {
         //get the QuizScreen Controller and setup the test
         QuizScreenController nextScreen = (QuizScreenController) _myParentController.getScreenController(Main.Screen.QUIZ);
         if(isRevision) {
-            nextScreen.setupTest(level, true);
+            nextScreen.setupTest(level, true, false);
         }else{
-            nextScreen.setupTest(level, false);
+            nextScreen.setupTest(level, false, false);
         }
 
         //prevents user from accidentally double clicking the button.

@@ -105,6 +105,7 @@ public class VideoPlayerController implements Initializable, ControlledScreen{
     public void returnToPostQuizScreen(ActionEvent event) {
         _mediaPlayer.stop();
         _myParentScreensController.setScreen(Main.Screen.POSTQUIZ);
+        Main.toggleMusic();
     }
 
     @Override

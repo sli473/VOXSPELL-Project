@@ -22,6 +22,8 @@ public class StatsScreenController implements ControlledScreen{
 
     private SpellingDatabase _database;
 
+    private boolean _isCustom;
+
     @FXML
     private Label _accuracyForLevel;
     @FXML

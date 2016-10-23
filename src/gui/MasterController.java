@@ -44,6 +44,7 @@ public class MasterController extends StackPane {
     private DatabaseIO _dataIO;
 
     private SpellingDatabase _spellingDatabase;
+    private SpellingDatabase _customDatabase;
 
 
     public MasterController(){
@@ -73,6 +74,10 @@ public class MasterController extends StackPane {
     }
 
     public DatabaseIO get_dataIO() {return _dataIO; }
+
+    public SpellingDatabase get_customDatabase() {return _customDatabase; }
+
+    public void set_customDatabase( SpellingDatabase cd) {_customDatabase = cd; }
 
     /**
      *  Checks if user really wants to delete data before deleting.

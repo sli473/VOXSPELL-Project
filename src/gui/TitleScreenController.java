@@ -65,6 +65,8 @@ public class TitleScreenController implements ControlledScreen{
 
     public void customButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.CUSTOM);
+        CustomLevelController nextScreen = (CustomLevelController) _myParentScreensController.getScreenController(Main.Screen.CUSTOM);
+        nextScreen.addCustomList();
         Main.click();
     }
 }

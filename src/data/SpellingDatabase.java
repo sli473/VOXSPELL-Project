@@ -290,6 +290,7 @@ public class SpellingDatabase implements Serializable{
 
     public void set_voiceSpeed(String _voiceSpeed) { this._voiceSpeed = _voiceSpeed;}
 
+    public HashMap< String, ArrayList<Word>> get_spellingWords() { return _spellingWords; }
     /**
      * Debugging purposes only
      */

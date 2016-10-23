@@ -83,14 +83,25 @@
             </VBox>
          </center>
          <top>
-            <Text fx:id="_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Sam&amp;Yuliang's Quiz" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="34.0" />
-               </font>
-               <BorderPane.margin>
-                  <Insets top="40.0" />
-               </BorderPane.margin>
-            </Text>
+            <AnchorPane prefHeight="139.0" prefWidth="650.0">
+               <children>
+                  <Text fx:id="_customMode" layoutX="217.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Quiz">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="_regularMode" layoutX="208.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Regular Quiz">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="_title" layoutX="287.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level X" wrappingWidth="76.7294921875">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
          </top>
       </BorderPane>
    </children>

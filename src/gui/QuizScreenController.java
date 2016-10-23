@@ -37,6 +37,10 @@ public class QuizScreenController implements ControlledScreen{
     @FXML
     private TextField _textfield;
     @FXML
+    private Text _regularMode;
+    @FXML
+    private Text _customMode;
+    @FXML
     private ProgressBar _progressBar;
     @FXML
     private Label _progressLabel;
@@ -153,8 +157,19 @@ public class QuizScreenController implements ControlledScreen{
      * This method is called by the MasterController after the screen is set.
      * @param levelKey, revision mode
      */
-    public void setupTest(String levelKey,boolean isRevision){
+    public void setupTest(String levelKey,boolean isRevision, boolean isCustom){
         //setup pretest state
+        if(isCustom){
+            _database = _myParentController.get_customDatabase();
+            _customMode.setVisible(true);
+            _regularMode.setVisible(false);
+        }
+        else {
+            _database = _myParentController.getDatabase();
+            _customMode.setVisible(false);
+            _regularMode.setVisible(true);
+        }
+
         _currentLevel = levelKey;
         _isRevision = isRevision;
         _position = 0;
@@ -173,6 +188,9 @@ public class QuizScreenController implements ControlledScreen{
             return;
         }
 
+        PostQuizController nextScreen = (PostQuizController) _myParentController.getScreenController(Main.Screen.POSTQUIZ);
+        nextScreen.set_isCustom(isCustom);
+
         //StringProperty for user's attempt which is used to check the spelling against database
         _userAttempt = new SimpleStringProperty(this,"_userAttempt","");
         _userAttempt.addListener(new ChangeListener<String>() {
@@ -187,7 +205,7 @@ public class QuizScreenController implements ControlledScreen{
         read("Please spell: " + _wordList[_position]);
         //set progress label and progress bar and accuracy
         _progressBar.setProgress(_position);
-        _title.setText( "VOXSPELL " + _currentLevel );
+        _title.setText( _currentLevel );
         _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
         _accuracy.setText("Accuracy: "+0.0+"%");
         _tooltip.setText("");

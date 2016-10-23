@@ -18,6 +18,8 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="288.0" layoutY="188.0" mnemonicParsing="false" onAction="#uploadList" text="Browse" />
+      <ChoiceBox fx:id="_quizType" layoutX="269.0" layoutY="227.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="_customQuizList" layoutX="325.0" layoutY="166.0" prefWidth="150.0" />
+      <Button layoutX="444.0" layoutY="227.0" mnemonicParsing="false" onAction="#enterNewQuiz" text="Button" />
    </children>
 </AnchorPane>

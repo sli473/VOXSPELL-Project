@@ -231,6 +231,14 @@ public class SpellingDatabase implements Serializable{
         }
     }
 
+    public void clearCustomStats(){
+        _scoreForLevel = new HashMap<>();
+        _attemptsForLevel = new HashMap<>();
+        _failedWords = new HashMap<>();
+        _spellingWords = new HashMap<>();
+        _spellingWords.keySet().clear();
+    }
+
     /**
      * Returns an ObservableList of all the elements of the specified level that have been attempted
      * @param levelKey
@@ -239,7 +247,9 @@ public class SpellingDatabase implements Serializable{
     public ObservableList getLevel(String levelKey) {
         ObservableList<Word> level = FXCollections.observableArrayList();
         ArrayList<Word> levelWords = _spellingWords.get(levelKey);
+        System.out.println(levelWords.size());
         for(Word w : levelWords){
+            //System.out.println(w.toString());
             if(w.attempted()) {
                 level.add(w);
             }

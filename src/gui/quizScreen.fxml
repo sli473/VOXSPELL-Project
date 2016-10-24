@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
@@ -17,31 +18,43 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="650.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../resources/mesh-1430107_960_720.png" />
+            <Image url="@../resources/pixels-1275701_1280.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="336.0" fitWidth="650.0" pickOnBounds="true">
+         <image>
+            <Image url="@../resources/graphics-stars-613237.gif" />
          </image>
       </ImageView>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
             <VBox spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="_accuracy" text="Label">
+                  <Label fx:id="_accuracy" text="Label" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <HBox spacing="5.0">
+                  <HBox alignment="CENTER" spacing="5.0">
                      <children>
-                        <Label text="Progress:">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
+                        <ImageView fitHeight="15.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Progress.png" />
+                           </image>
+                        </ImageView>
                         <ProgressBar fx:id="_progressBar" prefWidth="200.0" progress="0.0" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="_abortButton" mnemonicParsing="false" onAction="#abortQuizButtonPressed" prefWidth="100.0" text="Abort Quiz">
+                        <Button fx:id="_abortButton" mnemonicParsing="false" onAction="#abortQuizButtonPressed" prefWidth="100.0" style="-fx-background-color: #7fffd4; -fx-background-radius: 20; -fx-opacity: 0.7;">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/AbortQuiz.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                      </children>
                      <padding>
@@ -57,25 +70,7 @@
          <center>
             <VBox alignment="CENTER" spacing="25.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="_repeat" mnemonicParsing="false" onAction="#repeatButtonPressed" prefHeight="25.0" prefWidth="244.0" text="Repeat Word" />
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <TextField fx:id="_textfield" onAction="#enteredWord" promptText="Enter word here..." />
-                        <Button fx:id="_submit" mnemonicParsing="false" onAction="#enteredWord" text="Submit">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <Label fx:id="_progressLabel" text="Word 1 of 10" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font></Label>
-                  <Label fx:id="_tooltip" text="Tooltip" textFill="YELLOW">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font></Label>
+                  <HBox alignment="CENTER" spacing="10.0" />
                </children>
                <padding>
                   <Insets top="50.0" />
@@ -83,23 +78,177 @@
             </VBox>
          </center>
          <top>
-            <AnchorPane prefHeight="139.0" prefWidth="650.0">
+            <AnchorPane prefHeight="335.0" prefWidth="650.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="_customMode" layoutX="217.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Quiz">
-                     <font>
-                        <Font size="34.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="_regularMode" layoutX="208.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Regular Quiz">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="_title" layoutX="287.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level X" wrappingWidth="76.7294921875">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#909294" height="53.0" layoutX="170.0" layoutY="297.0" stroke="BLACK" strokeType="INSIDE" width="480.0" />
+                  <HBox alignment="CENTER" layoutY="91.0" prefHeight="24.0" prefWidth="650.0">
+                     <children>
+                        <Text fx:id="_title" fill="WHITE" layoutX="276.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level X" wrappingWidth="98.7294921875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <Button fx:id="_repeat" layoutX="192.0" layoutY="309.0" mnemonicParsing="false" onAction="#repeatButtonPressed" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #7fffd4; -fx-background-radius: 20; -fx-opacity: 0.7;">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/RepeatWord.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <TextField fx:id="_textfield" layoutX="349.0" layoutY="311.0" onAction="#enteredWord" promptText="Enter word here..." />
+                  <Button fx:id="_submit" layoutX="544.0" layoutY="309.0" mnemonicParsing="false" onAction="#enteredWord" style="-fx-background-color: #7fffd4; -fx-background-radius: 20; -fx-opacity: 0.7;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/Submit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <HBox alignment="CENTER" layoutY="280.0" prefHeight="18.0" prefWidth="650.0">
+                     <children>
+                        <Label fx:id="_progressLabel" layoutX="212.0" layoutY="280.0" text="Word 1 of 10" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutY="262.0" prefHeight="18.0" prefWidth="650.0">
+                     <children>
+                        <Label fx:id="_tooltip" layoutX="276.0" layoutY="256.0" text="Tooltip" textFill="YELLOW">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="_spaceman1" fitHeight="65.0" fitWidth="44.0" layoutX="592.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman2" fitHeight="65.0" fitWidth="44.0" layoutX="528.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman3" fitHeight="65.0" fitWidth="44.0" layoutX="467.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman4" fitHeight="65.0" fitWidth="44.0" layoutX="408.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman5" fitHeight="65.0" fitWidth="44.0" layoutX="356.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman6" fitHeight="65.0" fitWidth="44.0" layoutX="299.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman7" fitHeight="65.0" fitWidth="44.0" layoutX="238.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman8" fitHeight="65.0" fitWidth="44.0" layoutX="174.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman11" fitHeight="54.0" fitWidth="48.0" layoutX="14.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/successMAn.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman9" fitHeight="65.0" fitWidth="44.0" layoutX="112.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_spaceman10" fitHeight="65.0" fitWidth="44.0" layoutX="44.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/runningspaceman.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="106.0" fitWidth="45.0" layoutX="14.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/spaceship.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman1" fitHeight="65.0" fitWidth="52.0" layoutX="588.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman2" fitHeight="65.0" fitWidth="52.0" layoutX="523.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman3" fitHeight="65.0" fitWidth="52.0" layoutX="463.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman4" fitHeight="65.0" fitWidth="52.0" layoutX="404.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman5" fitHeight="65.0" fitWidth="52.0" layoutX="352.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman6" fitHeight="65.0" fitWidth="52.0" layoutX="295.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman7" fitHeight="65.0" fitWidth="52.0" layoutX="234.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman8" fitHeight="65.0" fitWidth="52.0" layoutX="170.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman9" fitHeight="65.0" fitWidth="52.0" layoutX="108.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_failedSpaceman10" fitHeight="65.0" fitWidth="52.0" layoutX="52.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/failedSpaceMan.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_regularMode" fitHeight="50.0" fitWidth="300.0" layoutX="176.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/RegularQuiz.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="_customMode" fitHeight="50.0" fitWidth="300.0" layoutX="175.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/CustomQuiz.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </top>

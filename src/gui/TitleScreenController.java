@@ -43,10 +43,10 @@ public class TitleScreenController implements ControlledScreen{
      * Uses a fade in and out transition
      */
     public void displayStatsButtonPressed(){
-        _myParentScreensController.setScreen(Main.Screen.STATS);
         StatsScreenController nextScreen = (StatsScreenController)_myParentScreensController.getScreenController(Main.Screen.STATS);
         nextScreen.screenOpened();
         Main.click();
+        _myParentScreensController.setScreen(Main.Screen.STATS);
     }
 
     /**

@@ -22,7 +22,7 @@ public class DatabaseIO {
         _hiddenFile = new File(".spellingData.ser");
         _wordListFile = new File("NZCER-spelling-lists.txt");
         _customFile = new File(".customSpellingData.ser");
-        //_customListFile = new File();
+        _customListFile = new File(".customSpellingList.txt");
     }
 
     /**
@@ -50,6 +50,9 @@ public class DatabaseIO {
             data = new SpellingDatabase();
             System.out.println("New object created");
         }
+        //if(custom && !spellingList.exists()){
+        //    return data;
+        //}
 
         updateWordList(data, spellingList, custom);
         return data;
@@ -130,5 +133,7 @@ public class DatabaseIO {
     public File get_customFile(){
         return _customFile;
     }
+
+    public File get_customListFile() { return _customListFile; }
 
 }

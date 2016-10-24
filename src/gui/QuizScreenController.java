@@ -14,10 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -32,14 +34,20 @@ public class QuizScreenController implements ControlledScreen{
 
     private static BooleanProperty _enableInput;
 
+    private ArrayList<ImageView> _spaceMen;
+
+    private ArrayList<ImageView> _failedSpaceMen;
+
+    private int _spaceManPosition;
+
     @FXML
     private Text _title;
     @FXML
     private TextField _textfield;
     @FXML
-    private Text _regularMode;
+    private ImageView _regularMode;
     @FXML
-    private Text _customMode;
+    private ImageView _customMode;
     @FXML
     private ProgressBar _progressBar;
     @FXML
@@ -52,6 +60,55 @@ public class QuizScreenController implements ControlledScreen{
     private Button _submit;
     @FXML
     private Button _repeat;
+    @FXML
+    private ImageView _spaceman1;
+    @FXML
+    private ImageView _spaceman2;
+    @FXML
+    private ImageView _spaceman3;
+    @FXML
+    private ImageView _spaceman4;
+    @FXML
+    private ImageView _spaceman5;
+    @FXML
+    private ImageView _spaceman6;
+    @FXML
+    private ImageView _spaceman7;
+    @FXML
+    private ImageView _spaceman8;
+    @FXML
+    private ImageView _spaceman9;
+    @FXML
+    private ImageView _spaceman10;
+    @FXML
+    private ImageView _spaceman11;
+    @FXML
+    private ImageView _failedSpaceman1;
+    @FXML
+    private ImageView _failedSpaceman2;
+    @FXML
+    private ImageView _failedSpaceman3;
+    @FXML
+    private ImageView _failedSpaceman4;
+    @FXML
+    private ImageView _failedSpaceman5;
+    @FXML
+    private ImageView _failedSpaceman6;
+    @FXML
+    private ImageView _failedSpaceman7;
+    @FXML
+    private ImageView _failedSpaceman8;
+    @FXML
+    private ImageView _failedSpaceman9;
+    @FXML
+    private ImageView _failedSpaceman10;
+
+
+
+
+
+
+
     /**
      * reads out the word that needs to be spelt, can be pressed multiple times without penalty.
      * @param event
@@ -129,6 +186,31 @@ public class QuizScreenController implements ControlledScreen{
         });
         _festival = Main._festival;
         _database = _myParentController.getDatabase();
+
+        _spaceMen = new ArrayList<ImageView>();
+        _spaceMen.add(_spaceman1);
+        _spaceMen.add(_spaceman2);
+        _spaceMen.add(_spaceman3);
+        _spaceMen.add(_spaceman4);
+        _spaceMen.add(_spaceman5);
+        _spaceMen.add(_spaceman6);
+        _spaceMen.add(_spaceman7);
+        _spaceMen.add(_spaceman8);
+        _spaceMen.add(_spaceman9);
+        _spaceMen.add(_spaceman10);
+        _spaceMen.add(_spaceman11);
+
+        _failedSpaceMen = new ArrayList<ImageView>();
+        _failedSpaceMen.add(_failedSpaceman1);
+        _failedSpaceMen.add(_failedSpaceman2);
+        _failedSpaceMen.add(_failedSpaceman3);
+        _failedSpaceMen.add(_failedSpaceman4);
+        _failedSpaceMen.add(_failedSpaceman5);
+        _failedSpaceMen.add(_failedSpaceman6);
+        _failedSpaceMen.add(_failedSpaceman7);
+        _failedSpaceMen.add(_failedSpaceman8);
+        _failedSpaceMen.add(_failedSpaceman9);
+        _failedSpaceMen.add(_failedSpaceman10);
     }
 
 
@@ -209,6 +291,20 @@ public class QuizScreenController implements ControlledScreen{
         _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
         _accuracy.setText("Accuracy: "+0.0+"%");
         _tooltip.setText("");
+
+        _spaceManPosition = 0;
+
+        for(ImageView iv : _spaceMen){
+            iv.setVisible(false);
+        }
+
+        for(ImageView siv : _failedSpaceMen){
+            siv.setVisible(false);
+        }
+
+        _spaceMen.get(_spaceManPosition).setVisible(true);
+
+
     }
 
 
@@ -238,12 +334,34 @@ public class QuizScreenController implements ControlledScreen{
                     read("Correct. Please spell: " + _wordList[_position]);
                     _progressLabel.setText("Please spell word "+(_position+1)+" of "+_wordList.length);
                 }
+                for(ImageView iv : _spaceMen){
+                    iv.setVisible(false);
+                }
+
+                for(ImageView sv : _failedSpaceMen){
+                    sv.setVisible(false);
+                }
+
+                _spaceManPosition++;
+                _spaceMen.get(_spaceManPosition).setVisible(true);
+
 
             } else { // GO TO SECOND ATTEMPT
                 Main.failiure();
                 read("Incorrect. Please try again: " + _wordList[_position]);
                 _progressLabel.setText("Incorrect. Please spell word "+(_position+1)+" of "+_wordList.length);
                 _status = Status.SECONDATTEMPT;
+
+                for(ImageView iv : _spaceMen){
+                    iv.setVisible(false);
+                }
+
+                for(ImageView sv : _failedSpaceMen){
+                    sv.setVisible(false);
+                }
+
+                _failedSpaceMen.get(_spaceManPosition).setVisible(true);
+
             }
         } else {//==============================================================================================FAULTED
             if (_wordList[_position].toLowerCase().equals(_userAttempt.getValue().toLowerCase())) {
@@ -281,6 +399,16 @@ public class QuizScreenController implements ControlledScreen{
                 }
             }
             _status = Status.FIRSTATTEMPT;
+            for(ImageView iv : _spaceMen){
+                iv.setVisible(false);
+            }
+
+            for(ImageView sv : _failedSpaceMen){
+                sv.setVisible(false);
+            }
+
+            _spaceMen.get(_spaceManPosition).setVisible(true);
+
         }
 
         //set progress bar
@@ -302,6 +430,9 @@ public class QuizScreenController implements ControlledScreen{
         if(completed){
             completeTestSaveData();
         }
+
+        //if(_status == Status.FIRSTATTEMPT && )
+
     }
 
     /**

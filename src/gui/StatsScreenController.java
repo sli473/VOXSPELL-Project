@@ -4,9 +4,12 @@ import data.SpellingDatabase;
 import data.Word;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sun.security.pkcs11.wrapper.CK_DATE;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -22,7 +25,17 @@ public class StatsScreenController implements ControlledScreen{
 
     private SpellingDatabase _database;
 
-    private boolean _isCustom;
+    private SpellingDatabase _customDatabase;
+
+    private SpellingDatabase _regularDatabase;
+
+    private ObservableList<String> _usedList;
+
+    private ObservableList<String> _customOptions;
+
+    private ObservableList<String> _regularOptions;
+
+    private boolean _isCustom = false;
 
     @FXML
     private Label _accuracyForLevel;
@@ -41,6 +54,9 @@ public class StatsScreenController implements ControlledScreen{
 
     public void backButtonPressed(){
         _myParentScreensController.setScreen(Main.Screen.TITLE);
+        _isCustom=false;
+        _database = _regularDatabase;
+        _usedList = _regularOptions;
         Main.click();
     }
 
@@ -52,29 +68,67 @@ public class StatsScreenController implements ControlledScreen{
     @Override
     public void setup() {
         //get database object
-        _database = _myParentScreensController.getDatabase();
+        _regularDatabase = _myParentScreensController.getDatabase();
+        _customDatabase = _myParentScreensController.get_customDatabase();
+        _isCustom = false;
+
 
         //setup combobox selection
-        ArrayList<String> levels = _database.getAllLevels();
-        for( String levelNumber : levels ) {
-            _levelSelection.getItems().add(levelNumber);
+        _regularOptions = FXCollections.observableArrayList();
+        _regularOptions.clear();
+        ArrayList<String> levels = _regularDatabase.getAllLevels();
+        for(String s : levels) {
+            _regularOptions.add(s);
         }
-        _levelSelection.setValue(levels.get(0));
-        _levelSelection.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                _table.setItems(_database.getLevel((String)newValue));
-                _accuracyForLevel.setText("Accuracy: " + _database.getAccuracyScore((String)newValue) +"%");
-            }
-        });
 
-        //setup table columns
-        _wordColumn.setCellValueFactory(new PropertyValueFactory<>("_word"));
-        _masteredColumn.setCellValueFactory(new PropertyValueFactory<>("_mastered"));
-        _faultedColumn.setCellValueFactory(new PropertyValueFactory<>("_faulted"));
-        _failedColumn.setCellValueFactory(new PropertyValueFactory<>("_failed"));
+        _customOptions = FXCollections.observableArrayList();
+        _customOptions.clear();
+        ArrayList<String> clevels = _customDatabase.getAllLevels();
+        for(String t : clevels) {
+            _customOptions.add(t);
+        }
+
+
+        if(_isCustom){
+            _database = _customDatabase;
+            _usedList = _customOptions;
+        }
+        else{
+            _database = _regularDatabase;
+            _usedList = _regularOptions;
+            System.out.println("set as regular");
+        }
+
+        //_levelSelection.getItems().clear();
+        _levelSelection.setItems(_usedList);
+
+        _levelSelection.setValue(_usedList.get(0));
+      //  _levelSelection.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+        //    @Override
+          //  public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+            //    _table.setItems(_database.getLevel((String)newValue));
+              //  _accuracyForLevel.setText("Accuracy: " + _database.getAccuracyScore((String)newValue) +"%");
+           // }
+        //});
 
         //setup table
+        screenOpened();
+    }
+
+    public void toggle(){
+        if(_isCustom == true){
+            _isCustom = false;
+            _database = _regularDatabase;
+            _usedList = _regularOptions;
+            System.out.println("set as regular");
+
+        }
+        else{
+            _isCustom = true;
+            _database = _customDatabase;
+            _usedList = _customOptions;
+            System.out.println("set as custom");
+        }
         screenOpened();
     }
 
@@ -82,6 +136,20 @@ public class StatsScreenController implements ControlledScreen{
      * This method is called immediately after the screen is set and updates the table view.
      */
     public void screenOpened(){
+        //_isCustom = false;
+        _customDatabase = _myParentScreensController.get_customDatabase();
+        _levelSelection.setItems(_usedList);
+
+        _levelSelection.setValue(_usedList.get(0));
+
+
+        //setup table columns
+        _wordColumn.setCellValueFactory(new PropertyValueFactory<>("_word"));
+        _masteredColumn.setCellValueFactory(new PropertyValueFactory<>("_mastered"));
+        _faultedColumn.setCellValueFactory(new PropertyValueFactory<>("_faulted"));
+        _failedColumn.setCellValueFactory(new PropertyValueFactory<>("_failed"));
+
+
         _table.setItems(_database.getLevel(_levelSelection.getValue()));
 
         DecimalFormat df = new DecimalFormat("#.##");
@@ -90,5 +158,13 @@ public class StatsScreenController implements ControlledScreen{
 
         _accuracyForLevel.setText("Accuracy: " + df.format(n.doubleValue()) +"%");
         _accuracyForLevel.setText("Accuracy: " + df.format(n.doubleValue()) +"%");
+    }
+
+    public void generateTable(){
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+        Number n =_database.getAccuracyScore(_levelSelection.getValue());
+        _table.setItems(_database.getLevel(_levelSelection.getValue()));
+        _accuracyForLevel.setText("Accuracy: "+ df.format(n.doubleValue()) +"%");
     }
 }

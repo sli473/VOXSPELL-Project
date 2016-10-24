@@ -56,12 +56,13 @@ public class CustomLevelController implements Initializable, ControlledScreen {
 
     public void addCustomList(){
         try {
-            DatabaseIO data = _myParentController.get_dataIO();
+            //DatabaseIO data = _myParentController.get_dataIO();
             SpellingDatabase database = _myParentController.get_customDatabase();
             Set<String> dataKeySet = database.get_spellingWords().keySet();
             _customList.clear();
             for (String s : dataKeySet) {
                 _customList.add(s);
+                System.out.println(s);
             }
             Collections.sort(_customList, new ComparatorOfNumericString());
             _customQuizList.setItems(_customList);
@@ -115,6 +116,11 @@ public class CustomLevelController implements Initializable, ControlledScreen {
                 });
             }
         }.start();
+        Main.click();
+    }
+
+    public void backButtonPressed(){
+        _myParentController.setScreen(Main.Screen.TITLE);
         Main.click();
     }
 

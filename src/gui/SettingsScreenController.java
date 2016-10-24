@@ -16,8 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +38,8 @@ public class SettingsScreenController implements ControlledScreen{
     private static String _voicespeed;
     private String _tempVoice;
     private String _tempSpeed;
-
+    private File _customListFile = new File(".customSpellingList.txt");
+    private File _customFile = new File(".customSpellingData.ser");
 
     @FXML
     private Button _testButton;
@@ -150,8 +150,55 @@ public class SettingsScreenController implements ControlledScreen{
         File file = fileChooser.showOpenDialog(new Stage());
 
         if(file != null){
+            if(_customFile.exists()) {
+                _customFile.delete();
+            }
+
+            _myParentScreensController.get_customDatabase().clearCustomStats();
+
             DatabaseIO data = _myParentScreensController.get_dataIO();
             _myParentScreensController.set_customDatabase(data.openData(data.get_customFile(),file,true));
+            data.writeData(_myParentScreensController.getDatabase(),_customFile);
+            try {
+                _customListFile.createNewFile();
+
+                FileInputStream instream = new FileInputStream(file);
+                FileOutputStream outstream = new FileOutputStream(_customListFile);
+
+                try{
+                byte[] buf = new byte[1024];
+                int bytesRead;
+
+                while ((bytesRead = instream.read(buf)) > 0) {
+                    outstream.write(buf, 0, bytesRead);
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            finally {
+                    try {
+
+                        if (null != instream) {
+                            instream.close();
+                        }
+
+                        if (null != outstream) {
+                            outstream.close();
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         Main.click();
     }

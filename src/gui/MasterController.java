@@ -53,6 +53,7 @@ public class MasterController extends StackPane {
         _controllers = new HashMap<>();
         _dataIO = new DatabaseIO();
         _spellingDatabase = _dataIO.openData(_dataIO.get_hiddenFile(),_dataIO.get_wordListFile(),false);
+        _customDatabase = _dataIO.openData(_dataIO.get_customFile(), _dataIO.get_customListFile(), true);
     }
 
     /**
@@ -86,6 +87,7 @@ public class MasterController extends StackPane {
         boolean clearTrue = DialogBox.displayConfirmDialogBox("Clear User Statistics", "Are you sure you want to clear all user data?");
         if(clearTrue){
             _spellingDatabase.clearStats();
+            _customDatabase.clearStats();
         }
     }
 
@@ -202,6 +204,7 @@ public class MasterController extends StackPane {
      */
     public void saveData(){
         _dataIO.writeData(_spellingDatabase,_dataIO.get_hiddenFile());
+        _dataIO.writeData(_customDatabase,_dataIO.get_customFile());
     }
 
     //debugging only
